@@ -86,26 +86,26 @@ V_SWITCHBELTSLOT10= +F10 ; Change +F10 to the key you want to switch to the item
 ;----- I will see if I can get the script to toggle between left/right action
  
 V_USESPELLSLOT1 = 1
-V_USESPELLSLOT2 = 2
-V_USESPELLSLOT3 = 3
-V_USESPELLSLOT4 = 4
-V_USESPELLSLOT5 = 5
-V_USESPELLSLOT6 = 6
-V_USESPELLSLOT7 = 7
-V_USESPELLSLOT8 = 8
-V_USESPELLSLOT9 = 9
-V_USESPELLSLOT10 = 0
+V_USES_SpellSlot2 = 2
+V_USES_SpellSlot3 = 3
+V_USES_SpellSlot4 = 4
+V_USES_SpellSlot5 = 5
+V_USES_SpellSlot6 = 6
+V_USES_SpellSlot7 = 7
+V_USES_SpellSlot8 = 8
+V_USES_SpellSlot9 = 9
+V_USES_SpellSlot10 = 0
  
 V_SWITCHSPELLSLOT1 = +1
-V_SWITCHSPELLSLOT2 = +2
-V_SWITCHSPELLSLOT3 = +3
-V_SWITCHSPELLSLOT4 = +4
-V_SWITCHSPELLSLOT5 = +5
-V_SWITCHSPELLSLOT6 = +6
-V_SWITCHSPELLSLOT7 = +7
-V_SWITCHSPELLSLOT8 = +8
-V_SWITCHSPELLSLOT9 = +9
-V_SWITCHSPELLSLOT10 = +0
+V_SWITCHS_SpellSlot2 = +2
+V_SWITCHS_SpellSlot3 = +3
+V_SWITCHS_SpellSlot4 = +4
+V_SWITCHS_SpellSlot5 = +5
+V_SWITCHS_SpellSlot6 = +6
+V_SWITCHS_SpellSlot7 = +7
+V_SWITCHS_SpellSlot8 = +8
+V_SWITCHS_SpellSlot9 = +9
+V_SWITCHS_SpellSlot10 = +0
 ;-----[ Gestures ]
 ;----- ^ is for CTRL
 V_GESTURE1 = ^1

@@ -22,69 +22,69 @@ n::gosub S_AutoRun				; Move Forward (bound to my mouse as n key)
 +s::gosub S_2H_Right 				; right hand weapon twohanded
 +d::gosub S_LeftArmement 		; toggle left hand armement
 +f::gosub S_RightArmement 		; toggle right hand armement.
-+e::gosub JumpDualWeild 		; Does a jump and dual-weild combo attack
-w::gosub Crouch 				; Crouch+Attack
-e::gosub Jump 					; Jump+Attack
-r::gosub JumpStrong 			; Jump+Strong+Attack
++e::gosub S_JumpDualWeild 		; Does a jump and dual-weild combo attack
+w::gosub S_Crouch 				; Crouch+Attack
+e::gosub S_Jump 					; Jump+Attack
+r::gosub S_JumpStrong 			; Jump+Strong+Attack
 
 c::t 							; C for Crouch.
-+z::gosub UseBelt1 				; Physics Flask on BELT SLOT 1
++z::gosub S_UseBelt1 				; Physics Flask on BELT SLOT 1
 ^+z::gosub S_ToggleSpellHand 	; Toggles which hand to cast spell from
 ^+!d::gosub S_ToggleDebug		; Toggles debugging if any is enabled.
 m::g 							; m for Map
-^+1::gosub A_SetSpellSlots		; CTRL-SHIFT-1 lets you set the number of spell slots.
-^+2::gosub A_SetBeltSlots		; CTRL-SHIFT-2 lets you set the number of spell slots.
+^+1::gosub S_SetSpellSlots		; CTRL-SHIFT-1 lets you set the number of spell slots.
+^+2::gosub S_SetBeltSlots		; CTRL-SHIFT-2 lets you set the number of spell slots.
 
 ;----  Best to leave as is and reference to a key-map above if needed ---
-1::gosub Spell1  				; use Spell place 1
-2::gosub Spell2  				; use Spell place 2
-3::gosub Spell3  				; use Spell place 3
-4::gosub Spell4  				; use Spell place 4
-5::gosub Spell5  				; use Spell place 5
-6::gosub Spell6  				; use Spell place 6
-7::gosub Spell7  				; use Spell place 7
-8::gosub Spell8  				; use Spell place 8
-9::gosub Spell9  				; use Spell place 9
-0::gosub Spell10  				; use Spell place 10
+1::gosub S_Spell1  				; use Spell place 1
+2::gosub S_Spell2  				; use Spell place 2
+3::gosub S_Spell3  				; use Spell place 3
+4::gosub S_Spell4  				; use Spell place 4
+5::gosub S_Spell5  				; use Spell place 5
+6::gosub S_Spell6  				; use Spell place 6
+7::gosub S_Spell7  				; use Spell place 7
+8::gosub S_Spell8  				; use Spell place 8
+9::gosub S_Spell9  				; use Spell place 9
+0::gosub S_Spell10  				; use Spell place 10
  
-+1::gosub Spell_reset  			; reset Spell to place 1
-+2::gosub SpellSlot2  			; use Spell place 2
-+3::gosub SpellSlot3  			; use Spell place 3
-+4::gosub SpellSlot4  			; use Spell place 4
-+5::gosub SpellSlot5  			; use Spell place 5
-+6::gosub SpellSlot6  			; use Spell place 6
-+7::gosub SpellSlot7  			; use Spell place 7
-+8::gosub SpellSlot8  			; use Spell place 8
-+9::gosub SpellSlot9  			; use Spell place 9
++1::gosub S_SpellReset  			; reset Spell to place 1
++2::gosub S_SpellSlot2  			; use Spell place 2
++3::gosub S_SpellSlot3  			; use Spell place 3
++4::gosub S_SpellSlot4  			; use Spell place 4
++5::gosub S_SpellSlot5  			; use Spell place 5
++6::gosub S_SpellSlot6  			; use Spell place 6
++7::gosub S_SpellSlot7  			; use Spell place 7
++8::gosub S_SpellSlot8  			; use Spell place 8
++9::gosub S_SpellSlot9  			; use Spell place 9
 
-F1::gosub UseBelt1 				; use belt place 1
-F2::gosub UseBelt2 				; use belt place 2
-F3::gosub UseBelt3 				; use belt place 3
-F4::gosub UseBelt4 				; use belt place 4
-F5::gosub UseBelt5 				; use belt place 5
-F6::gosub UseBelt6 				; use belt place 6
-F7::gosub UseBelt7 				; use belt place 7
-F8::gosub UseBelt8 				; use belt place 8
-F9::gosub UseBelt9 				; use belt place 9
-F10::gosub UseBelt10 			; use belt place 10
+F1::gosub S_UseBelt1 				; use belt place 1
+F2::gosub S_UseBelt2 				; use belt place 2
+F3::gosub S_UseBelt3 				; use belt place 3
+F4::gosub S_UseBelt4 				; use belt place 4
+F5::gosub S_UseBelt5 				; use belt place 5
+F6::gosub S_UseBelt6 				; use belt place 6
+F7::gosub S_UseBelt7 				; use belt place 7
+F8::gosub S_UseBelt8 				; use belt place 8
+F9::gosub S_UseBelt9 				; use belt place 9
+F10::gosub S_UseBelt10 			; use belt place 10
 
-+F1::gosub Belt_reset 			; use belt place 1
-+F2::gosub SwitchBelt2 			; use belt place 2
-+F3::gosub SwitchBelt3 			; use belt place 3
-+F4::gosub SwitchBelt4 			; use belt place 4
-+F5::gosub SwitchBelt5 			; use belt place 5
-+F6::gosub SwitchBelt6 			; use belt place 6
-+F7::gosub SwitchBelt7 			; use belt place 7
-+F8::gosub SwitchBelt8 			; use belt place 8
-+F9::gosub SwitchBelt9 			; use belt place 9
-+F10::gosub SwitchBelt10 		; use belt place 10
++F1::gosub S_Belt_reset 			; use belt place 1
++F2::gosub S_SwitchBelt2 			; use belt place 2
++F3::gosub S_SwitchBelt3 			; use belt place 3
++F4::gosub S_SwitchBelt4 			; use belt place 4
++F5::gosub S_SwitchBelt5 			; use belt place 5
++F6::gosub S_SwitchBelt6 			; use belt place 6
++F7::gosub S_SwitchBelt7 			; use belt place 7
++F8::gosub S_SwitchBelt8 			; use belt place 8
++F9::gosub S_SwitchBelt9 			; use belt place 9
++F10::gosub S_SwitchBelt10 		; use belt place 10
 
-Numpad1::gosub gesture_1 ; gesture 1
-Numpad2::gosub gesture_2 ; gesture 2
-Numpad3::gosub gesture_3 ; gesture 3
-Numpad4::gosub gesture_4 ; gesture 4
-Numpad5::gosub gesture_5 ; gesture 5
-Numpad6::gosub gesture_6 ; gesture 6
+Numpad1::gosub S_gesture_1 ; gesture 1
+Numpad2::gosub S_gesture_2 ; gesture 2
+Numpad3::gosub S_gesture_3 ; gesture 3
+Numpad4::gosub S_gesture_4 ; gesture 4
+Numpad5::gosub S_gesture_5 ; gesture 5
+Numpad6::gosub S_gesture_6 ; gesture 6
 
 
 ;-------------------------------------------------------------------------
