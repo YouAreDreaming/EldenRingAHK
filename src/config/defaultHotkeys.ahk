@@ -12,16 +12,16 @@
 ;--- Why we map to reserve keys is to allow shift/ctrl/alt options otherwise it will
 ;--- often trigger just the key bound in the Elden Ring keyboard binding section.
 ;a::k 							; L1 Dual-Attack, Parry, Block 
-a::gosub Parry 					; Switching to parry combo, using mouse button for light attack.
+a::gosub S_Parry 				; Switching to parry combo, using mouse button for light attack.
 s::l 							; L2 Use Skill
 d::h  							; R1 Light Attack
 f::j 							;
-n::gosub A_AutoRun				; Move Forward (bound to my mouse as n key)
+n::gosub S_AutoRun				; Move Forward (bound to my mouse as n key)
 ~v::Enter						; Use Action 
-+a::gosub 2H-Left 				; left hand weapon twohanded
-+s::gosub 2H-Right 				; right hand weapon twohanded
-+d::gosub A_LeftArmement 		; toggle left hand armement
-+f::gosub A_RightArmement 		; toggle right hand armement.
++a::gosub S_2H_Left 				; left hand weapon twohanded
++s::gosub S_2H_Right 				; right hand weapon twohanded
++d::gosub S_LeftArmement 		; toggle left hand armement
++f::gosub S_RightArmement 		; toggle right hand armement.
 +e::gosub JumpDualWeild 		; Does a jump and dual-weild combo attack
 w::gosub Crouch 				; Crouch+Attack
 e::gosub Jump 					; Jump+Attack
@@ -29,8 +29,8 @@ r::gosub JumpStrong 			; Jump+Strong+Attack
 
 c::t 							; C for Crouch.
 +z::gosub UseBelt1 				; Physics Flask on BELT SLOT 1
-^+z::gosub A_ToggleSpellHand 	; Toggles which hand to cast spell from
-^+!d::gosub A_ToggleDebug		; Toggles debugging if any is enabled.
+^+z::gosub S_ToggleSpellHand 	; Toggles which hand to cast spell from
+^+!d::gosub S_ToggleDebug		; Toggles debugging if any is enabled.
 m::g 							; m for Map
 ^+1::gosub A_SetSpellSlots		; CTRL-SHIFT-1 lets you set the number of spell slots.
 ^+2::gosub A_SetBeltSlots		; CTRL-SHIFT-2 lets you set the number of spell slots.

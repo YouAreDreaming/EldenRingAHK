@@ -1,7 +1,7 @@
-HotKey, ~%V_MOVE_FORWARD%, A_AutoRun
-HotKey, ~*%V_MOVE_FORWARD% up, A_AutoRunOff
-HotKey, ~+%V_MOVE_FORWARD%, A_Walk
-HotKey, ~%V_DODGE%, A_Dodge
+HotKey, ~%V_MOVE_FORWARD%, S_AutoRun
+HotKey, ~*%V_MOVE_FORWARD% up, S_AutoRunOff
+HotKey, ~+%V_MOVE_FORWARD%, S_Walk
+HotKey, ~%V_DODGE%, S_Dodge
  
 Hotkey, %V_UPOUCH%, Pouch_Up
 Hotkey, %V_LPOUCH%, Pouch_Left

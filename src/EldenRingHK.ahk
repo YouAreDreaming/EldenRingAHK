@@ -6,6 +6,12 @@
 ;---- Organize code into more managable components and external files.
 ;---- Toggle off hotkeys when menus are accessed and enabled when the main game resumes.
 ;---- QA v0.3 for any bugs that can be addressed in v0.4
+;---- Adapting some nomenclature for the subroutines, functions, global variables, variables.
+;---- G_ 	Global Variable
+;---- V_ 	Variable
+;---- S_  	Subroutine
+;---- F_ 	function
+;---- C_    class
 
 #SingleInstance Force
 #Persistent
@@ -35,7 +41,8 @@ MsgBox Eldenring Script started. press Ctrl+Alt+X to stop.
 
 global version := "0.4" ; currently working on v0.4
 
-; going to define all global variables with a preceeding G_
+; going to define all global variables with a preceeding G_ as functions need to reference
+; them as global.  As nomenclature goes, I may stick with a preceeding identifier:
 global G_settings				; user defined settings
 global G_defaultSettings		; default settings
 global G_menuState				; to track if player is in a menu.
@@ -47,25 +54,17 @@ global G_menuState				; to track if player is in a menu.
 #include %A_ScriptDir%\config\defaultHotkeys.ahk
 
 
-
-
-;----- Variable key assignments
-;----- Do not edit these as they reference your keys assigned in the variable section above.
-;----- There are key references after the hotkeys, but I can't place them above or it breaks
-;----- the script.  Scroll down right after the hotkey definitions to bind actions/combos to keys.
-
-
  
 ;------------------- Auto-Run ------------------------------
 ; This enables auto-run when moving forward rather than having to
 ; hold two keys.  It detects when your dodge key is pressed and will
 ; interupt to preform a dodge.  After the dodge, it will resume
 ; auto-run until another dodge interupts it.
-A_ToggleDebug:
+S_ToggleDebug:
 	V_DEBUG := !V_DEBUG
 return
 ; The auto-run sub will check to see if enabled.  Is enabled by default. 
-A_AutoRun:
+S_AutoRun:
    if !V_DBoolean
    {
       SendInput {%V_DODGE% Down}
@@ -74,12 +73,12 @@ A_AutoRun:
    }
 return
 ; Turns off auto-run from the config but we can also make this a in-game toggle feature.
-A_AutoRunOff:
+S_AutoRunOff:
    if V_DBoolean
    V_DBoolean := 0
 return
 ; Holding shift toggles off auto run for those... need to walk moments.
-A_Walk:
+S_Walk:
    if V_DBoolean
    {
       SendInput {%V_DODGE% Up}
@@ -95,7 +94,7 @@ A_Walk:
    }
 return
 
-A_LeftArmement:	
+S_LeftArmement:	
 	send {%V_DLEFT% Down}
 	sleep 50
 	send {%V_DLEFT% Up}
@@ -103,7 +102,7 @@ A_LeftArmement:
 	V_Gui_Active := A_Tickcount
 return
 
-A_RightArmement:
+S_RightArmement:
 	send {%V_DRIGHT% Down}
 	sleep 50
 	send {%V_DRIGHT% Up}
@@ -113,7 +112,7 @@ return
 
 ; This untraps the dodge key during running so it preforms a proper dodge otherwise the character
 ; just keeps running without dodging.
-A_Dodge:
+S_Dodge:
    if V_DBoolean
    {
       SendInput {%V_DODGE% Up}
@@ -128,19 +127,19 @@ A_Dodge:
 return
 ; -- end Auto Run ------------------------------------------
  
-A_USE:
+S_USE:
    SendInput {%V_EVENT_ACTION% down}
    sleep 25
    SendInput {%V_EVENT_ACTION% up}
 return
 
-A_ToggleSpellHand:
-V_ToggleSpell := ( V_ToggleSpell = V_GUARD ) ? V_ATTACK : V_GUARD
-logNp( "Toggled Spell hand to key: " V_ToggleSpell )
+S_ToggleSpellHand:
+	V_ToggleSpell := ( V_ToggleSpell = V_GUARD ) ? V_ATTACK : V_GUARD
+	logNp( "Toggled Spell hand to key: " V_ToggleSpell )
 return
 
 ;--------------scripts-2H------------
-2H-Right:
+S_2H_Right:
 	SendInput {%V_EVENT_ACTION% down}
 	sleep 25
 	SendInput {%V_ATTACK% down}
@@ -149,7 +148,7 @@ return
 	sleep 25
 	SendInput {%V_EVENT_ACTION% up}
 return
-2H-Left:
+S_2H_Left:
 	SendInput {%V_EVENT_ACTION% down}
 	sleep 25
 	SendInput {%V_GUARD% down}
@@ -161,7 +160,7 @@ return
  
 ;--------------Attack Combos----------
 ; Parry+Light Attack
-Parry:
+S_Parry:
    SendInput {%V_SKILL% down}
    sleep 25
    SendInput {%V_SKILL% up}
