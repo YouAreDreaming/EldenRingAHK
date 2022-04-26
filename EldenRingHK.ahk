@@ -17,7 +17,7 @@
 #Warn
 SetWorkingDir %A_ScriptDir%
 SendMode InputThenPlay
-;SetTitleMatchMode, 2yp
+;SetTitleMatchMode, 
 
 MsgBox Eldenring Script started. press Ctrl+Alt+X to stop.
 
@@ -253,6 +253,12 @@ F10::gosub UseBelt10 			; use belt place 10
 +F9::gosub SwitchBelt9 			; use belt place 9
 +F10::gosub SwitchBelt10 		; use belt place 10
 
+Numpad1::gosub gesture_1 ; gesture 1
+Numpad2::gosub gesture_2 ; gesture 2
+Numpad3::gosub gesture_3 ; gesture 3
+Numpad4::gosub gesture_4 ; gesture 4
+Numpad5::gosub gesture_5 ; gesture 5
+Numpad6::gosub gesture_6 ; gesture 6
 ;-------------------------------------------------------------------------
 ;-------------------------------------------------------------------------
 ;----- don´t touch anything below unless you know what you are doing
@@ -356,7 +362,7 @@ return
 	SendInput {%V_EVENT_ACTION% down}
 	sleep 25
 	SendInput {%V_ATTACK% down}
-	sleep 25ypyp
+	sleep 25
 	SendInput {%V_ATTACK% up}
 	sleep 25
 	SendInput {%V_EVENT_ACTION% up}
@@ -836,7 +842,8 @@ gesture_1:
    gosub P_Esc
    MouseMove 3470, 1225 ; 1750, 620
    sleep 25
-   gosub P_E
+   gosub P_E    
+   sleep 25
    gosub P_Esc
    V_Gui_Active := A_Tickcount
 return
@@ -960,9 +967,3 @@ return
  
 
  
-;+F1::gosub gesture_1 ; gesture 1
-;+F2::gosub gesture_2 ; gesture 2
-;+F3::gosub gesture_3 ; gesture 3
-;+F4::gosub gesture_4 ; gesture 4
-;+F5::gosub gesture_5 ; gesture 5
-;+F6::gosub gesture_6 ; gesture 6
