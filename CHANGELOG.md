@@ -1,6 +1,9 @@
 # CHANGELOG
 
 All notable changes to this project will be documented in this file.
+## [0.4] - 2022-04-26 - In current development
+- Updated Nomaclature for easier to recognize variables, subroutines etc.
+- Organized all code components to relative named Files 
 
 ## [0.3] - 2022-04-25 - Re-organizing code towards functions.
  - Added an auto-run feature.
