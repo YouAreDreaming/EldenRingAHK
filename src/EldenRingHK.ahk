@@ -1,4 +1,4 @@
-;----- Elden Ring AutoHotKey Overhaul V0.2
+;----- Elden Ring AutoHotKey Overhaul V0.3
 ;----- Original Script unmodified:
 ;----- https://steamlists.com/elden-ring-script-for-autohotkey-for-mouse-keyboard/?msclkid=391ff484c21f11ec8b7f40c06c9be788
 ;----- Original Author: Olaf Krahl "Gooru"
@@ -8,7 +8,7 @@
 ;----- Twitch: https://dashboard.twitch.tv/u/dreamingforgamers
 ;----- Designed for ergonomic game-play feel free to modify to suit your keybindings
 ;----- Adding variables for easier customization that you can assign keys used in functions
-; Change Log V0.2
+; Change Log V0.3
 ; Added Variable Support for easier end-user configuration
 ; Added ability to switch to but not use Spell and Belt slots
 ;-----------------------------------------------------------------------
@@ -21,7 +21,15 @@ SendMode InputThenPlay
 
 MsgBox Eldenring Script started. press Ctrl+Alt+X to stop.
 
-;#IfWinActive, ELDEN RING™
+global version := "0.4"
+
+; going to define all global variables with a preceeding G_
+global G_settings				; user defined settings
+global G_defaultSettings		; default settings
+
+readSettings("settings.ini", G_settings )
+
+;#IfWinActive, ELDEN RING™ 			 ; not working maybe Anti-cheat engine blocks when used.         
 ;--- Set your screen width/height
 ;-----------------------------------------------------------------------
 ;----- Variables Section that you can edit and assign keys for customization
