@@ -17,7 +17,11 @@
 #Warn
 SetWorkingDir %A_ScriptDir%
 SendMode InputThenPlay
+;SetTitleMatchMode, 2yp
+
 MsgBox Eldenring Script started. press Ctrl+Alt+X to stop.
+
+;#IfWinActive, ELDEN RING™
 ;--- Set your screen width/height
 ;-----------------------------------------------------------------------
 ;----- Variables Section that you can edit and assign keys for customization
@@ -36,11 +40,11 @@ MsgBox Eldenring Script started. press Ctrl+Alt+X to stop.
 ; ALT !
 ;---------h----------------------------------------------------------------
 V_DEBUG = 0 			; Set to CTRL+ALT+SHIFT+D to enable debugging - will output to notepad++
-V_SPELL_SLOTS := 8 		; Set your current spell slots here and update this when they change for better loops.
-V_BELT_SLOTS := 10 		; Set this is you only want to auto-use/scroll through x number of belt slots or leave as is.
+V_SPELL_SLOTS := 8 		; Set your default spell slots.  Change in game with CTRL-SHIFT-1
+V_BELT_SLOTS := 10 		; Set # of belt slots you want to auto use.  Change in game with CTRL-SHIFT-2
  
-V_MOVE_CONTROL = Backspace ; Movement control (slows walk).
-V_MOVE_FORWARD = y 		; !!Move Forwards
+;V_MOVE_CONTROL = Backspace ; Movement control (slows walk).
+V_MOVE_FORWARD = y 		; !!Move Forwards used with auto-run
 ;V_MOVE_BACKWARDS = u 	; Move Backwards
 ;V_MOVE_LEFT = i 		; Move Left
 ;V_MOVE_RIGHT = o 		; Move Right
@@ -186,8 +190,8 @@ a::gosub Parry 					; Switching to parry combo, using mouse button for light att
 s::l 							; L2 Use Skill
 d::h  							; R1 Light Attack
 f::j 							;
-n::gosub A_AutoRun
- 
+n::gosub A_AutoRun				; Move Forward (bound to my mouse as n key)
+~v::Enter						; Use Action 
 +a::gosub 2H-Left 				; left hand weapon twohanded
 +s::gosub 2H-Right 				; right hand weapon twohanded
 +d::gosub A_LeftArmement 		; toggle left hand armement
@@ -202,6 +206,8 @@ c::t 							; C for Crouch.
 ^+z::gosub A_ToggleSpellHand 	; Toggles which hand to cast spell from
 ^+!d::gosub A_ToggleDebug		; Toggles debugging if any is enabled.
 m::g 							; m for Map
+^+1::gosub A_SetSpellSlots		; CTRL-SHIFT-1 lets you set the number of spell slots.
+^+2::gosub A_SetBeltSlots		; CTRL-SHIFT-2 lets you set the number of spell slots.
 
 ;----  Best to leave as is and reference to a key-map above if needed ---
 1::gosub Spell1  				; use Spell place 1
@@ -224,7 +230,6 @@ m::g 							; m for Map
 +7::gosub SpellSlot7  			; use Spell place 7
 +8::gosub SpellSlot8  			; use Spell place 8
 +9::gosub SpellSlot9  			; use Spell place 9
-
 
 F1::gosub UseBelt1 				; use belt place 1
 F2::gosub UseBelt2 				; use belt place 2
@@ -609,16 +614,36 @@ doDown()
 }
 
 ; ------------ Subroutines -------------------
+
+A_SetSpellSlots:
+InputBox, slots, Enter the number of spell slots on your character, hide
+if ErrorLevel
+    MsgBox, % "Cancelled. Leaving as " %V_SPELL_SLOTS% "slots"	
+else
+    V_SPELL_SLOTS := slots
+	MsgBox, % "Spell Slots set to " slots
+return
+
+A_SetBeltSlots:
+InputBox, slots, Enter the number of belt slots on your character, hide
+if ErrorLevel
+    MsgBox, % "Cancelled. Leaving as " %V_BELT_SLOTS% "slots"	
+else
+    V_BELT_SLOTS := slots
+	MsgBox, % "Belt Slots set to " slots
+return
+
 Spell_reset:
    
-   gosub P_UP
-   getGuiActive()
+   gosub P_UP   
    gosub S_UP
    V_SPELLSLOT := 1
    V_BSReset := 0   
 return
 Spell1:	
-	doSpellSlot( 1, 1 )	
+	gosub Spell_reset
+	gosub P_K
+	getGuiActive()	
 return
 Spell2: ; Player always has 2 slots...		
 	doSpellSlot( 2, 1 )	
@@ -680,14 +705,15 @@ return
 ;--------------scripts-Belt----------
 Belt_reset:
   
-   gosub P_Down
-   getGuiActive()
+   gosub P_Down   
    gosub H_Down
    V_BELTSLOT := 1
    V_BBReset := 0   
 return
 UseBelt1:
-   doBeltSlot( 1, 1 )
+	gosub Belt_reset
+	gosub P_B
+   getGuiActive()
 return
 UseBelt2:
     doBeltSlot( 2, 1 )
