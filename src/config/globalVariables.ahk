@@ -125,3 +125,6 @@ V_SpellSlot = 0 			; To track what the current slot is for better cycling. Reset
 V_BeltSlot = 0 				; To track what the current belt slot is for better cycling.  Reset position if alingment is off
 V_ToggleSpell := V_GUARD 	; To track what hand is using the wand/incantation item for spell casting.
 V_Gui_Active := 0			; to track the 3 second interval when the D-PAD GUI in the game is open
+V_GUIFade := 2000			; The gui fades under certain states so we need to change this value to match those timing states
+V_LastKey := 0				; Track the last key pressed
+V_LastKeyTime := 0 			; The time it was pressed

@@ -1,8 +1,6 @@
 ﻿#include %A_ScriptDir%\Libraries\Commands\Slots\Spell.ahk
 #include %A_ScriptDir%\Libraries\Commands\Slots\Belt.ahk
 
-
-
 ; Calculates the iterations beteen slots
 findIteration( target, position, slots )
 {

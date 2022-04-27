@@ -34,7 +34,7 @@ c::t 							; C for Crouch.
 m::g 							; m for Map
 ^+1::gosub S_SetSpellSlots		; CTRL-SHIFT-1 lets you set the number of spell slots.
 ^+2::gosub S_SetBeltSlots		; CTRL-SHIFT-2 lets you set the number of spell slots.
-
+^+d::gosub S_debugGui			; First attempt at a gui overlay for debugging
 ;----  Best to leave as is and reference to a key-map above if needed ---
 1::gosub S_Spell1  				; use Spell place 1
 2::gosub S_Spell2  				; use Spell place 2

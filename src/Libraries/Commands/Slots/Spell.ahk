@@ -44,6 +44,8 @@ doSpellSlot( slot, activate )
 	global V_SPELLSLOT 
 	global V_SPELL_SLOTS
 	global V_BSReset
+	global V_GUIFade
+	
 	
 	if( V_SPELL_SLOTS < slot ){
       return
@@ -52,10 +54,13 @@ doSpellSlot( slot, activate )
 			if( V_BSReset = 1 )
 			{
 				gosub S_SpellReset
+				return
 			}
 		  iteration := findIteration( slot, V_SPELLSLOT, V_SPELL_SLOTS)		  
+		  V_GUIFade := 2000			; GUI fades after 2000 on both use/unuse or with count
 		  V_SPELLSLOT := slot 
 		  success := doSpellItr( iteration, V_SPELLSLOT, activate )
+		  
 	}
 }
 
@@ -63,13 +68,15 @@ S_SpellReset:
    
    gosub P_UP   
    gosub S_UP
+  
    V_SPELLSLOT := 1
    V_BSReset := 0   
 return
 S_Spell1:	
 	gosub S_SpellReset
 	gosub P_K
-	getGuiActive()	
+	V_GUIFade := 1460			; the GUI fades after 1450 if all is pressed is this	
+	;doSpellSlot( 1, 1 )	
 return
 S_Spell2: ; Player always has 2 slots...		
 	doSpellSlot( 2, 1 )	

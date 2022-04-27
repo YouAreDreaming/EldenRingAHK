@@ -17,6 +17,7 @@ P_B:
    sleep 25
    SendInput {%V_USEITEM% up}
    sleep 25
+   V_Gui_Active := A_Tickcount
 return
  
 P_K:
@@ -30,6 +31,7 @@ P_K:
   sleep 25
   SendInput {%V_ToggleSpell% up}
   sleep 25
+  V_Gui_Active := A_Tickcount
 return
 P_Down:
    SendInput {%V_DDOWN% down}

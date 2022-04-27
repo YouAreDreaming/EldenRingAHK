@@ -47,6 +47,7 @@ doBeltSlot( slot, activate )
 	global V_BELTSLOT 
 	global V_BELT_SLOTS
 	global V_BBReset
+	global V_GUIFade
 	
 	if( V_BELT_SLOTS < slot ){
       return
@@ -55,8 +56,10 @@ doBeltSlot( slot, activate )
 			if( V_BBReset = 1 )
 			{
 				gosub S_Belt_reset
+				return
 			}
 		  iteration := findIteration( slot, V_BELTSLOT, V_BELT_SLOTS )	
+		  V_GUIFade := 2015			; the GUI fades after 1450 if all is pressed is this	
 			; logNp( "Belt Iteration " iteration " for loop" )		  
 		  V_BELTSLOT := slot 
 		  success := doBeltItr( iteration, V_BELTSLOT, activate )
@@ -74,7 +77,8 @@ return
 S_UseBelt1:
 	gosub S_Belt_reset
 	gosub P_B
-   getGuiActive()
+    V_GUIFade := 3600			; the GUI fades after 3600 if all is pressed is this	
+   ;doBeltSlot( 1, 1 )
 return
 S_UseBelt2:
     doBeltSlot( 2, 1 )
