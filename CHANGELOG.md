@@ -1,9 +1,15 @@
 # CHANGELOG
 
 All notable changes to this project will be documented in this file.
-## [0.4] - 2022-04-26 - In current development
+
+## [0.4] - 2022-04-26 - Overhaul of coding structure to files and bug fixes
 - Updated Nomaclature for easier to recognize variables, subroutines etc.
 - Organized all code components to relative named Files 
+- Created debug GUI for slot timing CTRL-SHIFT-D to display
+- Fixed several timing issues causing slot position to fail.
+- Can still trigger if spamming spell/belt slots ouside of iframes but seems solid when not spamming keys.
+- User settings now in sepparate files so future updates won't require need to always update until an in-game
+  settings gui can be developed.
 
 ## [0.3] - 2022-04-25 - Re-organizing code towards functions.
  - Added an auto-run feature.
