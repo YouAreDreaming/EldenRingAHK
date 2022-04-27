@@ -11,6 +11,8 @@
 ;--- the key on the left side not the right side to map to your keyboard or mouse
 ;--- Why we map to reserve keys is to allow shift/ctrl/alt options otherwise it will
 ;--- often trigger just the key bound in the Elden Ring keyboard binding section.
+; The Map and Equipment menus cannot have a key mapped here or it will not work, you'll have to use the controller
+; 
 ;a::k 							; L1 Dual-Attack, Parry, Block 
 a::gosub S_Parry 				; Switching to parry combo, using mouse button for light attack.
 s::l 							; L2 Use Skill
@@ -79,12 +81,12 @@ F10::gosub S_UseBelt10 			; use belt place 10
 +F9::gosub S_SwitchBelt9 			; use belt place 9
 +F10::gosub S_SwitchBelt10 		; use belt place 10
 
-Numpad1::gosub S_gesture_1 ; gesture 1
-Numpad2::gosub S_gesture_2 ; gesture 2
-Numpad3::gosub S_gesture_3 ; gesture 3
-Numpad4::gosub S_gesture_4 ; gesture 4
-Numpad5::gosub S_gesture_5 ; gesture 5
-Numpad6::gosub S_gesture_6 ; gesture 6
++Numpad1::gosub S_gesture_1 ; gesture 1
++Numpad2::gosub S_gesture_2 ; gesture 2
++Numpad3::gosub S_gesture_3 ; gesture 3
++Numpad4::gosub S_gesture_4 ; gesture 4
++Numpad5::gosub S_gesture_5 ; gesture 5
++Numpad6::gosub S_gesture_6 ; gesture 6
 
 
 ;-------------------------------------------------------------------------
@@ -96,8 +98,8 @@ Numpad6::gosub S_gesture_6 ; gesture 6
    MsgBox Eldenring Script stopped.
    exitapp
     
-   ;---- CTRL-ALT_SHIFT+C to display variables and hotkey values for debugging ------
-   ^!+c::gosub H_VARDEBUG
-   H_VARDEBUG:
-   ListHotkeys
+;---- CTRL-ALT_SHIFT+C to display variables and hotkey values for debugging ------
+^!+c::gosub H_VARDEBUG
+	H_VARDEBUG:
+	ListHotkeys
 return

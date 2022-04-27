@@ -115,7 +115,7 @@ V_GESTURE4 = ^4
 V_GESTURE5 = ^5
 V_GESTURE6 = ^6
  
- 
+   
 ;----- Variables for tracking states.
 ;----- Do not edit these as they are used by the program to track various states
 V_DBoolean = 0				; A boolean to track use or not use.

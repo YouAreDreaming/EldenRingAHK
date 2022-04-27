@@ -28,10 +28,13 @@ SetBatchLines, -1				; Testing if turning off sleep will reduce input latency
 SetDefaultMouseSpeed, 0			; 0 is the fastest setting for mouse movement.
 ;SetWinDelay, -1				; Here more for reference and testing.
 SetControlDelay, 0				; 0 is the recommmended lowest setting  https://www.autohotkey.com/docs/commands/SetControlDelay.htm
-
 SendMode Input
+
+
+
 SetWorkingDir %A_ScriptDir%
 SendMode InputThenPlay
+
 
 ;SetTitleMatchMode, 
 
@@ -42,13 +45,15 @@ MsgBox Eldenring Script started. press Ctrl+Alt+X to stop.
 global version := "0.4" ; currently working on v0.4
 
 ; going to define all global variables with a preceeding G_ as functions need to reference
-; them as global.  As nomenclature goes, I may stick with a preceeding identifier:
 global G_settings				; user defined settings
+; them as global.  As nomenclature goes, I may stick with a preceeding identifier:
 global G_defaultSettings		; default settings
 global G_menuState				; to track if player is in a menu.
-
+runme(G_settings)
+ToolTip, % "Test: " G_settings["V_test"]
 ;readSettings("settings.ini", G_settings )
 
+#include %A_ScriptDir%\config\UserSettings.ahk
 #include %A_ScriptDir%\config\globalVariables.ahk
 #include %A_ScriptDir%\config\dynamicHotkeys.ahk
 #include %A_ScriptDir%\config\defaultHotkeys.ahk
@@ -58,3 +63,9 @@ global G_menuState				; to track if player is in a menu.
 #include %A_ScriptDir%\Libraries\Inputs\Keys.ahk
 #include %A_ScriptDir%\Libraries\Debug.ahk
 
+
+runme(ByRef settings)
+{	
+	cUserSettings := new C_UserSettings("settings.ini", settings)
+}
+	
