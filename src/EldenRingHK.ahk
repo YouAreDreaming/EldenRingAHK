@@ -40,23 +40,25 @@ SendMode InputThenPlay
 
 MsgBox Eldenring Script started. press Ctrl+Alt+X to stop.
 
-;#IfWinActive, ELDEN RING™ 			 ; not working maybe Anti-cheat engine blocks when used.         
+    
 
-global version := "0.4" ; currently working on v0.4
+global version := "0.5" ; currently working on v0.4
 
 ; going to define all global variables with a preceeding G_ as functions need to reference
-global G_settings				; user defined settings
+global G_settings				; user defined settings managed by C_UserSettings and G_Settings
 ; them as global.  As nomenclature goes, I may stick with a preceeding identifier:
 global G_defaultSettings		; default settings
 global G_menuState				; to track if player is in a menu.
-runme(G_settings)
-ToolTip, % "Test: " G_settings["V_test"]
+initSettings(G_settings)
+;ToolTip, % "Test: " G_settings["V_test"]
 ;readSettings("settings.ini", G_settings )
 
+  
 #include %A_ScriptDir%\config\UserSettings.ahk
 #include %A_ScriptDir%\config\globalVariables.ahk
 #include %A_ScriptDir%\config\dynamicHotkeys.ahk
 #include %A_ScriptDir%\config\defaultHotkeys.ahk
+#include %A_ScriptDir%\ui\Gui.ahk
 #include %A_ScriptDir%\ui\InputBoxes.ahk
 #include %A_ScriptDir%\Libraries\Commands\CommandRegistry.ahk
 #include %A_ScriptDir%\Libraries\GameStates\DpadUI.ahk
@@ -64,8 +66,12 @@ ToolTip, % "Test: " G_settings["V_test"]
 #include %A_ScriptDir%\Libraries\Debug.ahk
 
 
-runme(ByRef settings)
+initSettings(ByRef settings)
 {	
-	cUserSettings := new C_UserSettings("settings.ini", settings)
-}
 	
+	cUserSettings := new C_UserSettings("settings.ini", settings)
+	
+}
+
+;#IfWinActive, "ELDEN RING™" 			 ; not working maybe Anti-cheat engine blocks when used.   
+; cGui := new C_GUI()
