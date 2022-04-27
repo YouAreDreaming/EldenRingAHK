@@ -31,7 +31,7 @@ r::gosub S_JumpStrong 			; Jump+Strong+Attack
 
 c::t 							; C for Crouch.
 +z::gosub S_UseBelt1 				; Physics Flask on BELT SLOT 1
-^+z::gosub S_ToggleSpellHand 	; Toggles which hand to cast spell from
+;^+z::gosub S_ToggleSpellHand 	; Toggles which hand to cast spell from
 ^+!d::gosub S_ToggleDebug		; Toggles debugging if any is enabled.
 m::g 							; m for Map
 ^+1::gosub S_SetSpellSlots		; CTRL-SHIFT-1 lets you set the number of spell slots.

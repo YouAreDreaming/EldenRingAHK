@@ -13,6 +13,13 @@
 ;---- F_ 	function
 ;---- C_    class
 
+global version := "0.5" ; currently working on v0.5
+
+;--- Do not include any scripts that have hotkeys, subroutines (return) in the Auto-Execution area.
+#include %A_ScriptDir%\config\globalVariables.ahk
+#include %A_ScriptDir%\config\UserSettings.ahk
+#include %A_ScriptDir%\ui\Gui.ahk
+
 #SingleInstance Force
 #Persistent
 #NoEnv
@@ -30,48 +37,67 @@ SetDefaultMouseSpeed, 0			; 0 is the fastest setting for mouse movement.
 SetControlDelay, 0				; 0 is the recommmended lowest setting  https://www.autohotkey.com/docs/commands/SetControlDelay.htm
 SendMode Input
 
-
-
 SetWorkingDir %A_ScriptDir%
 SendMode InputThenPlay
 
-
-;SetTitleMatchMode, 
-
-MsgBox Eldenring Script started. press Ctrl+Alt+X to stop.
-
-    
-
-global version := "0.5" ; currently working on v0.4
-
 ; going to define all global variables with a preceeding G_ as functions need to reference
 global G_settings				; user defined settings managed by C_UserSettings and G_Settings
-; them as global.  As nomenclature goes, I may stick with a preceeding identifier:
 global G_defaultSettings		; default settings
 global G_menuState				; to track if player is in a menu.
-initSettings(G_settings)
-;ToolTip, % "Test: " G_settings["V_test"]
-;readSettings("settings.ini", G_settings )
 
-  
-#include %A_ScriptDir%\config\UserSettings.ahk
-#include %A_ScriptDir%\config\globalVariables.ahk
-#include %A_ScriptDir%\config\dynamicHotkeys.ahk
-#include %A_ScriptDir%\config\defaultHotkeys.ahk
-#include %A_ScriptDir%\ui\Gui.ahk
-#include %A_ScriptDir%\ui\InputBoxes.ahk
+global cGui
+
+;----------- Auto-Execution Zone ---------------------------------
+
+initSettings(G_settings)
+MsgBox, 4, ,  Eldenring Script started. press Ctrl+Alt+X to stop.
+IfMsgBox Yes
+    gosub LaunchGui
+else
+    gosub Exit
+;----------- End Auto-Execution Zone
+; Include any hotkeys, subroutines files here
 #include %A_ScriptDir%\Libraries\Commands\CommandRegistry.ahk
 #include %A_ScriptDir%\Libraries\GameStates\DpadUI.ahk
 #include %A_ScriptDir%\Libraries\Inputs\Keys.ahk
 #include %A_ScriptDir%\Libraries\Debug.ahk
+#include %A_ScriptDir%\ui\InputBoxes.ahk
+#include %A_ScriptDir%\config\defaultHotkeys.ahk
+
+;#IfWinActive, "ELDEN RING™" 			 ; not working maybe Anti-cheat engine blocks when used.   
 
 
 initSettings(ByRef settings)
 {	
-	
-	cUserSettings := new C_UserSettings("settings.ini", settings)
-	
+	cUserSettings := new C_UserSettings("settings.ini", settings)	
 }
 
-;#IfWinActive, "ELDEN RING™" 			 ; not working maybe Anti-cheat engine blocks when used.   
-; cGui := new C_GUI()
+LaunchGui:
+	cGui := new C_GUI(G_settings)	
+return
+
+; Looks like the gui is populating global variables outside the class.
+; will have to handle the settings here.
+ButtonOK:
+	Gui, Submit, Hide
+	
+	forIni := []
+	For Key, Value in G_settings
+	{
+		if( %Key% != G_Settings[Key] )
+		{
+			; ToolTip % Key":" %Key% " changed " G_Settings[Key]			
+			forIni[Key] := %Key%			
+		}
+	}
+	Concat := ""
+For Each, Element In forIni
+   Concat .= (Concat <> "" ? "`n" : "") .  Each " : " Element
+MsgBox, %Concat%
+	cGui.submit() ; not working ??	
+	ExitApp
+return
+
+Exit:
+	ExitApp
+return

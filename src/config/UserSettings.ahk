@@ -1,3 +1,5 @@
+#Persistent
+
 class C_UserSettings
 {
 	static settings := []
@@ -23,9 +25,9 @@ class C_UserSettings
     }
 	initSettings(settingsFile, ByRef settings)
 	{
-		FileInstall, settings.ini, settings.ini, 0	
-		settings := []
-		settings["V_test"] := "foo"
+		FileInstall, settings.ini, settings.ini, 0
+		
+		settings := []		
 		settings["V_DEBUG"] := 0 			
 		settings["V_SPELL_SLOTS"] := 8 		
 		settings["V_BELT_SLOTS"] := 10 		 
@@ -87,7 +89,7 @@ class C_UserSettings
 		settings["V_USES_SpellSlot7"] := "7"
 		settings["V_USES_SpellSlot8"] := "8"
 		settings["V_USES_SpellSlot9"] := "9"
-		settings["V_USES_SpellSlot10"] := "0 "
+		settings["V_USES_SpellSlot10"] := "0"
 		settings["V_SWITCHSPELLSLOT1"] := "+1"
 		settings["V_SWITCHS_SpellSlot2"] := "+2"
 		settings["V_SWITCHS_SpellSlot3"] := "+3"
@@ -104,16 +106,7 @@ class C_UserSettings
 		settings["V_GESTURE4"] := "^4"
 		settings["V_GESTURE5"] := "^5"
 		settings["V_GESTURE6"] := "^6"
-		settings["V_DBoolean"] := 0
-		settings["V_BSReset"] := 0
-		settings["V_BBReset"] := 0
-		settings["V_SpellSlot"] := 0
-		settings["V_BeltSlot"] := 0
-		settings["V_ToggleSpell"] := settings["V_GUARD"] 	
-		settings["V_Gui_Active"] := 0
-		settings["V_GUIFade"] := 2000
-		settings["V_LastKey"] := 0	
-		settings["V_LastKeyTime"] := 0
+		
 		
 		this.parseSettings(settingsFile, settings)
 		

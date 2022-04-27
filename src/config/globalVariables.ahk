@@ -18,20 +18,20 @@ V_DEBUG = 0 			; Set to CTRL+ALT+SHIFT+D to enable debugging - will output to no
 V_SPELL_SLOTS := 8 		; Set your default spell slots.  Change in game with CTRL-SHIFT-1
 V_BELT_SLOTS := 10 		; Set # of belt slots you want to auto use.  Change in game with CTRL-SHIFT-2
  
-;V_MOVE_CONTROL = Backspace ; Movement control (slows walk).
+V_MOVE_CONTROL = Backspace ; Movement control (slows walk).
 V_MOVE_FORWARD = y 		; !!Move Forwards used with auto-run
-;V_MOVE_BACKWARDS = u 	; Move Backwards
-;V_MOVE_LEFT = i 		; Move Left
-;V_MOVE_RIGHT = o 		; Move Right
+V_MOVE_BACKWARDS = u 	; Move Backwards
+V_MOVE_LEFT = i 		; Move Left
+V_MOVE_RIGHT = o 		; Move Right
 V_DODGE = p 			; !!Backstep, Dodge Roll, Dash
 V_JUMP = Space 			; !!Jump
 V_CROUCH = t 			; !!Crouch / Stand Up
  
-;V_CAMUP = 				; Move Camera / Change Target (Up)
-;V_CAMDOWN = 			; Move Camera / Change Target (Down)
-;V_CAMLEFT = +z 		; Move Camera / Change Target (Left)
-;V_CAMRIGHT = +x 		; Move Camera / Change Target (Right)
-;V_LOCKON = tab 		; Reset Camera, Lock-On/Remove Target
+V_CAMUP = ""				; Move Camera / Change Target (Up)
+V_CAMDOWN = ""			; Move Camera / Change Target (Down)
+V_CAMLEFT = +z 		; Move Camera / Change Target (Left)
+V_CAMRIGHT = +x 		; Move Camera / Change Target (Right)
+V_LOCKON = tab 		; Reset Camera, Lock-On/Remove Target
  
 V_DUP = Up 				; !!Switch Sorcery/Incantation D-Pad
 V_DDOWN = Down 			; !!Switch Item  D-Pad

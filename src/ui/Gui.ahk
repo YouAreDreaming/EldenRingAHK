@@ -1,21 +1,27 @@
 ; https://www.reddit.com/r/AutoHotkey/comments/pcp2uf/dynamically_create_helpgui_from_the_contents_of/?msclkid=8e9f3025c63511ecb336aeacc4aad90c
+#Persistent
 class C_Gui 
 {
-	static settings := []
+	static settings
 	static bActive := 0
-    __New()
+    __New( settings )
     {
+		C_Gui.settings := settings
         ToolTip, C_Gui Constructed
 		C_Gui.bActive := ! C_Gui.bActive
-		C_Gui.settings["testlabel"] := "Testing Gui"
-		C_Gui.settings["testvar"] := "VarLabel"
+		;C_Gui.settings["V_BBReset"] := "0"
+		;C_Gui.settings["V_BSReset"] := "1"
 		Gui, +AlwaysOnTop +Owner +HwndGuiClassHwnd				;+Disabled -SysMenu
 		this.addElementsFromArray( C_Gui.settings )
 		Gui, Add, Button, default, OK
 		this.show("Gui Class")
-		while C_Gui.bActive	
-			sleep 10
-		return
+		
+		;this.addGuiControlsFromArray( C_Gui.settings )
+		
+		
+		;while C_Gui.bActive	
+		;	sleep 10
+		;return
         
     }
 	__Get(aName)
@@ -29,35 +35,68 @@ class C_Gui
     {
         C_Gui.settings[aName] := aValue       
     }
+	
+	; Gui, [Add], [ControlType] , [Options], [Text]
+	
 	addElementsFromArray( ar )
 	{
-		ToolTip, Adding Array Elements to Gui
-		sleep 500
-	    For Key, Value in ar
+	
+		i := 0
+		
+		For aKey, aValue in ar
 		{
-			ToolTip, % Key Value
-			sleep 500
-			Gui, Add, Text, , %Key%
-			Gui, Add, Edit, v%Key%, %Value%; ym 
+			vLabel = v%akey%	; passing v%Key% throws warn.
+			this.guiElement( "Add", "Text", "section", aKey ) ; ys option starts a new column
+			this.guiElement( "Add", "Edit", vLabel, aValue )						
+			
+			i := i + 1
+			
+			if( i > 10 ) {
+				break 
+			}
 		}
 	}
+	submit()
+	{
+		ToolTip, User Submitted 
+		sleep 5000
+	}
+	;addGuiControlsFromArray( ar )
+	;{
+	;	For Key, Value in ar
+	;	{
+	;		vLabel = hwnd%key%	; passing v%Key% throws warn.			
+	;		this.guiControl( value, key )			
+	;	}
+	;}
+	; The Gui arguments 
+	; subCommand 	:- new|add|show etc see: https://www.autohotkey.com/docs/commands/Gui.htm#SubCommands
+	; 	controlType : based on the subCommand type for example Add uses Text|Button|Listbox etc see: https://www.autohotkey.com/docs/commands/Gui.htm#Add
+	;		Options : See controlType for it's options  see: https://www.autohotkey.com/docs/commands/Gui.htm#ControlOptions
+	;		Text    : Text to be displayed.
+	guiElement( subCommand, controlType, Options :="", sText="" )
+    {
+		GUI %subCommand%, %controlType%, % Options, %sText%
+	}	
+	guiControl( var1, myedit )
+	{
+		ControlSetText,, %var1%, ahk_id %myedit%
+	}
+	
 	show(aText)
 	{
 	   Gui, show,, aText
 	}
+	
     __Delete()
     {
-		For Key, Value in C_Gui.settings
-		{
-			ToolTip,  "Key: " Key "Value:" Value
-			sleep 1000			
-		}
-        ToolTip "Gui deleted"
-		sleep 1000
+		
+        ToolTip "Gui deleted"		
 		Gui, Destroy
 		ExitApp
     }
 }
- ButtonOK:
-	C_Gui.bActive := !C_Gui.bActive	
- return
+; Turns out loading in classes with subroutines will break auto-execution zones
+;ButtonOK:
+;	C_Gui.bActive := !C_Gui.bActive	
+; return
