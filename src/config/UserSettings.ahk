@@ -139,6 +139,21 @@ class C_UserSettings
 		this.parseSettings(settingsFile, settings)					
 	}
 	
+	submitIniChanges( rArray, sectionName )
+	{
+		;this.viewArray( rArray )
+		For skey, svalue in rArray{
+		IniWrite, %svalue%, %A_ScriptDir%\settings.ini, %sectionName%, %skey%
+		}
+	}
+	viewArray( dArray )
+	{
+		FOR dK, Dv in dArray
+		{
+			Tooltip, % "Key: " dK "Value: " Dv
+				sleep 500
+		}
+	}
 	parseSettings(settingsFile, ByRef settings)
 	{
 		; read from the ini file and overwrite any of the above values
@@ -157,7 +172,7 @@ class C_UserSettings
 				if (valArr[2] == "false") {
 					valArr[2] := false
 				}
-				settings[valArr[1]] := valArr[2]
+				settings[sectionNames][valArr[1]] := valArr[2]
 			}
 		}
 	}

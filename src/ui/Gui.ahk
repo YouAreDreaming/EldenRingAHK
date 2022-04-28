@@ -20,13 +20,28 @@ class C_Gui
         C_Gui.bActive := aValue       
     }
 	
+	addMenu( )
+	{
+		ToolTip, % "C_Gui Constructed for Config Menu"		
+		C_Gui.bActive := ! C_Gui.bActive
+		Gui, +AlwaysOnTop +Owner +HwndGuiClassMenu -SysMenu			;+Disabled 
+		Gui, Add, Button, default, GAME
+		Gui, Add, Button, default, COMBOS
+		Gui, Add, Button, default, POUCH
+		Gui, Add, Button, default, BELT
+		Gui, Add, Button, default, SPELL
+		Gui, Add, Button, default, GESTURES
+		Gui, Add, Button, default, CONFIG
+		Gui, Add, Button, default, Close
+		this.show("Config Menu")		
+	}
+	
 	addGui( aKey )
 	{
 		
         ToolTip, % "C_Gui Constructed for" aKey	
-		
-		C_Gui.bActive := ! C_Gui.bActive		
-		Gui, +AlwaysOnTop +Owner +HwndGuiClassHwnd -SysMenu			;+Disabled 
+		hw := % "+HwndGui"aKey		
+		Gui, +AlwaysOnTop +Owner %hw% -SysMenu			;+Disabled 
 		this.addElementsFromArray( aKey )
 		Gui, Add, Button, default, OK
 		this.show("Gui Class")		
@@ -35,27 +50,60 @@ class C_Gui
 	; Gui, [Add], [ControlType] , [Options], [Text]	
 	addElementsFromArray( rArray )
 	{
-		i := 0
-		
+		i := 1
+		rx := 10
+		ry := 10
+		tw := 30
+		ew := 30
+		y := 10
 		; For aKey, aValue in C_Gui.settings[ rKey ]
 		For aKey, aValue in rArray
 		{
+			; Gui, Add, Picture, x0 y0 h350 w450, %A_WinDir%\system32\ntimage.gif
+			; Gui, Add, Button, Default xp+20 yp+250, Start the Bar Moving
 			vLabel = v%akey%	; passing v%Key% throws warn.
-			this.guiElement( "Add", "Text", "section", aKey ) ; ys option starts a new column
-			this.guiElement( "Add", "Edit", vLabel, aValue )						
 			
-			;i := i + 1
+			x := rx 
+					
 			
-			;if( i > 10 ) {
-			;	break 
-			;}
+			dx := % "x"x
+			dy := % "y"(y+6)
+			dw := % "W"tw
+			
+			this.guiElement( "Add", "Text", dx dy dw, aKey ) ; ys option starts a new column
+			;this.logNp( "Text: i: " i " dx: " dx "dy: " dy "dw:" dw )
+			;y := ry + (tw * i)
+			x := rx + 130
+			;y := (y - 60)
+			dx := % "x"x
+			dy := % "y"y
+			
+			options := % vLabel " " dx " " dy " W100"
+			; this.guiElement( "Add", "Edit", vLabel dx dy "W100", aValue )
+			 
+			this.guiElement( "Add", "Edit", options, aValue )
+			;this.logNp( "Edit: i: " i " dx: " dx "dy: " dy "dw:" dw )
+			y := ry + (tw * i) + 5	
+			i := i + 1	
+
+			
+			;this.logNp( "--------------------------------------------" )
+			
+			
 		}
 	}
 	
+	logNp(msg)
+	{
+	   
+		ControlSend, Scintilla1, % "`r`n" msg , ahk_class Notepad++
+	 
+	}
+
 	submit()
 	{
 		ToolTip, User Submitted 
-		sleep 5000
+		
 	}
 	;addGuiControlsFromArray( ar )
 	;{
@@ -73,7 +121,8 @@ class C_Gui
 	guiElement( subCommand, controlType, Options :="", sText="" )
     {
 		GUI %subCommand%, %controlType%, % Options, %sText%
-	}	
+	}
+	
 	guiControl( var1, myedit )
 	{
 		ControlSetText,, %var1%, ahk_id %myedit%
@@ -89,7 +138,7 @@ class C_Gui
 		
         ToolTip "Gui deleted"		
 		Gui, Destroy
-		ExitApp
+		;ExitApp
     }
 }
 ; Turns out loading in classes with subroutines will break auto-execution zones

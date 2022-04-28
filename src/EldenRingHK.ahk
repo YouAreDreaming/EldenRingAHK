@@ -44,6 +44,8 @@ SendMode InputThenPlay
 global G_settings 				; user defined settings managed by C_UserSettings and G_Settings
 global G_defaultSettings		; default settings
 global G_menuState				; to track if player is in a menu.
+global G_UserSettings
+global G_GuiActive				;
 
 global cGui
 
@@ -64,22 +66,58 @@ else
 #include %A_ScriptDir%\ui\InputBoxes.ahk
 #include %A_ScriptDir%\config\defaultHotkeys.ahk
 
-;#IfWinActive, "ELDEN RING™" 			 ; not working maybe Anti-cheat engine blocks when used.   
+;#IfWinActive, "ELDEN RING™" 			 ; not working maybe Antcheat engine blocks when used.   
 
 
 initSettings:
-	cUserSettings := new C_UserSettings("settings.ini", G_settings)
+	G_UserSettings := new C_UserSettings("settings.ini", G_settings)
 	;G_settings := C_UserSettings.aSettings
 return		
 
-
 LaunchGui:
 	gosub initSettings
+	G_GuiActive := 1
+	cGui := new C_GUI()	
+	cGui.addMenu()		
+return
+
+ButtonGAME:
 	cGui := new C_GUI()
-	V_GUI := "GAME"
-	
-	cGui.addGui(G_settings[V_GUI])	
-	; viewArray( G_settings[V_GUI] )
+	V_GUI := "GAME"	
+	cGui.addGui(G_settings[V_GUI], G_GuiActive)
+return
+ButtonCOMBOS:
+	cGui := new C_GUI()
+	V_GUI := "COMBOS"	
+	cGui.addGui(G_settings[V_GUI], G_GuiActive)
+return
+ButtonPOUCH:
+	cGui := new C_GUI()
+	V_GUI := "POUCH"	
+	cGui.addGui(G_settings[V_GUI], G_GuiActive)
+return
+ButtonBELT:
+	cGui := new C_GUI()
+	V_GUI := "BELT"	
+	cGui.addGui(G_settings[V_GUI], G_GuiActive)
+return
+ButtonSPELL:
+	cGui := new C_GUI()
+	V_GUI := "SPELL"	
+	cGui.addGui(G_settings[V_GUI], G_GuiActive)
+return
+ButtonGESTURES:
+	cGui := new C_GUI()
+	V_GUI := "GESTURES"	
+	cGui.addGui(G_settings[V_GUI], G_GuiActive)
+return
+ButtonCONFIG:
+	cGui := new C_GUI()
+	V_GUI := "CONFIG"	
+	cGui.addGui(G_settings[V_GUI], G_GuiActive)
+return
+ButtonClose:
+	cGui = ""
 return
 
 ; Looks like the gui is populating global variables outside the class.
@@ -88,7 +126,8 @@ ButtonOK:
 	Gui, Submit, Hide
 	
 	; viewArray(G_settings["GAME"])
-	
+	if( G_GuiActive )
+	{
 	forIni := []
 	
 		For Key, Value in G_settings[V_GUI]
@@ -102,13 +141,17 @@ ButtonOK:
 			}
 		}
 		Concat := ""
-	For Each, Element In forIni
-
-	   Concat .= (Concat <> "" ? "`n" : "") .  Each " : " Element
-	MsgBox, %Concat%
-		cGui.submit() ; not working ??	
+		
+		;For Each, Element In forIni
+		;   Concat .= (Concat <> "" ? "`n" : "") .  Each " : " Element
+		;MsgBox, %Concat%
+		G_UserSettings.submitIniChanges( forIni, V_GUI ) 
+	}
 	
-	ExitApp
+	cGui := new C_GUI()	
+	cGui.addMenu()	
+	; -- Don't forget to remove this before a release.
+	; ExitApp
 return
 
 Exit:
