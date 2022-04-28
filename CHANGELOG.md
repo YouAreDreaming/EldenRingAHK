@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
  - App can now write to settings.ini when settings change in gui.
  - App can now read from ini and set user-configuraton to in-app settings.
  - App can dynamically produce a settings gui from an associative array
+ - Added a menu feature to have buttons to open gui's to edit each setting group
  
 
 ## [0.4] - 2022-04-26 - Overhaul of coding structure to files and bug fixes
