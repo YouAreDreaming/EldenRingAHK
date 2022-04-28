@@ -1,9 +1,11 @@
 ; https://www.reddit.com/r/AutoHotkey/comments/pcp2uf/dynamically_create_helpgui_from_the_contents_of/?msclkid=8e9f3025c63511ecb336aeacc4aad90c
 #Persistent
+SetWorkingDir, %A_ScriptDir%
 class C_Gui 
 {
 	
 	static bActive := 0
+	static vPic
     __New(  )
     {
 		 
@@ -22,17 +24,26 @@ class C_Gui
 	
 	addMenu( )
 	{
+		
 		ToolTip, % "C_Gui Constructed for Config Menu"		
 		C_Gui.bActive := ! C_Gui.bActive
-		Gui, +AlwaysOnTop +Owner +HwndGuiClassMenu -SysMenu			;+Disabled 
-		Gui, Add, Button, default, GAME
-		Gui, Add, Button, default, COMBOS
-		Gui, Add, Button, default, POUCH
-		Gui, Add, Button, default, BELT
-		Gui, Add, Button, default, SPELL
-		Gui, Add, Button, default, GESTURES
-		Gui, Add, Button, default, CONFIG
-		Gui, Add, Button, default, Close
+		
+		;FileInstall, menuBackground.png, %A_ScriptDir%\assets\images\ui\config\menu\menuBackground.png 0
+		
+		Gui, +AlwaysOnTop +Owner +HwndGuiClassMenu -SysMenu -Caption		;+Disabled 
+		Gui, Add, Picture, x0 y0 w600 h-1 +BackgroundTrans, %A_ScriptDir%\assets\images\ui\config\menu\menuBackground.png
+		;Gui, Add, Pic, w600 h-1 C_Gui.vPic +Border, % "HBITMAP:*" menuBackground.png
+		Gui, Add, Button, x105 y130 w150 h40 default, GAME
+		Gui, Add, Button, x355 y130 w150 h40 default, COMBOS
+		
+		Gui, Add, Button, x105 y200 w150 h40 default, POUCH
+		Gui, Add, Button, x355 y200 w150 h40 default, BELT
+		
+		Gui, Add, Button, x105 y270 w150 h40 default, SPELL
+		Gui, Add, Button, x355 y270 w150 h40 default, GESTURES
+		
+		Gui, Add, Button, x230 y340 w150 h40 default, CONFIG
+		Gui, Add, Button, x180 y450 w245 h50 default, Close
 		this.show("Config Menu")		
 	}
 	
