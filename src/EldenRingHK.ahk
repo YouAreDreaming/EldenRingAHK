@@ -46,9 +46,8 @@ global G_defaultSettings		; default settings
 global G_menuState				; to track if player is in a menu.
 global G_UserSettings
 global G_GuiActive				;
-
 global cGui
-
+global G_FONT := A_ScriptDir "\assets\fonts\EB_Garamond\EBGaramond-Regular.ttf"
 ;----------- Auto-Execution Zone ---------------------------------
 
 
@@ -65,6 +64,7 @@ else
 #include %A_ScriptDir%\Libraries\Debug.ahk
 #include %A_ScriptDir%\ui\InputBoxes.ahk
 #include %A_ScriptDir%\config\defaultHotkeys.ahk
+#Include %A_ScriptDir%\external\OGdip\OGdip.ahk
 
 ;#IfWinActive, "ELDEN RING™" 			 ; not working maybe Antcheat engine blocks when used.   
 
@@ -92,6 +92,8 @@ ButtonCOMBOS:
 	cGui.addGui(G_settings[V_GUI], G_GuiActive, V_GUI)
 return
 ButtonPOUCH:
+
+
 	cGui := new C_GUI()
 	V_GUI := "POUCH"	
 	cGui.addGui(G_settings[V_GUI], G_GuiActive, V_GUI)
@@ -128,7 +130,8 @@ ButtonOK:
 	; viewArray(G_settings["GAME"])
 	if( G_GuiActive )
 	{
-	forIni := []
+	
+		forIni := []
 	
 		For Key, Value in G_settings[V_GUI]
 		{

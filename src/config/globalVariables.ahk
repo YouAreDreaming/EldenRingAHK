@@ -146,4 +146,3 @@ V_GUIFade = 2000			; The gui fades under certain states so we need to change thi
 V_LastKey = 0				; Track the last key pressed
 V_LastKeyTime = 0 			; The time it was pressed
 
-global V_GUI = ""					; The Current GUI
