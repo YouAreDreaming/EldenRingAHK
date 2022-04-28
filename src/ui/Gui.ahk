@@ -2,60 +2,56 @@
 #Persistent
 class C_Gui 
 {
-	static settings
+	
 	static bActive := 0
-    __New( settings )
+    __New(  )
     {
-		C_Gui.settings := settings
-        ToolTip, C_Gui Constructed
-		C_Gui.bActive := ! C_Gui.bActive
-		;C_Gui.settings["V_BBReset"] := "0"
-		;C_Gui.settings["V_BSReset"] := "1"
-		Gui, +AlwaysOnTop +Owner +HwndGuiClassHwnd				;+Disabled -SysMenu
-		this.addElementsFromArray( C_Gui.settings )
-		Gui, Add, Button, default, OK
-		this.show("Gui Class")
-		
-		;this.addGuiControlsFromArray( C_Gui.settings )
-		
-		
-		;while C_Gui.bActive	
-		;	sleep 10
-		;return
-        
+		 
     }
 	__Get(aName)
     {
-        setting := C_Gui.settings[aName]
-        if (setting != "")  
-            return setting        
+        bActive := C_Gui.bActive
+        if (bActive != "")  
+            return bActive        
     }
 
     __Set(aName, aValue)
     {
-        C_Gui.settings[aName] := aValue       
+        C_Gui.bActive := aValue       
     }
 	
-	; Gui, [Add], [ControlType] , [Options], [Text]
-	
-	addElementsFromArray( ar )
+	addGui( aKey )
 	{
+		
+        ToolTip, % "C_Gui Constructed for" aKey	
+		
+		C_Gui.bActive := ! C_Gui.bActive		
+		Gui, +AlwaysOnTop +Owner +HwndGuiClassHwnd -SysMenu			;+Disabled 
+		this.addElementsFromArray( aKey )
+		Gui, Add, Button, default, OK
+		this.show("Gui Class")		
+	}
 	
+	; Gui, [Add], [ControlType] , [Options], [Text]	
+	addElementsFromArray( rArray )
+	{
 		i := 0
 		
-		For aKey, aValue in ar
+		; For aKey, aValue in C_Gui.settings[ rKey ]
+		For aKey, aValue in rArray
 		{
 			vLabel = v%akey%	; passing v%Key% throws warn.
 			this.guiElement( "Add", "Text", "section", aKey ) ; ys option starts a new column
 			this.guiElement( "Add", "Edit", vLabel, aValue )						
 			
-			i := i + 1
+			;i := i + 1
 			
-			if( i > 10 ) {
-				break 
-			}
+			;if( i > 10 ) {
+			;	break 
+			;}
 		}
 	}
+	
 	submit()
 	{
 		ToolTip, User Submitted 

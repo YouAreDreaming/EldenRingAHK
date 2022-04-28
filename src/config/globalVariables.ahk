@@ -45,7 +45,20 @@ V_GUARD = h 			; !!Guard (LH Armament)
 V_SKILL = j 			; !!Skill
 V_USEITEM = b 			; !!Use Item
 V_EVENT_ACTION = Enter 	; !!Event Action (Examine, Open, etc.)
- 
+
+; --- Combo Global Variables for Hotkeys.
+V_AUTORUN = n
+V_PARRY = a
+V_2H_LEFT = +a
+V_2H_RIGHT = +s
+V_LEFTARMEMENT = +d 
+V_RIGHTARMEMENT = +f
+V_JUMPDUALWEILD = +e
+V_CROUCH = w
+V_JUMP = e
+V_JUMPSTRONG = r
+V_TOGGLESPELLHAND = ^+z
+V_TOGGLEDEBUG = ^+!d 
 ;-----[ AutoHotKey Key/Mouse Bindings ] --------------------------------------------
 ;-----  These are keyboard/mouse assignments outside of the Elden Ring in-game settings
  
@@ -115,6 +128,10 @@ V_GESTURE4 = ^4
 V_GESTURE5 = ^5
 V_GESTURE6 = ^6
  
+V_SetSpellSlots	= ^+1
+V_SetBeltSlots	= ^+2
+V_debugGui	= ^+d	
+
    
 ;----- Variables for tracking states.
 ;----- Do not edit these as they are used by the program to track various states
@@ -125,6 +142,8 @@ V_SpellSlot = 0 			; To track what the current slot is for better cycling. Reset
 V_BeltSlot = 0 				; To track what the current belt slot is for better cycling.  Reset position if alingment is off
 V_ToggleSpell := V_GUARD 	; To track what hand is using the wand/incantation item for spell casting.
 V_Gui_Active := 0			; to track the 3 second interval when the D-PAD GUI in the game is open
-V_GUIFade := 2000			; The gui fades under certain states so we need to change this value to match those timing states
-V_LastKey := 0				; Track the last key pressed
-V_LastKeyTime := 0 			; The time it was pressed
+V_GUIFade = 2000			; The gui fades under certain states so we need to change this value to match those timing states
+V_LastKey = 0				; Track the last key pressed
+V_LastKeyTime = 0 			; The time it was pressed
+
+global V_GUI = ""					; The Current GUI

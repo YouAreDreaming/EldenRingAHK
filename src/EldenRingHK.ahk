@@ -41,7 +41,7 @@ SetWorkingDir %A_ScriptDir%
 SendMode InputThenPlay
 
 ; going to define all global variables with a preceeding G_ as functions need to reference
-global G_settings				; user defined settings managed by C_UserSettings and G_Settings
+global G_settings 				; user defined settings managed by C_UserSettings and G_Settings
 global G_defaultSettings		; default settings
 global G_menuState				; to track if player is in a menu.
 
@@ -49,7 +49,7 @@ global cGui
 
 ;----------- Auto-Execution Zone ---------------------------------
 
-initSettings(G_settings)
+
 MsgBox, 4, ,  Eldenring Script started. press Ctrl+Alt+X to stop.
 IfMsgBox Yes
     gosub LaunchGui
@@ -67,13 +67,19 @@ else
 ;#IfWinActive, "ELDEN RING™" 			 ; not working maybe Anti-cheat engine blocks when used.   
 
 
-initSettings(ByRef settings)
-{	
-	cUserSettings := new C_UserSettings("settings.ini", settings)	
-}
+initSettings:
+	cUserSettings := new C_UserSettings("settings.ini", G_settings)
+	;G_settings := C_UserSettings.aSettings
+return		
+
 
 LaunchGui:
-	cGui := new C_GUI(G_settings)	
+	gosub initSettings
+	cGui := new C_GUI()
+	V_GUI := "GAME"
+	
+	cGui.addGui(G_settings[V_GUI])	
+	; viewArray( G_settings[V_GUI] )
 return
 
 ; Looks like the gui is populating global variables outside the class.
@@ -81,23 +87,40 @@ return
 ButtonOK:
 	Gui, Submit, Hide
 	
+	; viewArray(G_settings["GAME"])
+	
 	forIni := []
-	For Key, Value in G_settings
-	{
-		if( %Key% != G_Settings[Key] )
+	
+		For Key, Value in G_settings[V_GUI]
 		{
-			; ToolTip % Key":" %Key% " changed " G_Settings[Key]			
-			forIni[Key] := %Key%			
+			;ToolTip, % Key ": " Value
+			;sleep 50
+			if( %Key% != G_Settings[V_GUI][Key] )
+			{
+				ToolTip % "Key:" Key " changed " G_Settings[V_GUI][Key]			
+				forIni[Key] := Value			
+			}
 		}
-	}
-	Concat := ""
-For Each, Element In forIni
-   Concat .= (Concat <> "" ? "`n" : "") .  Each " : " Element
-MsgBox, %Concat%
-	cGui.submit() ; not working ??	
+		Concat := ""
+	For Each, Element In forIni
+
+	   Concat .= (Concat <> "" ? "`n" : "") .  Each " : " Element
+	MsgBox, %Concat%
+		cGui.submit() ; not working ??	
+	
 	ExitApp
 return
 
 Exit:
 	ExitApp
 return
+
+; --- for debugging arrays.
+viewArray( dArray )
+{
+	FOR dK, Dv in dArray
+	{
+		Tooltip, % "Key: " dK "Value: " Dv
+			sleep 500
+	}
+}
