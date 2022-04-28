@@ -15,7 +15,6 @@
 
 global version := "0.5" ; currently working on v0.5
 
-;--- Do not include any scripts that have hotkeys, subroutines (return) in the Auto-Execution area.
 #include %A_ScriptDir%\config\globalVariables.ahk
 #include %A_ScriptDir%\config\UserSettings.ahk
 #include %A_ScriptDir%\ui\Gui.ahk
@@ -86,6 +85,7 @@ ButtonGAME:
 	V_GUI := "GAME"	
 	cGui.addGui(G_settings[V_GUI], G_GuiActive, V_GUI)
 return
+
 ButtonCOMBOS:
 	cGui := new C_GUI()
 	V_GUI := "COMBOS"	

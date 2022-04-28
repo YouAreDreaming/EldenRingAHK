@@ -115,6 +115,11 @@ class C_Gui
 	; Gui, [Add], [ControlType] , [Options], [Text]	
 	addElementsFromArray( rArray, size )
 	{
+		global V_Categories
+		global V_GUI
+
+		mx := V_Categories[V_GUI]		
+		
 		i := 1
 		j := 1
 		x := 0
@@ -126,13 +131,13 @@ class C_Gui
 		
 		y := ry
 		
+		
 		textFont   := new OGdip.Font( G_FONT , 15)
         rectLayout := [5, 0, 200, 20]
 		textFormat := new OGdip.StringFormat(0)
 		
 		For aKey, aValue in rArray
 		{
-			
 			vLabel = v%akey%	
 			x := rx 		
 			
@@ -140,11 +145,14 @@ class C_Gui
 			dy := % "y"y
 			dw := % "W"tw
 			
+			
+			
 			textBMP := this.drawText( aKey, textFont, rectLayout, textFormat )				 
 			
 			options := % dx " " dy " w200 h20"				
-			this.guiElement( "Add", "Picture", options , "HBITMAP:*"textBMP ) 
-			;this.logNp( "Picture: i: " i " dx: " dx " dy: " dy  )
+			this.guiElement( "Add", "Picture", options , "HBITMAP:*"textBMP )
+			
+			;this.logNp( "Picture: i: " i " dx: " dx " dy: " dy " j: " j )
 			
 			x := rx + 210			
 			dx := % "x"x
@@ -152,17 +160,20 @@ class C_Gui
 			
 			options := % vLabel " " dx " " dy " W100 H20"			 
 			this.guiElement( "Add", "Edit", options, aValue )
-			;this.logNp( "Edit: i: " i " dx: " dx "dy: " dy "dw:" dw )
+			
+			;this.logNp( "Edit: i: " i " dx: " dx "dy: " dy " dw:" dw " j: " j )
 			
 			y := ry + (tw * i) + 5				
 			
 			i := i + 1	
 			j := j + 1	
 			
-			if i > 12 
-				i = 1
+			if( i > mx )
+			{
+				i := 1
+			}
 				
-			if( j == 12 )
+			if( j == (mx+1) )
 			{
 				rx := 400
 				y := ry

@@ -146,3 +146,4 @@ V_GUIFade = 2000			; The gui fades under certain states so we need to change thi
 V_LastKey = 0				; Track the last key pressed
 V_LastKeyTime = 0 			; The time it was pressed
 
+V_Categories := { "GAME": 12, "COMBOS": 14, "POUCH": 10, "BELT": 10,  "SPELL": 10, "GESTURES": 10, "CONFIG": 10 }
