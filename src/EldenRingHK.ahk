@@ -84,37 +84,37 @@ return
 ButtonGAME:
 	cGui := new C_GUI()
 	V_GUI := "GAME"	
-	cGui.addGui(G_settings[V_GUI], G_GuiActive)
+	cGui.addGui(G_settings[V_GUI], G_GuiActive, V_GUI)
 return
 ButtonCOMBOS:
 	cGui := new C_GUI()
 	V_GUI := "COMBOS"	
-	cGui.addGui(G_settings[V_GUI], G_GuiActive)
+	cGui.addGui(G_settings[V_GUI], G_GuiActive, V_GUI)
 return
 ButtonPOUCH:
 	cGui := new C_GUI()
 	V_GUI := "POUCH"	
-	cGui.addGui(G_settings[V_GUI], G_GuiActive)
+	cGui.addGui(G_settings[V_GUI], G_GuiActive, V_GUI)
 return
 ButtonBELT:
 	cGui := new C_GUI()
 	V_GUI := "BELT"	
-	cGui.addGui(G_settings[V_GUI], G_GuiActive)
+	cGui.addGui(G_settings[V_GUI], G_GuiActive, V_GUI)
 return
 ButtonSPELL:
 	cGui := new C_GUI()
 	V_GUI := "SPELL"	
-	cGui.addGui(G_settings[V_GUI], G_GuiActive)
+	cGui.addGui(G_settings[V_GUI], G_GuiActive, V_GUI)
 return
 ButtonGESTURES:
 	cGui := new C_GUI()
 	V_GUI := "GESTURES"	
-	cGui.addGui(G_settings[V_GUI], G_GuiActive)
+	cGui.addGui(G_settings[V_GUI], G_GuiActive, V_GUI)
 return
 ButtonCONFIG:
 	cGui := new C_GUI()
 	V_GUI := "CONFIG"	
-	cGui.addGui(G_settings[V_GUI], G_GuiActive)
+	cGui.addGui(G_settings[V_GUI], G_GuiActive, V_GUI)
 return
 ButtonClose:
 	cGui = ""

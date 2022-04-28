@@ -47,17 +47,38 @@ class C_Gui
 		this.show("Config Menu")		
 	}
 	
-	addGui( aKey )
+	addGui( rArray, vLabel )
 	{
 		
-        ToolTip, % "C_Gui Constructed for" aKey	
-		hw := % "+HwndGui"aKey		
+        
+		hw := % "+HwndGui"vLabel		
 		Gui, +AlwaysOnTop +Owner %hw% -SysMenu			;+Disabled 
-		this.addElementsFromArray( aKey )
+		size := this.array_size( rArray )
+		IF( size <= 6 )
+		{
+			Gui, Add, Picture, x0 y0 w280 h-1 +BackgroundTrans, %A_ScriptDir%\assets\images\ui\config\panel\panel_square.png
+			
+		} else if ( size >6 && size <=12 )
+		{
+			Gui, Add, Picture, x0 y0 w280 h-1 +BackgroundTrans, %A_ScriptDir%\assets\images\ui\config\panel\panel_tall.png
+			
+		}else
+		{
+			Gui, Add, Picture, x0 y0 w625 h-1 +BackgroundTrans, %A_ScriptDir%\assets\images\ui\config\panel\panel_wide.png
+		}
+		this.addElementsFromArray( rArray )
 		Gui, Add, Button, default, OK
 		this.show("Gui Class")		
 	}
-	
+	array_size( rArray )
+	{
+		i := 1
+		FOR k, v IN rArray 
+		{
+			i := i + 1
+		}
+		return i
+	}
 	; Gui, [Add], [ControlType] , [Options], [Text]	
 	addElementsFromArray( rArray )
 	{
