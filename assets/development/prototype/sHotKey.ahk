@@ -5,9 +5,9 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 ; prototpying dynamic hotkeys.  
-; This is a working subroutine prototype using a subrouting as a label inside the prototype function
-
+; This is a working subroutine prototype using a subrouting as a label.
 global gHotKeys := {}
+
 ;Single Argument example:
 	;fHotkey("e", "msgbox", "foobar")
 	
@@ -28,7 +28,6 @@ global gHotKeys := {}
   fHotkey("e", "msgbox", {"foobar":my, "is":dog, "now":likes, "veridic":bacon})
 Return
 
-
 ; https://stackoverflow.com/questions/12851677/dynamically-create-autohotkey-hotkey-to-function-subroutine?msclkid=1675536fc7c911ec9301c69bc06f8213
 fHotkey(hKey, function, arg*) {
     global gHotKeys
@@ -36,13 +35,12 @@ fHotkey(hKey, function, arg*) {
     gHotKeys[hKey].function := function
     gHotKeys[hKey].arg := arg
     Hotkey, %hKey%, HandleHotkey
-	
-	HandleHotkey:			; label is now inside function
-		gHotKeys[A_ThisHotkey].function(gHotKeys[A_ThisHotkey].arg*)	
-	Return
+Return
+
 }
-
-
+HandleHotkey:
+	gHotKeys[A_ThisHotkey].function(gHotKeys[A_ThisHotkey].arg*)
+return
 MsgBox(args) {
 	msg := IsObject(args) ? concat( args ) : args
     msgbox %msg%	

@@ -1,15 +1,22 @@
 ﻿#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
+;#Persistent
+#SingleInstance
 ; #Warn  ; Enable warnings to assist with detecting common errors.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
-global 
-class C_HotKey 
+
+; This moves the dynamic HotKey into a class prototype
+global gHotKeys := {}
+global cHK
+
+cHK := new cHotKey()
+class cHotKey 
 {
 	
 	static aHotKeys := {}
-    __New( rHotKeys )
+    __New( )
     {
-		
+		this.fHotkey("e", "msgbox", "foobar")
 	}
 	
 	__Get(aKey)
@@ -25,11 +32,34 @@ class C_HotKey
 	
     __Delete()
     {
-		MsgBox, cHotKeys has been baleted		
+		MsgBox, cHotKeys has been baleted			
     }
-	_
+	
+	; https://stackoverflow.com/questions/12851677/dynamically-create-autohotkey-hotkey-to-function-subroutine?msclkid=1675536fc7c911ec9301c69bc06f8213
+	fHotkey(hKey, function, arg*) {
+	
+		global gHotKeys
+		
+		gHotKeys[hKey] := {}
+		gHotKeys[hKey].function := function
+		gHotKeys[hKey].arg := arg
+		Hotkey, %hKey%, HandleHotkey
+		
+		HandleHotkey:			; label is now inside function
+			gHotKeys[A_ThisHotkey].function(gHotKeys[A_ThisHotkey].arg*)	
+		Return
+	}
 }
-; Turns out loading in classes with subroutines will break auto-execution zones
-;ButtonOK:
-;	C_Gui.bActive := !C_Gui.bActive	
-; return
+
+
+MsgBox(args) {
+	msg := IsObject(args) ? concat( args ) : args
+    msgbox %msg%	
+	ExitApp
+}
+concat( a ){
+	c := ""
+	for k, v in a 
+		c .= v " "
+	return c
+}
