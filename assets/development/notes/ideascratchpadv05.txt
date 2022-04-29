@@ -1,0 +1,115 @@
+Static Hotkeys - best candidates are keys that require auto-repeat like movement and only if the player
+doesn't directly want to use those keys.
+
+The following keys should not be mapped to a static HotKey as those keys may not work in the Map/Menu/Settings UI in-game.
+Q F G R Y E Z C
+
+The should be managed via dynamic hotkeys that can be turned on/off if the game-state changes to another UI like Map/Menu/settings.
+
+
+We have keys specific to ERs interface
+Then keys that serve programatic functions for combos and utilities that this script extends.
+Programatic actions can serve multiple key presses or key/mouse combos and should be clearly defined and optimize for their role and function.
+
+Here is a basic function that can create dynamic hotkeys not defined in a file. Worth prototyping to explore what we can adapt here. 
+
+Hotkey(hKey, function, arg*) {
+    Static funs := {}, args := {}
+    funs[hKey] := Func(fun), args[hKey] := arg
+    Hotkey, %hKey%, Hotkey_Handle
+Return
+Hotkey_Handle:
+    funs[A_ThisHotkey].(args[A_ThisHotkey]*)
+    Return
+}
+Usage:
+Hotkey("e", "msgbox", "foobar")
+
+MsgBox(msg) {
+    msgbox % msg
+}
+
+Dynamic HotKeys can be turned on/off so we will need to reference all HotKeys so they can be suspended on specific state changes:
+ER menus/map
+This App's Menus.
+
+Hotkey, q , MyQ, On
+Hotkey, z , MyZ, On
+Hotkey, $w , MyW, On
+Hotkey, $s , MyS, On
+Return
+
+We can prototype this into the above.
+^NumpadSub::
+KeyToggle:=!KeyToggle
+Hotkey, q , % (KeyToggle ? "Off": "On")
+Hotkey, z , % (KeyToggle ? "Off": "On")
+Hotkey, $w , % (KeyToggle ? "Off": "On")
+Hotkey, $s , % (KeyToggle ? "Off": "On")
+Return
+
+Other useful HotKey global variables.
+The Most Recently used Hot Key
+A_ThisHotkey
+
+The Previous Hotkey
+A_PriorHotkey
+
+Time in Miliseconds since the hotkey was pressed.
+A_TimeSinceThisHotkey
+
+Another problem is locked keys in a 'down' state an not released.  That seems to happen so 
+knowing what it's MS UP/Down state is and if it's in a state longer than that cycle plus it's not being pressed it needs to be released.
+
+The other thing is potentially preventing keys-spam so while a timed routine is running the key is function call is suspended
+until that timed action is completed.  Generally these are very short timed windows in MS.
+
+What do we need to know about a HotKey and it's bound function:
+
+If it is using up/down and needs to sleep between this cycle or if it's just sending a key that it's sent.
+ eg:
+
+Single-Up down action.
+S_RightArmement:
+	send {%V_DRIGHT% Down}
+	sleep 50
+	send {%V_DRIGHT% Up}
+	sleep 50
+	V_Gui_Active := A_Tickcount
+return
+
+Hold a key down to then send another key for a combo, then release both keys.
+S_2H_Right:
+	SendInput {%V_EVENT_ACTION% down}
+	sleep 25
+	SendInput {%V_ATTACK% down}
+	sleep 25
+	SendInput {%V_ATTACK% up}
+	sleep 25
+	SendInput {%V_EVENT_ACTION% up}
+return
+
+Most combos have animation frames to complete which quite often take a second or more thus suspending repeat key-spam for that action
+would be uneeded.
+
+S_RightArmement has a 100ms sleep cycle so in that 100ms it doesn't need another key press.
+But it's animation cycle may be longer than 100ms so can we define the appoximate animation cycle to suspend 
+repeat keys until ~20ms before completion?  
+
+The above likely will need to become functions not sub-routines for the dynamic declaration of the key+function
+
+Key MetaData:
+KeyState: Suspended/On
+IsActive: (meaning it's now firing  routine/function
+TimeComplete: the time in MS that the action completes if sleep is being used.
+IsUp:
+IsDown:
+IsAnimated:
+AnimationTime: does it's action produce a lengthy in-game animation?
+
+Actions like movement need auto-repeat because unlike an animation frame, moving should never be suspended
+unless it is part of a combo such as dodge.
+
+
+
+

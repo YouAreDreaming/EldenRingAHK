@@ -147,3 +147,6 @@ V_LastKey = 0				; Track the last key pressed
 V_LastKeyTime = 0 			; The time it was pressed
 
 V_Categories := { "GAME": 12, "COMBOS": 14, "POUCH": 10, "BELT": 10,  "SPELL": 10, "GESTURES": 10, "CONFIG": 10 }
+; These keys should not be mapped as static keys ie:  q::SomeAction or they will not work in the Menus of ER.
+; They can be a dynamic HotKey that can be activate/deactived  HotKey, q, SomeAction on
+V_ERMenuKeys:={ "q":0, "f":0 "g":0 "r":0 "y":0 "e":0 "z":0 "c":0 }
