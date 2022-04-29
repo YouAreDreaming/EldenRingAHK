@@ -164,45 +164,7 @@ Exit:
 return
 
 
-Hotkey(hKey, function, arg*) {
-    Static funs := {}, args := {}
-    funs[hKey] := Func(fun), args[hKey] := arg
-    Hotkey, %hKey%, Hotkey_Handle
-Return
-Hotkey_Handle:
-    funs[A_ThisHotkey].(args[A_ThisHotkey]*)
-    Return
-}
 
-Hotkey, q , MyQ, On
-Hotkey, z , MyZ, On
-Hotkey, $w , MyW, On
-Hotkey, $s , MyS, On
-Return
-
-^NumpadSub::
-KeyToggle:=!KeyToggle
-Hotkey, q , % (KeyToggle ? "Off": "On")
-Hotkey, z , % (KeyToggle ? "Off": "On")
-Hotkey, $w , % (KeyToggle ? "Off": "On")
-Hotkey, $s , % (KeyToggle ? "Off": "On")
-Return
-
-MyQ:
-SendInput, w
-Return
-
-MyZ:
-SendInput, s
-Return
-
-MyW:
-SendInput, {Up}
-Return
-
-MyS:
-SendInput, {Down}
-Return
 
 ; --- for debugging arrays.
 viewArray( dArray )

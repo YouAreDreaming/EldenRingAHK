@@ -16,7 +16,7 @@ Here is a basic function that can create dynamic hotkeys not defined in a file. 
 Hotkey(hKey, function, arg*) {
     Static funs := {}, args := {}
     funs[hKey] := Func(fun), args[hKey] := arg
-    Hotkey, %hKey%, Hotkey_Handle
+    Hotkey, %hKey%, Hotkey_Handle 
 Return
 Hotkey_Handle:
     funs[A_ThisHotkey].(args[A_ThisHotkey]*)
