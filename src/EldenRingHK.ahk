@@ -46,7 +46,7 @@ global G_menuState				; to track if player is in a menu.
 global G_UserSettings
 global G_GuiActive				;
 global cGui
-global G_FONT := A_ScriptDir "\assets\fonts\EB_Garamond\EBGaramond-Regular.ttf"
+global G_FONT := A_ScriptDir "\assets\fonts\EB_Garamond\EBGaramond-Bold.ttf"
 ;----------- Auto-Execution Zone ---------------------------------
 
 

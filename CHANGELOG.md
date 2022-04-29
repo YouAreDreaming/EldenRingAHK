@@ -10,6 +10,8 @@ All notable changes to this project will be documented in this file.
  - Added a menu feature to have buttons to open gui's to edit each setting group
  - The menu now has a graphical background.
  - Added graphical assets for the panels.
+ - Added a GDI wrapper to add some flexability to the GUI.
+ 
  
  
 

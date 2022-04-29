@@ -57,38 +57,82 @@ class C_Gui
 	{
 		; Load external font
 		global G_FONT
+		global V_GUI
+		
+		bx := 110		; Button X.
+		by := 310 		; Button Y
+		bw := 100		; Button width
+		bh := 30        ; Button Height
+		
+		hw := % "+HwndGui"vLabel
+		lbl := % V_GUI " SETTINGS"
 		
 		
+		textFont   := new OGdip.Font( G_FONT , 25)		
+		textFormat := new OGdip.StringFormat(0)
 		
-		hw := % "+HwndGui"vLabel		
 		Gui, -SysMenu -Caption +AlwaysOnTop +Owner +LastFound +OwnDialogs %hw% 	;+Disabled 
 		
+		
+		
 		size := this.array_size( rArray )
+		
 		IF( size <= 6 )
 		{
-			Gui, Add, Picture, x0 y0 w280 h-1 +BackgroundTrans, %A_ScriptDir%\assets\images\ui\config\panel\panel_square.png
+			by := 255
+			
+			Gui, Add, Picture, x0 y0 w330 h-1 +BackgroundTrans, %A_ScriptDir%\assets\images\ui\config\panel\panel_square.png
+			
+			rectLayout := [5, 0, 320, 40]	
+			textBMP := this.drawText( lbl, textFont, rectLayout, textFormat, 320 ,35, 0xFF000000 | 0xC8C82D )			 			
+			options := % "x3 y20 w320 h35"	
+			
+			this.guiElement( "Add", "Picture", options , "HBITMAP:*"textBMP )
 			
 		} else if ( (size > 6) && (size <= 12) )
 		{
-			Gui, Add, Picture, x0 y0 w280 h-1 +BackgroundTrans, %A_ScriptDir%\assets\images\ui\config\panel\panel_tall.png			
+			by := 470
+			
+			
+			Gui, Add, Picture, x0 y0 w330 h-1 +BackgroundTrans, %A_ScriptDir%\assets\images\ui\config\panel\panel_tall.png
+			
+			
+			rectLayout := [5, 0, 320, 40]
+			textBMP := this.drawText( lbl, textFont, rectLayout, textFormat, 320 ,35, 0xFF000000 | 0xC8C82D )				 			
+			options := % "x5 y20 w320 h35"	
+			
+			this.guiElement( "Add", "Picture", options , "HBITMAP:*"textBMP )
+			
 		}else 
 		{
-			Gui, Add, Picture, x0 y0 w625 h-1 +BackgroundTrans, %A_ScriptDir%\assets\images\ui\config\panel\panel_wide.png
+			by := 480
+			bx := 265
+			rectLayout := [5, 0, 630, 40]
+			
+			Gui, Add, Picture, x0 y0 w650 h-1 +BackgroundTrans, %A_ScriptDir%\assets\images\ui\config\panel\panel_wide.png
+			
+			textBMP := this.drawText( lbl, textFont, rectLayout, textFormat, 640 ,35, 0xFF000000 | 0xC8C82D )				 			
+			options := % "x2 y20 w640 h35"				
+			this.guiElement( "Add", "Picture", options , "HBITMAP:*"textBMP )
 		}
 		y := this.addElementsFromArray( rArray, size )
 		
-		options := % "x20y" y " w100 h40"
+		options := % "x"bx " y"by " W"bw " H"bh 
+		
+		
 		Gui, Add, Button, % options, OK
 		WinSet, TransColor, EEAA99
 		WinSet, TransColor, 000111, ahk_id %vLabel%
 		this.show("Gui Class")		
 	}
-	drawText( _displayString, textFont, rectLayout,textFormat )
+	
+	drawText( _displayString, textFont, rectLayout,textFormat, lw ,gh, fcolor )
 	{
 		CC := {Base:{__Get:OGdip.GetColor}}
-		bmpText := new OGdip.Bitmap(200, 20)
+		
+		bmpText := new OGdip.Bitmap(lw, gh)
 		bmpText.GetGraphics()
-		bmpText.G.Clear(CC.White)
+		bmpText.G.Clear(CC.Black)
 		bmpText.G.SetOptions( {textHint:"Antialias"})  
 		_RL := rectLayout
 		bmpText.G.SetPen(CC.LGray).SetBrush(CC.EEE)
@@ -99,13 +143,13 @@ class C_Gui
 				, ((_RL[4] == 0) ? 9001 : _RL[4]))
 		}
 		bmpText.G.SetPen("")
-		bmpText.G.SetBrush(CC.Black)
+		bmpText.G.SetBrush(fcolor)
 		bmpText.G.DrawString(_displayString, textFont, rectLayout, textFormat)
 		return bmpText.GetHBITMAP()
 	}
 	array_size( rArray )
 	{
-		i := 1
+		i := 0
 		FOR k, v IN rArray 
 		{
 			i := i + 1
@@ -125,45 +169,53 @@ class C_Gui
 		x := 0
 		y := 0
 		
-		rx := 10
-		ry := 60
+		lm := 10		; 10px for left margin
+		rm := 5			; The  right margin 
+		tm := 5			; The top margin
+		ry := 75		; 75px from the top.
+		
+		lw := 200		; Label width
+		cw := 100		; Edit width
+		
+		gh := 20		; Global height for both label and edit
+		
+		
 		tw := 30		
 		
-		y := ry
-		
+		y := ry + tm		
 		
 		textFont   := new OGdip.Font( G_FONT , 15)
-        rectLayout := [5, 0, 200, 20]
+        rectLayout := [5, 0, lw, gh]
 		textFormat := new OGdip.StringFormat(0)
 		
 		For aKey, aValue in rArray
 		{
 			vLabel = v%akey%	
-			x := rx 		
+			x := lm 		
 			
 			dx := % "x"x
 			dy := % "y"y
 			dw := % "W"tw
 			
+			textBMP := this.drawText( aKey, textFont, rectLayout, textFormat, lw ,gh, 0xFF000000 | 0xFFFFFF )				 
 			
+			options := % dx " " dy " w"lw " h"gh	
 			
-			textBMP := this.drawText( aKey, textFont, rectLayout, textFormat )				 
-			
-			options := % dx " " dy " w200 h20"				
-			this.guiElement( "Add", "Picture", options , "HBITMAP:*"textBMP )
+			this.guiElement( "Add", "Picture", options , "HBITMAP:*"textBMP  )
 			
 			;this.logNp( "Picture: i: " i " dx: " dx " dy: " dy " j: " j )
 			
-			x := rx + 210			
+			x := lm + lw + rm
+			
 			dx := % "x"x
 			dy := % "y"y
 			
-			options := % vLabel " " dx " " dy " W100 H20"			 
+			options := % vLabel " " dx " " dy " W"cw " H"gh			 
 			this.guiElement( "Add", "Edit", options, aValue )
 			
 			;this.logNp( "Edit: i: " i " dx: " dx "dy: " dy " dw:" dw " j: " j )
 			
-			y := ry + (tw * i) + 5				
+			y := ry + (tw * i) + tm				
 			
 			i := i + 1	
 			j := j + 1	
@@ -175,8 +227,8 @@ class C_Gui
 				
 			if( j == (mx+1) )
 			{
-				rx := 400
-				y := ry
+				lm := (lm+lw+rm+cw+rm+lm)
+				y := ry + tm
 			}
 			
 			;this.logNp( "--------------------------------------------" )
@@ -226,10 +278,8 @@ class C_Gui
 	
     __Delete()
     {
-		
-        ToolTip "Gui deleted"		
-		Gui, Destroy
-		;ExitApp
+		ToolTip "Gui deleted"		
+		Gui, Destroy		
     }
 }
 ; Turns out loading in classes with subroutines will break auto-execution zones
