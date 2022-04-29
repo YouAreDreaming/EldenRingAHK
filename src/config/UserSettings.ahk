@@ -125,11 +125,12 @@ class C_UserSettings
 			settings["GESTURES"]["V_GESTURE4"] := "^4"
 			settings["GESTURES"]["V_GESTURE5"] := "^5"
 			settings["GESTURES"]["V_GESTURE6"] := "^6"
-		
+		; Config is likely not applicable for this data-set... 
+		; This class is more specific to User HotKey settings, not application settings.
 		settings["CONFIG"] := []
-			settings["CONFIG"]["V_SPELL_SLOTS"] := "8"
-			settings["CONFIG"]["V_BELT_SLOTS"] := "10"
-			settings["CONFIG"]["V_DEBUG"] := "0"
+			settings["CONFIG"]["V_SPELL_SLOTS"] := "8"  ; not a hot key...
+			settings["CONFIG"]["V_BELT_SLOTS"] := "10"  ; not a hot key...
+			settings["CONFIG"]["V_DEBUG"] := "0"  		; not a hot key...
 			settings["CONFIG"]["V_SetSpellSlots"] := "^+1"
 			settings["CONFIG"]["V_SetBeltSlots"] := "^+2"
 			settings["CONFIG"]["V_debugGui"] := "^+d"
