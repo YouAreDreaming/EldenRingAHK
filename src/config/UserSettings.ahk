@@ -61,7 +61,7 @@ class C_UserSettings
 			settings["COMBOS"]["V_RIGHTARMEMENT"]:="+f"
 			settings["COMBOS"]["V_JUMPDUALWEILD"]:="+e"
 			settings["COMBOS"]["V_CROUCH"]:="w"
-			settings["COMBOS"]["V_JUMP"]:="e"
+			settings["COMBOS"]["V_JUMPATTACK"]:="e"
 			settings["COMBOS"]["V_JUMPSTRONG"]:="r"
 			settings["COMBOS"]["V_TOGGLESPELLHAND"]:="^+z"
 			settings["COMBOS"]["V_TOGGLEDEBUG"]:="^+!d"

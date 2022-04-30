@@ -1,5 +1,7 @@
 ﻿S_ToggleDebug:
 	V_DEBUG := !V_DEBUG
+	IF V_DEBUG
+		gosub S_debugGui
 return
 
 
@@ -26,7 +28,24 @@ S_debugGui:
 	Gui, Add, Text, vBeltSlotText cLime, Current Belt Slot: xx
 	Gui, Add, Text, vSpellArmText cLime, Spell Arm:: xxxx
 	Gui, Add, Text, vLastKeyText cLime, Last Key Pressed: xxxx
-
+	
+	Gui, Add, Text, venabledText cLime, Enabled: xxxxx
+	Gui, Add, Text, vactiveText cLime, active: xxxxx
+	Gui, Add, Text, vupText cLime, up: xxxxx
+	Gui, Add, Text, vdownText cLime, down: xxxxx
+	Gui, Add, Text, vlastpressedText cLime, lastpressed: xxxxxx
+	Gui, Add, Text, vanimationtimeText cLime, animationtime: xxxxxx
+	
+	
+	;FOR k,v IN kd
+	;{
+		;MsgBox %k%
+		
+		;label := v%k%
+		
+		;Gui, Add, Text, label cLime, % k " : xxxx"
+	;}
+	
 	;V_BSReset = 0 				; A boolean to track spell slot reset if it goes out of sync on any button press.
 	;V_BBReset = 0 				; A boolean to track belt slot reset if it goes out of sync on any button press.
 
@@ -36,16 +55,28 @@ S_debugGui:
 	SetTimer, UpdateOSD, 10
 	Gosub, UpdateOSD  ; Make the first update immediate rather than waiting for the timer.
 	Gui, Show, x0 y400 NoActivate  ; NoActivate avoids deactivating the currently active window.
-return
+	return
 
 UpdateOSD:
+
 	mtime:=A_Tickcount - V_Gui_Active
 	bNewKey := ( V_LastKey != A_ThisHotkey ) ? 1 : 0
+	
 	if( bNewKey )
 	{
 		V_LastKeyTime := mtime
-		V_LastKey := A_ThisHotkey
+		V_LastKey := A_ThisHotkey	
 	}
+	
+	osdK := G_HotKeys[A_ThisHotkey]		
+	;nTime:= A_Tickcount - osdK.lastpressed
+	lvenabled := (osdK.enabled) ? "YES" : "NO" 			
+	lvactive := (osdK.active) ? "YES" : "NO" 			 			
+	lvup := (osdK.up) ? "YES" : "NO" 			 				
+	lvdown := (osdK.down) ? "YES" : "NO" 			 			
+	lvlastpressed := A_Tickcount - osdK.lastpressed
+	lvanimationtime := osdK.animationtime
+	
 	GuiControl,, GuiActiveText, % "Game D-Pad GUI State: " mtime
 	GuiControl,, GUIFadeText, % "GUI Fades in: " V_GUIFade	
 	GuiControl,, LastKeyTimeText, % "Time New Key Pressed: " V_LastKeyTime	
@@ -53,6 +84,19 @@ UpdateOSD:
 	GuiControl,, BeltSlotText, % "Current Belt Slot: " V_BeltSlot
 	GuiControl,, SpellArmText, % "Spell Arm:" V_ToggleSpell
 	GuiControl,, LastKeyText, % "Last HotKey Pressed:" A_ThisHotkey
+	
+	; kd = % C_HotKeys.getHotkey(A_ThisHotkey, cHotKey.aHotKeys)
+
+	
+	GuiControl,, enabledText, % "Enabled: " lvenabled
+	GuiControl,, activeText, % "active: " lvactive
+	GuiControl,, upText, % "up: " lvup
+	GuiControl,, downText, % "down: " lvdown
+	GuiControl,, lastpressedText, % "lastpressed: " lvlastpressed
+	GuiControl,, animationtimeText, % "animationtime: " lvanimationtime
+	
+		
+	
 return
 
 ;GuiClose(hWnd) {

@@ -36,7 +36,7 @@ SetWorkingDir %A_ScriptDir%
 SendMode InputThenPlay
 
 #include %A_ScriptDir%\config\globalVariables.ahk
-#include %A_ScriptDir%\config\UserSettings.ahk
+#include %A_ScriptDir%\config\UserSettings.ahk 
 #include %A_ScriptDir%\ui\Gui.ahk
 global G_HotKeyMeta
 #include %A_ScriptDir%\config\hotKeyMetaData.ahk
@@ -49,7 +49,8 @@ global G_menuState				; to track if player is in a menu.
 global G_UserSettings
 global G_GuiActive				;
 global cGui
-global C_HotKeys := {}
+global C_HotKey
+global G_HotKeys := {}
 global G_FONT := A_ScriptDir "\assets\fonts\EB_Garamond\EBGaramond-Bold.ttf"
 global gHotKeys := {}
 
@@ -77,7 +78,7 @@ gosub LaunchGui
 initSettings:
 	G_UserSettings := new C_UserSettings("settings.ini", G_settings)
 	initHotKeyMeta(G_HotKeyMeta)
-	C_HotKeys 		:= new cHotKey( G_settings, G_HotKeyMeta ) 
+	C_HotKey 		:= new cHotKey( G_settings, G_HotKeyMeta, G_HotKeys ) 
 	;G_settings := C_UserSettings.aSettings
 return		
 
@@ -99,8 +100,6 @@ ButtonCOMBOS:
 	cGui.addGui(G_settings[V_GUI], G_GuiActive, V_GUI)
 return
 ButtonPOUCH:
-
-
 	cGui := new C_GUI()
 	V_GUI := "POUCH"	
 	cGui.addGui(G_settings[V_GUI], G_GuiActive, V_GUI)
@@ -165,7 +164,7 @@ ButtonOK:
 return
 
 Exit:
-	ExitApp
+	ExitApp 
 return
 
 

@@ -98,7 +98,7 @@ m::g 							; m for Map
 ;----- don´t touch anything below unless you know what you are doing
 ;-------------------------------------------------------------------------
 ;-------------------------------------------------------------------------
-^!x::
+^!+x::
    MsgBox Eldenring Script stopped.
    exitapp
     

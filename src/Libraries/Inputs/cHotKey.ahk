@@ -10,25 +10,27 @@
 
 class cHotKey 
 {
-	static aHotKeys
+	static aHotKey
 	toggle := 1
 	
     __New( ByRef HotKeys, ByRef Actions )
     {
-		cHotKey.aHotKeys := {}
-		this._addHotkeys( HotKeys, Actions )		
-		this._addHotkey( "F2", this, "_toggle", {"type": "obj"}  )
+		
+		this._addHotkeys( HotKeys, Actions)		
+		this._addHotkey( "^!+q", this, "_toggle", {"type": "obj"})
 		;this.fHotkey("F1", this, "MsgBox", "foobar")		
 	}
 	
-	__Get(aKey)
+	__Get(aKey)            
     {
-        return cHotKey.aHotKeys[aKey]      
+		global G_HotKeys
+		return G_HotKeys[aKey]  
     }
 
     __Set(aKey, aValue)
     {
-        cHotKey.aHotKeys[aKey] := aValue
+		global G_HotKeys
+        G_HotKeys[aKey] := aValue
         ; NOTE: Using 'return' here would break this.stored_RGB and this.RGB.
     }
 	__Call( method, args* )
@@ -42,13 +44,32 @@ class cHotKey
     {
 		MsgBox, cHotKeys has been baleted			
     }
+	
+	getHotkey()
+	{
+		global G_HotKeys
+		
+		return G_HotKeys[A_ThisHotkey]
+		;
+		;IF A_ThisHotkey IN cHotKey.aHotKeys
+		;{
+		;	MsgBox Found Key %A_ThisHotkey%
+	;		return cHotKey.aHotKeys[A_ThisHotkey]
+	;	}
+	;	ELSE 
+	;		MsgBox Not Found %A_ThisHotkey%
+	;		return 0
+			
+		;return CHotKey.aHotKey[getHotkey(A_ThisHotkey)]
+		
+	}
 	_toggle()
 	{
 		; global cHotKey.aHotKeys
-		
+		global G_HotKeys
 		this.toggle := !this.toggle		
 		
-		FOR k, v IN cHotKey.aHotKeys			
+		FOR k, v IN G_HotKeys			
 			IF( !this.toggle &&  k != "F2" )			
 				HotKey, %k%, HandleHotkey, off
 			ELSE 
@@ -73,7 +94,7 @@ class cHotKey
 				; Don't ask me why... but passing these into another function makes it work... ???? interpreter issues likely fixed in V2?
 				args := this._getVal( cat,label, b )
 				
-				func := % args.label
+				func := % args.label		; work
 				hKey := % hk				; Same problem the hk key reference cannot pass to the function as the key reference so ?? translated/recasted ?? weird man.. weird.
 				; MsgBox Testing If Function %func%
 				IF func						
@@ -88,18 +109,18 @@ class cHotKey
 	; For example, if x.y refers to this function object, x.y() → this[x]() → this.__Call(x) → this.Call(x).
 	_addHotkey( hKey, ByRef obj, ByRef function, arg  ) 
 	{	
-		; global cHotKey.aHotKeys
+		global G_HotKeys
 		
-		cHotKey.aHotKeys[hKey] 					:= {}
-		cHotKey.aHotKeys[hKey].function 		:= function
-		cHotKey.aHotKeys[hKey].arg 				:= arg
-		cHotKey.aHotKeys[hKey].obj 				:= obj
-		cHotKey.aHotKeys[hKey].enabled 			:= 1					; KeyState: Suspended/On
-		cHotKey.aHotKeys[hKey].active 			:= 0					; IsActive: (meaning it's now firing  routine/function
-		cHotKey.aHotKeys[hKey].up 				:= 0					; IsUp
-		cHotKey.aHotKeys[hKey].down 			:= 0					; IsDown
-		cHotKey.aHotKeys[hKey].lastpressed		:= 0					; The last time it was pressed				
-		cHotKey.aHotKeys[hKey].animationtime 	:= arg.animationtime 	; 	 
+		G_HotKeys[hKey] 				:= {}
+		G_HotKeys[hKey].function 		:= function
+		G_HotKeys[hKey].arg 			:= arg
+		G_HotKeys[hKey].obj 			:= obj
+		G_HotKeys[hKey].enabled 		:= 1					; KeyState: Suspended/On
+		G_HotKeys[hKey].active 			:= 0					; IsActive: (meaning it's now firing  routine/function
+		G_HotKeys[hKey].up 				:= 0					; IsUp
+		G_HotKeys[hKey].down 			:= 0					; IsDown
+		G_HotKeys[hKey].lastpressed		:= 0					; The last time it was pressed				
+		G_HotKeys[hKey].animationtime 	:= arg.animationtime 	; 	 
 			
 		type := % arg.type
 		
@@ -115,43 +136,53 @@ class cHotKey
 				Hotkey, %hKey%, HandleHotkey, On			; to suspend we need to set on	
 			return				
 			case "reference":
-				MsgBox Not sure yet on references what I want to do.
+			Hotkey, %hKey%, ON
+				;MsgBox Not sure yet on references what I want to do.
 			return
 		}
 			
 		HandleHotkey:
 			; This was a process but finally got it working so many idioms and neuances in AHK I have to over-come.
 			
-			IF !cHotKey.aHotKeys[A_ThisHotkey].enabled
+			IF !G_HotKeys[A_ThisHotkey].enabled
 				Return
 	
-			IF cHotKey.aHotKeys[A_ThisHotkey].active			; to prevent key spam
-				return
-				
-			IF cHotKey.aHotKeys[A_ThisHotkey].lastpressed > 0
+			IF G_HotKeys[A_ThisHotkey].active			; to prevent key spam
 			{
-				time := A_Tickcount - cHotKey.aHotKeys[A_ThisHotkey].lastpressed 
+				Msgbox No Spam
+				return
+			}
 				
-				IF time < cHotKey.aHotKeys[A_ThisHotkey].animationtime
+			IF G_HotKeys[A_ThisHotkey].lastpressed > 0
+			{
+				ptime := A_Tickcount - G_HotKeys[A_ThisHotkey].lastpressed 
+				atime := G_HotKeys[A_ThisHotkey].animationtime * 1
+				
+				IF (ptime < atime)
+				{
+					Msgbox Still Animating %ptime% < %atime%
 					return
+				}ELSE {
+					G_HotKeys[A_ThisHotkey].lastpressed = 0
+				}
 			}
 			
-			IF IsObject( cHotKey.aHotKeys[A_ThisHotkey].obj )
+			IF IsObject( G_HotKeys[A_ThisHotkey].obj )
 			{
 				;MsgBox Handling Object HotKey
-				o := cHotKey.aHotKeys[A_ThisHotkey].obj
-				f := cHotKey.aHotKeys[A_ThisHotkey].function				
-				a := cHotKey.aHotKeys[A_ThisHotkey].arg
+				o := G_HotKeys[A_ThisHotkey].obj
+				f := G_HotKeys[A_ThisHotkey].function				
+				a := G_HotKeys[A_ThisHotkey].arg
 				
 				o[f]( a )										
-			}ELSE IF IsFunc( cHotKey.aHotKeys[A_ThisHotkey].function )				
+			}ELSE IF IsFunc( G_HotKeys[A_ThisHotkey].function )				
 			{
 				; MsgBox Attempting to fire function hotkey %A_ThisHotkey% 
-				cHotKey.aHotKeys[A_ThisHotkey].function(cHotKey.aHotKeys[A_ThisHotkey].arg)
+				G_HotKeys[A_ThisHotkey].function(G_HotKeys[A_ThisHotkey].arg)
 				
-			} ELSE IF IsLabel( cHotKey.aHotKeys[A_ThisHotkey].function )
+			} ELSE IF IsLabel( G_HotKeys[A_ThisHotkey].function )
 			{
-				Gosub % cHotKey.aHotKeys[A_ThisHotkey].function 
+				Gosub % G_HotKeys[A_ThisHotkey].function 
 			}				
 		Return
 	}

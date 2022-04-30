@@ -1,7 +1,7 @@
 # CHANGELOG
 
 All notable changes to this project will be documented in this file.
-## [0.4] - 2022-04-26 - Created a GUI class for dynamic in-game settings UI
+## [0.5] - 2022-04-30 - Created a GUI class for dynamic in-game settings UI
  - This is the start of the in-game GUI to modify keybindings 
  - A GUI displays global variables and changes are stores into an ini array for saving/loading
  - App can now write to settings.ini when settings change in gui.
@@ -11,6 +11,11 @@ All notable changes to this project will be documented in this file.
  - The menu now has a graphical background.
  - Added graphical assets for the panels.
  - Added a GDI wrapper to add some flexability to the GUI.
+ - Created a dynamic HotKey class to manage hotkeys.
+ - Added a meta-data layer to hotkeys to work with certain states
+ - Added toggle hotkeys to enable/disable hotkeys
+ - Added HotKey metadata to the debug Gui
+ 
  
  
  
