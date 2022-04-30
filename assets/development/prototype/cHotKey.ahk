@@ -10,6 +10,7 @@ global gHotKeys := {}
 global cHK
 
 cHK := new cHotKey()
+
 class cHotKey 
 {
 	
