@@ -1,11 +1,4 @@
-﻿#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
-#Persistent
-;#SingleInstance
-; #Warn  ; Enable warnings to assist with detecting common errors.
-SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
-SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
-
-; This moves the dynamic HotKey into a class prototype and lets the entire class contain all 
+﻿; This moves the dynamic HotKey into a class prototype and lets the entire class contain all 
 ; subroutine and functions
 
 ; going to scope this prototype to see if it will manage the requirements of this application.
@@ -14,54 +7,28 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 ; certain hotkeys and suspend.
 
 ; Time to see how to work in meta-data for key states.
- 
-global gHotKeys := {}  ; unless anything outside of the HotKey class needs access this likely can move to that class.
-global cHK
-
-; Settings current associative array structure.
-global settings := []
-	settings["COMBOS"] := []
-	settings["COMBOS"] := []
-	settings["GAME"] := [] 
-		settings["COMBOS"]["V_JUMPDUALWEILD"]	:= "+e" ; A normal  
-		settings["COMBOS"]["V_JUMPSTRONG"]		:= "r" 	; this interrupts 'R' in the menu state.
-		settings["GAME"]["V_MOVE_FORWARD"] 		:= "y" 	; movement keys prefer static a::y so dynamic key?
-
-; need to define what these above settings bind to for actions in another reference array
-global hkActions := []
-hkActions["COMBOS"] 	:= []
-hkActions["COMBOS"] 	:= []
-hkActions["GAME"] 		:= [] 
-
-; scoping some meta data types 
-hkActions["COMBOS"]["V_JUMPDUALWEILD"] 	:= { "type": "func", 	"label": "S_JumpDualWeild", "animationtime": "1000"	}
-hkActions["COMBOS"]["V_JUMPSTRONG"] 	:= { "type": "func",	"label": "S_JumpStrong", "animationtime": "1000"	}
-hkActions["GAME"]["V_MOVE_FORWARD"] 	:= { "type": "reference"	}
-
-cHK := new cHotKey( settings, hkActions )
-
-return
 
 class cHotKey 
 {
-	static aHotKeys := {}
+	static aHotKeys
 	toggle := 1
+	
     __New( ByRef HotKeys, ByRef Actions )
     {
-		this._addHotkeys( HotKeys, Actions )
-		
+		cHotKey.aHotKeys := {}
+		this._addHotkeys( HotKeys, Actions )		
 		this._addHotkey( "F2", this, "_toggle", {"type": "obj"}  )
 		;this.fHotkey("F1", this, "MsgBox", "foobar")		
 	}
 	
 	__Get(aKey)
     {
-        return aHotKeys.aHotKeys[aKey]      
+        return cHotKey.aHotKeys[aKey]      
     }
 
     __Set(aKey, aValue)
     {
-        aHotKeys.aHotKeys[aKey] := aValue
+        cHotKey.aHotKeys[aKey] := aValue
         ; NOTE: Using 'return' here would break this.stored_RGB and this.RGB.
     }
 	__Call( method, args* )
@@ -77,34 +44,39 @@ class cHotKey
     }
 	_toggle()
 	{
-		global gHotKeys
+		; global cHotKey.aHotKeys
 		
 		this.toggle := !this.toggle		
 		
-		FOR k, v IN gHotKeys			
+		FOR k, v IN cHotKey.aHotKeys			
 			IF( !this.toggle &&  k != "F2" )			
 				HotKey, %k%, HandleHotkey, off
 			ELSE 
 				HotKey, %k%, HandleHotkey, on
 	}
+	_getVal( k1, k2, a )
+	{
+		return a[k1][k2]
+	}
 	_addHotkeys( ByRef a, ByRef b )
 	{	
-		
+		aB = ""
+		args = ""
 		for cat, cArr in a
-		{		
+		{	
 			for label, hk in cArr
 			{
 				; to much sadness... it took this relabeling of the string to work in addressing
 				; the key of the secondary array reference and I really don't know why b[cat][lable] doesn't work.
-				newCat := % cat
-				newLabel := % label
+				;newCat 		:= % cat
+				;newLabel 	:= % label
+				; Don't ask me why... but passing these into another function makes it work... ???? interpreter issues likely fixed in V2?
+				args := this._getVal( cat,label, b )
 				
-				
-				args := b[newCat][newLabel]
 				func := % args.label
 				hKey := % hk				; Same problem the hk key reference cannot pass to the function as the key reference so ?? translated/recasted ?? weird man.. weird.
-				
-				IF func
+				; MsgBox Testing If Function %func%
+				IF func						
 					this._addHotkey(hKey, "", func, args)
 				;else MsgBox No Label for Hot Key skipping %cat% %label%
 			}
@@ -116,24 +88,27 @@ class cHotKey
 	; For example, if x.y refers to this function object, x.y() → this[x]() → this.__Call(x) → this.Call(x).
 	_addHotkey( hKey, ByRef obj, ByRef function, arg  ) 
 	{	
-		global gHotKeys
+		; global cHotKey.aHotKeys
 		
-		gHotKeys[hKey] 					:= {}
-		gHotKeys[hKey].function 		:= function
-		gHotKeys[hKey].arg 				:= arg
-		gHotKeys[hKey].obj 				:= obj
-		gHotKeys[hKey].enabled 			:= 1					; KeyState: Suspended/On
-		gHotKeys[hKey].active 			:= 0					; IsActive: (meaning it's now firing  routine/function
-		gHotKeys[hKey].up 				:= 0					; IsUp
-		gHotKeys[hKey].down 			:= 0					; IsDown
-		gHotKeys[hKey].lastpressed		:= 0					; The last time it was pressed				
-		gHotKeys[hKey].animationtime 	:= arg.animationtime 	; 	 
+		cHotKey.aHotKeys[hKey] 					:= {}
+		cHotKey.aHotKeys[hKey].function 		:= function
+		cHotKey.aHotKeys[hKey].arg 				:= arg
+		cHotKey.aHotKeys[hKey].obj 				:= obj
+		cHotKey.aHotKeys[hKey].enabled 			:= 1					; KeyState: Suspended/On
+		cHotKey.aHotKeys[hKey].active 			:= 0					; IsActive: (meaning it's now firing  routine/function
+		cHotKey.aHotKeys[hKey].up 				:= 0					; IsUp
+		cHotKey.aHotKeys[hKey].down 			:= 0					; IsDown
+		cHotKey.aHotKeys[hKey].lastpressed		:= 0					; The last time it was pressed				
+		cHotKey.aHotKeys[hKey].animationtime 	:= arg.animationtime 	; 	 
 			
 		type := % arg.type
-			
+		
 		switch type
 		{
 			case "obj":
+				Hotkey, %hKey%, HandleHotkey, On
+			return
+			case "func":
 				Hotkey, %hKey%, HandleHotkey, On
 			return
 			case "sub":	
@@ -147,87 +122,38 @@ class cHotKey
 		HandleHotkey:
 			; This was a process but finally got it working so many idioms and neuances in AHK I have to over-come.
 			
-			IF !gHotKeys[A_ThisHotkey].enabled
+			IF !cHotKey.aHotKeys[A_ThisHotkey].enabled
 				Return
 	
-			IF gHotKeys[A_ThisHotkey].active			; to prevent key spam
+			IF cHotKey.aHotKeys[A_ThisHotkey].active			; to prevent key spam
 				return
 				
-			IF gHotKeys[A_ThisHotkey].lastpressed > 0
+			IF cHotKey.aHotKeys[A_ThisHotkey].lastpressed > 0
 			{
-				time := A_Tickcount - gHotKeys[A_ThisHotkey].lastpressed 
+				time := A_Tickcount - cHotKey.aHotKeys[A_ThisHotkey].lastpressed 
 				
-				IF time < gHotKeys[A_ThisHotkey].animationtime
+				IF time < cHotKey.aHotKeys[A_ThisHotkey].animationtime
 					return
 			}
 			
-			IF IsObject( gHotKeys[A_ThisHotkey].obj )
+			IF IsObject( cHotKey.aHotKeys[A_ThisHotkey].obj )
 			{
 				;MsgBox Handling Object HotKey
-				o := gHotKeys[A_ThisHotkey].obj
-				f := gHotKeys[A_ThisHotkey].function				
-				a := gHotKeys[A_ThisHotkey].arg
+				o := cHotKey.aHotKeys[A_ThisHotkey].obj
+				f := cHotKey.aHotKeys[A_ThisHotkey].function				
+				a := cHotKey.aHotKeys[A_ThisHotkey].arg
 				
 				o[f]( a )										
-			}ELSE IF IsFunc( gHotKeys[A_ThisHotkey].function )				
+			}ELSE IF IsFunc( cHotKey.aHotKeys[A_ThisHotkey].function )				
 			{
-				;MsgBox Attempting to fire function hotkey %A_ThisHotkey% 
-				gHotKeys[A_ThisHotkey].function(gHotKeys[A_ThisHotkey].arg)
+				; MsgBox Attempting to fire function hotkey %A_ThisHotkey% 
+				cHotKey.aHotKeys[A_ThisHotkey].function(cHotKey.aHotKeys[A_ThisHotkey].arg)
 				
-			} ELSE IF IsLabel( gHotKeys[A_ThisHotkey].function )
+			} ELSE IF IsLabel( cHotKey.aHotKeys[A_ThisHotkey].function )
 			{
-				Gosub % gHotKeys[A_ThisHotkey].function 
+				Gosub % cHotKey.aHotKeys[A_ThisHotkey].function 
 			}				
 		Return
 	}
 }
 
-; Jump+Dual-Wield Combo Attack
-S_JumpDualWeild(){
-	global gHotKeys
-	
-	
-   gHotKeys[A_ThisHotkey].active 		:= 1	
-   gHotKeys[A_ThisHotkey].lastpressed 	:= A_Tickcount		
-   
-   SendInput {%V_JUMP% down}
-   gHotKeys[A_ThisHotkey].down 			:= 1
-   gHotKeys[A_ThisHotkey].up 			:= 0
-   sleep 300
-   
-   SendInput {%V_JUMP% up}
-   gHotKeys[A_ThisHotkey].down 			:= 0
-   gHotKeys[A_ThisHotkey].up 			:= 1
-   
-   sleep 25
-   SendInput {%V_GUARD% down}  
-   gHotKeys[A_ThisHotkey].down 			:= 1 
-   
-   sleep 25
-   SendInput {%V_GUARD% up}
-   gHotKeys[A_ThisHotkey].up 			:= 0
-   gHotKeys[A_ThisHotkey].down 			:= 0   
-   gHotKeys[A_ThisHotkey].active 		:= 0
-   MsgBox JumpDualWeild Success!
-return
-}
-
-; Jump+Strong+Attack
-S_JumpStrong(){
-	global gHotKeys
-	MsgBox S_JumpStrong Success!
-   SendInput {%V_JUMP% down}
-   sleep 300
-   SendInput {%V_JUMP% up}
-   sleep 25
-   SendInput {%V_SATTACK% down}
-   sleep 300
-   SendInput {%V_SATTACK% up}
-return
-}
-
-ExitApp:
-	ExitApp
-Return
-
-F1::gosub ExitApp

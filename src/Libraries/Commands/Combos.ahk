@@ -35,6 +35,8 @@ return
 ; Jump+Dual-Wield Combo Attack
 S_JumpDualWeild(){
 	global gHotKeys	
+	global V_JUMP
+	global V_GUARD
 	
    gHotKeys[A_ThisHotkey].active 		:= 1	
    gHotKeys[A_ThisHotkey].lastpressed 	:= A_Tickcount		
@@ -57,7 +59,7 @@ S_JumpDualWeild(){
    gHotKeys[A_ThisHotkey].up 			:= 0
    gHotKeys[A_ThisHotkey].down 			:= 0   
    gHotKeys[A_ThisHotkey].active 		:= 0
-   MsgBox JumpDualWeild Success!
+   ;MsgBox JumpDualWeild Success!
 return
 }
  

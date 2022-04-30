@@ -15,10 +15,6 @@
 
 global version := "0.5" ; currently working on v0.5
 
-#include %A_ScriptDir%\config\globalVariables.ahk
-#include %A_ScriptDir%\config\UserSettings.ahk
-#include %A_ScriptDir%\ui\Gui.ahk
-
 #SingleInstance Force
 #Persistent
 #NoEnv
@@ -39,6 +35,13 @@ SendMode Input
 SetWorkingDir %A_ScriptDir%
 SendMode InputThenPlay
 
+#include %A_ScriptDir%\config\globalVariables.ahk
+#include %A_ScriptDir%\config\UserSettings.ahk
+#include %A_ScriptDir%\ui\Gui.ahk
+global G_HotKeyMeta
+#include %A_ScriptDir%\config\hotKeyMetaData.ahk
+
+
 ; going to define all global variables with a preceeding G_ as functions need to reference
 global G_settings 				; user defined settings managed by C_UserSettings and G_Settings
 global G_defaultSettings		; default settings
@@ -46,19 +49,21 @@ global G_menuState				; to track if player is in a menu.
 global G_UserSettings
 global G_GuiActive				;
 global cGui
+global C_HotKeys := {}
 global G_FONT := A_ScriptDir "\assets\fonts\EB_Garamond\EBGaramond-Bold.ttf"
-global G_HotKeys := {}
+global gHotKeys := {}
+
 ;----------- Auto-Execution Zone ---------------------------------
 
+gosub initSettings
+gosub LaunchGui
+;MsgBox, 4, ,  Eldenring Script started. press Ctrl+Alt+X to stop.
 
-MsgBox, 4, ,  Eldenring Script started. press Ctrl+Alt+X to stop.
-IfMsgBox Yes
-	gosub initSettings
-    gosub LaunchGui
-else
-    gosub Exit
+	
 ;----------- End Auto-Execution Zone
 ; Include any hotkeys, subroutines files here
+#include %A_ScriptDir%\Libraries\Inputs\cHotKey.ahk
+
 #include %A_ScriptDir%\Libraries\Commands\CommandRegistry.ahk
 #include %A_ScriptDir%\Libraries\GameStates\DpadUI.ahk
 #include %A_ScriptDir%\Libraries\Inputs\Keys.ahk
@@ -69,14 +74,14 @@ else
 
 ;#IfWinActive, "ELDEN RING™" 			 ; not working maybe Antcheat engine blocks when used.   
 
-
 initSettings:
 	G_UserSettings := new C_UserSettings("settings.ini", G_settings)
+	initHotKeyMeta(G_HotKeyMeta)
+	C_HotKeys 		:= new cHotKey( G_settings, G_HotKeyMeta ) 
 	;G_settings := C_UserSettings.aSettings
 return		
 
-LaunchGui:
-	
+LaunchGui:	
 	G_GuiActive := 1
 	cGui := new C_GUI()	
 	cGui.addMenu()		
