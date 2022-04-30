@@ -34,9 +34,9 @@ hkActions["COMBOS"] 	:= []
 hkActions["GAME"] 		:= [] 
 
 ; scoping some meta data types 
-hkActions["COMBOS"]["V_JUMPDUALWEILD"] 	:= { "role": "event", 	"type": "sub", 		"label": "S_JumpDualWeild", "animationtime": "1000"	}
-hkActions["COMBOS"]["V_JUMPSTRONG"] 	:= { "role": "event", 	"type": "sub",		"label": "S_JumpStrong", "animationtime": "1000"	}
-hkActions["GAME"]["V_MOVE_FORWARD"] 	:= { "role": "repeat",	"type": "reference"	}
+hkActions["COMBOS"]["V_JUMPDUALWEILD"] 	:= { "type": "func", 	"label": "S_JumpDualWeild", "animationtime": "1000"	}
+hkActions["COMBOS"]["V_JUMPSTRONG"] 	:= { "type": "func",	"label": "S_JumpStrong", "animationtime": "1000"	}
+hkActions["GAME"]["V_MOVE_FORWARD"] 	:= { "type": "reference"	}
 
 cHK := new cHotKey( settings, hkActions )
 

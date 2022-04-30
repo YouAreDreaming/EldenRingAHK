@@ -33,15 +33,33 @@ S_Jump:
 return
  
 ; Jump+Dual-Wield Combo Attack
-S_JumpDualWeild:
+S_JumpDualWeild(){
+	global gHotKeys	
+	
+   gHotKeys[A_ThisHotkey].active 		:= 1	
+   gHotKeys[A_ThisHotkey].lastpressed 	:= A_Tickcount		
+   
    SendInput {%V_JUMP% down}
+   gHotKeys[A_ThisHotkey].down 			:= 1
+   gHotKeys[A_ThisHotkey].up 			:= 0
    sleep 300
+   
    SendInput {%V_JUMP% up}
+   gHotKeys[A_ThisHotkey].down 			:= 0
+   gHotKeys[A_ThisHotkey].up 			:= 1
+   
    sleep 25
-   SendInput {%V_GUARD% down}
+   SendInput {%V_GUARD% down}  
+   gHotKeys[A_ThisHotkey].down 			:= 1 
+   
    sleep 25
    SendInput {%V_GUARD% up}
+   gHotKeys[A_ThisHotkey].up 			:= 0
+   gHotKeys[A_ThisHotkey].down 			:= 0   
+   gHotKeys[A_ThisHotkey].active 		:= 0
+   MsgBox JumpDualWeild Success!
 return
+}
  
 ; Jump+Strong+Attack
 S_JumpStrong:
