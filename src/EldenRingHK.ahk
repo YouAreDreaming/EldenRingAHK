@@ -45,20 +45,20 @@ global G_HotKeyMeta
 
 
 ; going to define all global variables with a preceeding G_ as functions need to reference
-global G_settings 				; user defined settings managed by C_UserSettings and G_Settings
-global G_defaultSettings		; default settings
-global G_menuState				; to track if player is in a menu.
-global G_UserSettings
-global G_GuiActive				;
-global cGui
-global C_HotKey
-global G_HotKeys := {}
 global G_FONT := A_ScriptDir "\assets\fonts\EB_Garamond\EBGaramond-Bold.ttf"
-global gHotKeys := {}
-global gDebugMessage := "Enabled"
-global hotKeytoggle := 1
-global G_AutoLock := 1			; Turns on auto-lock
+global cGui							; Class Gui
+global C_HotKey						; Class HotKey
+global G_settings := {}				; user defined settings managed by C_UserSettings and G_Settings
+global G_defaultSettings			; default settings
+global G_menuState					; to track if player is in a menu.
+global G_UserSettings				;
+global G_GuiActive	:= 0			;
+global G_HotKeys := {}				; See if one of these are redundant.
+global gHotKeys := {}				;
+global gDebugMessage := "Enabled"	; Holds the messages displayed at the bottom of the Debug GUI.
+global hotKeytoggle := 1			; in defaultHotKeys.ahk 
 
+			
 ;----------- Auto-Execution Zone ---------------------------------
 
 gosub initSettings
@@ -75,11 +75,12 @@ gosub LaunchGui
 #include %A_ScriptDir%\Libraries\Inputs\Keys.ahk
 #include %A_ScriptDir%\Libraries\Debug.ahk
 #include %A_ScriptDir%\ui\InputBoxes.ahk
-#include %A_ScriptDir%\config\defaultHotkeys.ahk
-
 #Include %A_ScriptDir%\external\OGdip\OGdip.ahk
 
-;#IfWinActive, "ELDEN RING™" 			 ; not working maybe Antcheat engine blocks when used.   
+;#IfWinActive, "eldenring.exe"
+;#IfWinActive, "ELDEN RING™.exe" 			 ; not working maybe Antcheat engine blocks when used. 
+#include %A_ScriptDir%\config\defaultHotkeys.ahk
+#include %A_ScriptDir%\userDefinedHotkeys.ahk				; User can add custom hotkeys here 
 
 initSettings:
 	G_UserSettings := new C_UserSettings("settings.ini", G_settings)
@@ -89,10 +90,15 @@ initSettings:
 return		
 
 LaunchGui:	
-	G_GuiActive := 1
-	cGui := new C_GUI()	
-	cGui.addMenu()	
-    gosub S_TOGGLEKEYS	
+	G_GuiActive := ( G_GuiActive ) ? 0 : 1
+	IF G_GuiActive 
+	{
+		gosub S_TOGGLEKEYS	
+		cGui := new C_GUI()	
+		cGui.addMenu()	
+		
+	} Else
+		cGui := ""
 return
 
 ButtonGAME:
@@ -100,7 +106,6 @@ ButtonGAME:
 	V_GUI := "GAME"	
 	cGui.addGui(G_settings[V_GUI], G_GuiActive, V_GUI)
 return
-
 ButtonCOMBOS:
 	cGui := new C_GUI()
 	V_GUI := "COMBOS"	
@@ -126,6 +131,11 @@ ButtonGESTURES:
 	V_GUI := "GESTURES"	
 	cGui.addGui(G_settings[V_GUI], G_GuiActive, V_GUI)
 return
+ButtonTOGGLE:
+	cGui := new C_GUI()
+	V_GUI := "TOGGLE"	
+	cGui.addGui(G_settings[V_GUI], G_GuiActive, V_GUI)
+return
 ButtonCONFIG:
 	cGui := new C_GUI()
 	V_GUI := "CONFIG"	
@@ -149,29 +159,35 @@ S_TOGGLEKEYS:
 return
 
 S_TOGGLEAUTOLOCK:
-	G_AutoLock := (G_AutoLock) ? 0 : 1
-	alState := (G_AutoLock) ? "ON" : "OFF"
+	V_AutoLock := (V_AutoLock) ? 0 : 1
 	gDebugMessage := % "AutoLock is " alState
+	alState := (V_AutoLock) ? "ON" : "OFF"
 return
+
+getVal( k, ar )
+{
+	return ar[k]
+}
+
 ; Looks like the gui is populating global variables outside the class.
 ; will have to handle the settings here.
 ButtonOK:
 	Gui, Submit, Hide
 	
-	; viewArray(G_settings["GAME"])
-	if( G_GuiActive )
-	{
+	;if( G_GuiActive )
+	;{
 	
-		forIni := []
-	
-		For Key, Value in G_settings[V_GUI]
+		forIni := []		
+		
+		fml := getVal( V_GUI, G_settings )
+		
+		For Key, Value in fml
 		{
-			;ToolTip, % Key ": " Value
-			;sleep 50
-			if( %Key% != G_Settings[V_GUI][Key] )
+			;MsgBox := % "Menu Submit - V_GUI: " V_GUI " Key: " Key " Value: " Value
+			if( %Key% != fml[Key] )
 			{
-				; ToolTip % "Key:" Key " changed " G_Settings[V_GUI][Key]			
-				forIni[Key] := Value			
+				; MsgBox % "Key:" Key " changed " 							
+				forIni[Key] := %Key%			
 			}
 		}
 		Concat := ""
@@ -180,7 +196,7 @@ ButtonOK:
 		;   Concat .= (Concat <> "" ? "`n" : "") .  Each " : " Element
 		;MsgBox, %Concat%
 		G_UserSettings.submitIniChanges( forIni, V_GUI ) 
-	}
+	;}
 	
 	cGui := new C_GUI()	
 	cGui.addMenu()	

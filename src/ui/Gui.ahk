@@ -33,6 +33,8 @@ class C_Gui
 		;FileInstall, menuBackground.png, %A_ScriptDir%\assets\images\ui\config\menu\menuBackground.png 0
 		
 		Gui, -SysMenu -Caption +AlwaysOnTop +Owner +LastFound +OwnDialogs +HwndGuiClassMenu		;+Disabled  +E0x80000 
+		Gui, Color, 000222
+		
 		Gui, Add, Picture, x0 y0 w600 h-1 +BackgroundTrans, %A_ScriptDir%\assets\images\ui\config\menu\menuBackground.png
 		;Gui, Add, Pic, w600 h-1 C_Gui.vPic +Border, % "HBITMAP:*" menuBackground.png
 		Gui, Add, Button, x105 y130 w150 h40 default, GAME
@@ -44,12 +46,13 @@ class C_Gui
 		Gui, Add, Button, x105 y270 w150 h40 default, SPELL
 		Gui, Add, Button, x355 y270 w150 h40 default, GESTURES
 		
-		Gui, Add, Button, x230 y340 w150 h40 default, CONFIG
+		Gui, Add, Button, x105 y340 w150 h40 default, TOGGLE
+		Gui, Add, Button, x355 y340 w150 h40 default, CONFIG
 		Gui, Add, Button, x180 y450 w245 h50 default, Close
 		
 		this.show("Config Menu")
-		;;Gui, Color, 000111
-		;; WinSet, TransColor, 000111, ahk_id %GuiClassMenu%
+		
+		WinSet, TransColor, 000222 ;, ahk_id %GuiClassMenu%
 		return
 	}
 	
@@ -72,8 +75,6 @@ class C_Gui
 		textFormat := new OGdip.StringFormat(0)
 		
 		Gui, -SysMenu -Caption +AlwaysOnTop +Owner +LastFound +OwnDialogs %hw% 	;+Disabled 
-		
-		
 		
 		size := this.array_size( rArray )
 		
@@ -121,8 +122,8 @@ class C_Gui
 		
 		
 		Gui, Add, Button, % options, OK
-		WinSet, TransColor, EEAA99
-		WinSet, TransColor, 000111, ahk_id %vLabel%
+		;Gui, Color, 000
+		;WinSet, TransColor, 000222, ahk_id %vLabel%
 		this.show("Gui Class")		
 	}
 	

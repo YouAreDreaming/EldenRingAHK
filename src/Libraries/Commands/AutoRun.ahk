@@ -64,3 +64,7 @@ S_Dodge:
 	  gosub S_AutoRun
    }
 return
+
+S_ToggleAutoRun:
+	V_AutoRun := (V_AutoRun) ? 0 : 1
+return

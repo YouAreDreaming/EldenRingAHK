@@ -29,5 +29,5 @@ doDown()
 
 S_ToggleSpellHand:
 	V_ToggleSpell := ( V_ToggleSpell = V_GUARD ) ? V_ATTACK : V_GUARD
-	logNp( "Toggled Spell hand to key: " V_ToggleSpell )
+	gDebugMessage := % "Toggled Spell hand to key: " V_ToggleSpell
 return

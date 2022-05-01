@@ -119,7 +119,7 @@ class cHotKey
 	{	
 		global G_HotKeys
 		global gDebugMessage
-		global G_AutoLock
+		global V_AutoLock
 		
 		G_HotKeys[hKey] 				:= {}
 		G_HotKeys[hKey].function 		:= function
@@ -181,7 +181,7 @@ class cHotKey
 				}
 			}
 			
-			IF (G_AutoLock==1) && (G_HotKeys[A_ThisHotkey].autolock==1)
+			IF (V_AutoLock==1) && (G_HotKeys[A_ThisHotkey].autolock==1)
 				gosub S_AutoLock
 				
 			IF IsObject( G_HotKeys[A_ThisHotkey].obj )
@@ -202,7 +202,7 @@ class cHotKey
 				Gosub % G_HotKeys[A_ThisHotkey].function 
 			}
 
-			IF (G_AutoLock==1) && (G_HotKeys[A_ThisHotkey].autolock==1)
+			IF (V_AutoLock==1) && (G_HotKeys[A_ThisHotkey].autolock==1)
 			{
 				; need to wait x time for animation to start before unlocking
 				sleep 1500

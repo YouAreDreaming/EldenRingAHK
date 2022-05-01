@@ -59,6 +59,9 @@ V_JUMPATTACK = e
 V_JUMPSTRONG = r
 V_TOGGLESPELLHAND = ^+z
 V_TOGGLEDEBUG = ^+!d 
+V_TOGGLEAUTOLOCK = ^!+s
+V_TOGGLEAUTORUN = ^!+r
+
 ;-----[ AutoHotKey Key/Mouse Bindings ] --------------------------------------------
 ;-----  These are keyboard/mouse assignments outside of the Elden Ring in-game settings
  
@@ -128,10 +131,11 @@ V_GESTURE3 = Numpad9
 V_GESTURE4 = Numpad4
 V_GESTURE5 = Numpad5
 V_GESTURE6 = Numpad6
- 
+
+; These are likely redudnant.. all three so review and remove if needed. 
 V_SetSpellSlots	= ^+1
 V_SetBeltSlots	= ^+2
-V_debugGui	= ^+d	
+V_debugGui		= ^+d	
 
    
 ;----- Variables for tracking states.
@@ -146,8 +150,10 @@ V_Gui_Active := 0			; to track the 3 second interval when the D-PAD GUI in the g
 V_GUIFade = 2000			; The gui fades under certain states so we need to change this value to match those timing states
 V_LastKey = 0				; Track the last key pressed
 V_LastKeyTime = 0 			; The time it was pressed
-V_AutoRun = 1				; Toggle AutoRun on off
-V_Categories := { "GAME": 12, "COMBOS": 14, "POUCH": 10, "BELT": 10,  "SPELL": 10, "GESTURES": 10, "CONFIG": 10 }
+V_AutoRun = 1				; Toggle AutoRun on off V_TOGGLEAUTORUN
+V_AutoLock := 1				; V_TOGGLEAUTOLOCK
+
+V_Categories := { "GAME": 12, "COMBOS": 14, "POUCH": 10, "BELT": 10,  "SPELL": 10, "GESTURES": 10, "TOGGLE":10, "CONFIG": 10 }
 ; These keys should not be mapped as static keys ie:  q::SomeAction or they will not work in the Menus of ER.
 ; They can be a dynamic HotKey that can be activate/deactived  HotKey, q, SomeAction on
 V_ERMenuKeys:={ "q":0, "f":0 "g":0 "r":0 "y":0 "e":0 "z":0 "c":0 }
