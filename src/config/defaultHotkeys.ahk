@@ -107,3 +107,7 @@ m::g 							; m for Map
 	H_VARDEBUG:
 	ListHotkeys
 return
+
+^!+q::gosub S_TOGGLEKEYS
+
+^!+a::gosub LaunchGui

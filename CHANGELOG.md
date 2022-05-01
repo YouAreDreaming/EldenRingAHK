@@ -15,6 +15,10 @@ All notable changes to this project will be documented in this file.
  - Added a meta-data layer to hotkeys to work with certain states
  - Added toggle hotkeys to enable/disable hotkeys
  - Added HotKey metadata to the debug Gui
+ - Can toggle HotKey on and off when accessing menus CTRL-ALT-SHIFT-q
+ - Fixed Gestures for more reliable actions
+ - Can open config menu CTRL-ALT-SHIFT-A
+ 
  
  
  

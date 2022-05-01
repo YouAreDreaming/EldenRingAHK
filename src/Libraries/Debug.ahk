@@ -36,6 +36,7 @@ S_debugGui:
 	Gui, Add, Text, vlastpressedText cLime, lastpressed: xxxxxx
 	Gui, Add, Text, vanimationtimeText cLime, animationtime: xxxxxx
 	
+	Gui, Add, Text, vmessageText cLime, This area will display messages for debugging xxxxxxxxxx
 	
 	;FOR k,v IN kd
 	;{
@@ -94,6 +95,9 @@ UpdateOSD:
 	GuiControl,, downText, % "down: " lvdown
 	GuiControl,, lastpressedText, % "lastpressed: " lvlastpressed
 	GuiControl,, animationtimeText, % "animationtime: " lvanimationtime
+	
+	GuiControl,, messageText, % " " gDebugMessage
+	
 	
 		
 	

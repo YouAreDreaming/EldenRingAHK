@@ -119,12 +119,12 @@ class C_UserSettings
 			settings["SPELL"]["V_SWITCHS_SpellSlot10"] := "+0"
 		
 		settings["GESTURES"] := []
-			settings["GESTURES"]["V_GESTURE1"] := "^1"
-			settings["GESTURES"]["V_GESTURE2"] := "^2"
-			settings["GESTURES"]["V_GESTURE3"] := "^3"
-			settings["GESTURES"]["V_GESTURE4"] := "^4"
-			settings["GESTURES"]["V_GESTURE5"] := "^5"
-			settings["GESTURES"]["V_GESTURE6"] := "^6"
+			settings["GESTURES"]["V_GESTURE1"] := "Numpad7"
+			settings["GESTURES"]["V_GESTURE2"] := "Numpad8"
+			settings["GESTURES"]["V_GESTURE3"] := "Numpad9"
+			settings["GESTURES"]["V_GESTURE4"] := "Numpad4"
+			settings["GESTURES"]["V_GESTURE5"] := "Numpad5"
+			settings["GESTURES"]["V_GESTURE6"] := "Numpad6"
 		; Config is likely not applicable for this data-set... 
 		; This class is more specific to User HotKey settings, not application settings.
 		settings["CONFIG"] := []

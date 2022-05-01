@@ -8,9 +8,9 @@ return
 
 P_E:
    SendInput {%V_ATTACK% down}
-   sleep 25
+   sleep 100
    SendInput {%V_ATTACK% up}
-   sleep 25
+   sleep 10
 return
 P_B:
    SendInput {%V_USEITEM% down}

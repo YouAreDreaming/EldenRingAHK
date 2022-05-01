@@ -8,16 +8,16 @@
 
 ; Time to see how to work in meta-data for key states.
 
+
 class cHotKey 
 {
-	static aHotKey
-	toggle := 1
+	static aHotKey	
 	
     __New( ByRef HotKeys, ByRef Actions )
     {
 		
 		this._addHotkeys( HotKeys, Actions)		
-		this._addHotkey( "^!+q", this, "_toggle", {"type": "obj"})
+		; this._addHotkey( "^!+q", this, "_toggle", {"type": "obj"})
 		;this.fHotkey("F1", this, "MsgBox", "foobar")		
 	}
 	
@@ -67,13 +67,20 @@ class cHotKey
 	{
 		; global cHotKey.aHotKeys
 		global G_HotKeys
-		this.toggle := !this.toggle		
+		global hotKeytoggle
+		global gDebugMessage
+		
+		hotKeytoggle := (hotKeytoggle) ? 0 : 1  ; apparently toggling this way isn't working... wow what a suprise.
+		
 		
 		FOR k, v IN G_HotKeys			
-			IF( !this.toggle &&  k != "F2" )			
+			IF( !hotKeytoggle )			
 				HotKey, %k%, HandleHotkey, off
 			ELSE 
 				HotKey, %k%, HandleHotkey, on
+				
+				state := ( hotKeytoggle ) ? "ACTIVE" : "DEACTIVATED"
+				gDebugMessage := % "HotKeys Status: " state
 	}
 	_getVal( k1, k2, a )
 	{
@@ -83,6 +90,7 @@ class cHotKey
 	{	
 		aB = ""
 		args = ""
+		
 		for cat, cArr in a
 		{	
 			for label, hk in cArr
@@ -110,6 +118,7 @@ class cHotKey
 	_addHotkey( hKey, ByRef obj, ByRef function, arg  ) 
 	{	
 		global G_HotKeys
+		global gDebugMessage
 		
 		G_HotKeys[hKey] 				:= {}
 		G_HotKeys[hKey].function 		:= function
@@ -143,13 +152,16 @@ class cHotKey
 			
 		HandleHotkey:
 			; This was a process but finally got it working so many idioms and neuances in AHK I have to over-come.
+			gDebugMessage := ""
 			
 			IF !G_HotKeys[A_ThisHotkey].enabled
+			{
+				gDebugMessage := % "Hot key not enabled: " A_ThisHotkey
 				Return
-	
+			}
 			IF G_HotKeys[A_ThisHotkey].active			; to prevent key spam
 			{
-				Msgbox No Spam
+				gDebugMessage := % "Hotkey paused for in game animation cycle: " A_ThisHotkey
 				return
 			}
 				
@@ -160,7 +172,7 @@ class cHotKey
 				
 				IF (ptime < atime)
 				{
-					Msgbox Still Animating %ptime% < %atime%
+					gDebugMessage := % "Hotkey paused animation cycle in progress: " ptime " < " atime
 					return
 				}ELSE {
 					G_HotKeys[A_ThisHotkey].lastpressed = 0

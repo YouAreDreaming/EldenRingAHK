@@ -120,13 +120,14 @@ V_SWITCHS_SpellSlot8 = +8
 V_SWITCHS_SpellSlot9 = +9
 V_SWITCHS_SpellSlot10 = +0
 ;-----[ Gestures ]
+
 ;----- ^ is for CTRL
-V_GESTURE1 = ^1
-V_GESTURE2 = ^2
-V_GESTURE3 = ^3
-V_GESTURE4 = ^4
-V_GESTURE5 = ^5
-V_GESTURE6 = ^6
+V_GESTURE1 = Numpad7
+V_GESTURE2 = Numpad8
+V_GESTURE3 = Numpad9
+V_GESTURE4 = Numpad4
+V_GESTURE5 = Numpad5
+V_GESTURE6 = Numpad6
  
 V_SetSpellSlots	= ^+1
 V_SetBeltSlots	= ^+2
@@ -145,7 +146,7 @@ V_Gui_Active := 0			; to track the 3 second interval when the D-PAD GUI in the g
 V_GUIFade = 2000			; The gui fades under certain states so we need to change this value to match those timing states
 V_LastKey = 0				; Track the last key pressed
 V_LastKeyTime = 0 			; The time it was pressed
-
+V_AutoRun = 1				; Toggle AutoRun on off
 V_Categories := { "GAME": 12, "COMBOS": 14, "POUCH": 10, "BELT": 10,  "SPELL": 10, "GESTURES": 10, "CONFIG": 10 }
 ; These keys should not be mapped as static keys ie:  q::SomeAction or they will not work in the Menus of ER.
 ; They can be a dynamic HotKey that can be activate/deactived  HotKey, q, SomeAction on

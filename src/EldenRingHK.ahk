@@ -21,6 +21,7 @@ global version := "0.5" ; currently working on v0.5
 #Warn
 #MaxHotkeysPerInterval 200
 #HotkeyInterval 2000
+
 ;#KeyHistory 0					; enable when not debugging
 ;ListLines Off					; turn off for production not debugging.
 Process, Priority, , A			; sets a higher priority affinity to help reduce input latency
@@ -36,6 +37,7 @@ SetWorkingDir %A_ScriptDir%
 SendMode InputThenPlay
 
 #include %A_ScriptDir%\config\globalVariables.ahk
+#include %A_ScriptDir%\config\dynamicHotkeys.ahk
 #include %A_ScriptDir%\config\UserSettings.ahk 
 #include %A_ScriptDir%\ui\Gui.ahk
 global G_HotKeyMeta
@@ -53,6 +55,8 @@ global C_HotKey
 global G_HotKeys := {}
 global G_FONT := A_ScriptDir "\assets\fonts\EB_Garamond\EBGaramond-Bold.ttf"
 global gHotKeys := {}
+global gDebugMessage := "Enabled"
+global hotKeytoggle := 1
 
 ;----------- Auto-Execution Zone ---------------------------------
 
@@ -71,6 +75,7 @@ gosub LaunchGui
 #include %A_ScriptDir%\Libraries\Debug.ahk
 #include %A_ScriptDir%\ui\InputBoxes.ahk
 #include %A_ScriptDir%\config\defaultHotkeys.ahk
+
 #Include %A_ScriptDir%\external\OGdip\OGdip.ahk
 
 ;#IfWinActive, "ELDEN RING™" 			 ; not working maybe Antcheat engine blocks when used.   
@@ -85,7 +90,8 @@ return
 LaunchGui:	
 	G_GuiActive := 1
 	cGui := new C_GUI()	
-	cGui.addMenu()		
+	cGui.addMenu()	
+    gosub S_TOGGLEKEYS	
 return
 
 ButtonGAME:
@@ -126,8 +132,12 @@ ButtonCONFIG:
 return
 ButtonClose:
 	cGui = ""
+	gosub S_TOGGLEKEYS
 return
 
+S_TOGGLEKEYS:
+	C_HotKey._toggle()
+return
 ; Looks like the gui is populating global variables outside the class.
 ; will have to handle the settings here.
 ButtonOK:
