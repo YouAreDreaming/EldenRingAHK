@@ -151,7 +151,7 @@ class C_UserSettings
 	{
 		FOR dK, Dv in dArray
 		{
-			Tooltip, % "Key: " dK "Value: " Dv
+			; Tooltip, % "Key: " dK "Value: " Dv
 				sleep 500
 		}
 	}
@@ -179,6 +179,6 @@ class C_UserSettings
 	}
     __Delete()
     {
-        ToolTip UserSettings deleted		
+        ; ToolTip UserSettings deleted		
     }
 }

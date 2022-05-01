@@ -185,7 +185,7 @@ viewArray( dArray )
 {
 	FOR dK, Dv in dArray
 	{
-		Tooltip, % "Key: " dK "Value: " Dv
+		; Tooltip, % "Key: " dK "Value: " Dv
 			sleep 500
 	}
 }

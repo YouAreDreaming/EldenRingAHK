@@ -42,7 +42,7 @@ class cHotKey
 	}
     __Delete()
     {
-		MsgBox, cHotKeys has been baleted			
+		; MsgBox, cHotKeys has been baleted			
     }
 	
 	getHotkey()
