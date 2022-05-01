@@ -5,7 +5,7 @@ class C_UserSettings
 	
     __New(settingsFile, ByRef settings)
     {
-        ToolTip, UserSettings Constructed
+       ; ToolTip, UserSettings Constructed
 		; settings := []
 		
 		this.initSettings(settingsFile, settings)

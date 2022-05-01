@@ -12,12 +12,13 @@ All notable changes to this project will be documented in this file.
  - Added graphical assets for the panels.
  - Added a GDI wrapper to add some flexability to the GUI.
  - Created a dynamic HotKey class to manage hotkeys.
- - Added a meta-data layer to hotkeys to work with certain states
- - Added toggle hotkeys to enable/disable hotkeys
- - Added HotKey metadata to the debug Gui
- - Can toggle HotKey on and off when accessing menus CTRL-ALT-SHIFT-q
+ - Added a meta-data layer to hotkeys to work with certain states 
+ - Added HotKey metadata to the debug Gui 
  - Fixed Gestures for more reliable actions
+ - Has auto-lock that can be enabled on some keys see hotKeyMetaData.ahk for now.
+ - Can toggle HotKey on and off when accessing menus CTRL-ALT-SHIFT-q
  - Can open config menu CTRL-ALT-SHIFT-A
+ - Can toggle AutoLock on/off CTRL-ALT-SHIFT-S
  
  
  

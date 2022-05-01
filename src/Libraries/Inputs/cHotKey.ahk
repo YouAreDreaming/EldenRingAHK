@@ -181,7 +181,7 @@ class cHotKey
 				}
 			}
 			
-			IF G_AutoLock && G_HotKeys[A_ThisHotkey].autolock
+			IF (G_AutoLock==1) && (G_HotKeys[A_ThisHotkey].autolock==1)
 				gosub S_AutoLock
 				
 			IF IsObject( G_HotKeys[A_ThisHotkey].obj )
@@ -202,7 +202,7 @@ class cHotKey
 				Gosub % G_HotKeys[A_ThisHotkey].function 
 			}
 
-			IF G_AutoLock && G_HotKeys[A_ThisHotkey].autolock
+			IF (G_AutoLock==1) && (G_HotKeys[A_ThisHotkey].autolock==1)
 			{
 				; need to wait x time for animation to start before unlocking
 				sleep 1500

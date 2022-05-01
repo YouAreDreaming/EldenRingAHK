@@ -27,7 +27,7 @@ class C_Gui
 	addMenu( )
 	{
 		
-		ToolTip, % "C_Gui Constructed for Config Menu"		
+		; ToolTip, % "C_Gui Constructed for Config Menu"		
 		C_Gui.bActive := ! C_Gui.bActive
 		
 		;FileInstall, menuBackground.png, %A_ScriptDir%\assets\images\ui\config\menu\menuBackground.png 0

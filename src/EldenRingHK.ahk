@@ -136,15 +136,22 @@ ButtonClose:
 	gosub S_TOGGLEKEYS
 return
 S_AutoLock:
-V_LOCKON:
+	gDebugMessage := % "AutoLock targetting something"
 	SendInput {%V_LOCKON% down}  
 	sleep 60
 
 	SendInput {%V_LOCKON% up}  
 	sleep 20
+	
 return
 S_TOGGLEKEYS:
 	C_HotKey._toggle()
+return
+
+S_TOGGLEAUTOLOCK:
+	G_AutoLock := (G_AutoLock) ? 0 : 1
+	alState := (G_AutoLock) ? "ON" : "OFF"
+	gDebugMessage := % "AutoLock is " alState
 return
 ; Looks like the gui is populating global variables outside the class.
 ; will have to handle the settings here.
@@ -163,7 +170,7 @@ ButtonOK:
 			;sleep 50
 			if( %Key% != G_Settings[V_GUI][Key] )
 			{
-				ToolTip % "Key:" Key " changed " G_Settings[V_GUI][Key]			
+				; ToolTip % "Key:" Key " changed " G_Settings[V_GUI][Key]			
 				forIni[Key] := Value			
 			}
 		}

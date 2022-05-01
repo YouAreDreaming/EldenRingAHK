@@ -109,5 +109,6 @@ m::g 							; m for Map
 return
 
 ^!+q::gosub S_TOGGLEKEYS
+^!+s::gosub S_TOGGLEAUTOLOCK
 
 ^!+a::gosub LaunchGui
