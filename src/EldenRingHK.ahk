@@ -57,6 +57,7 @@ global G_FONT := A_ScriptDir "\assets\fonts\EB_Garamond\EBGaramond-Bold.ttf"
 global gHotKeys := {}
 global gDebugMessage := "Enabled"
 global hotKeytoggle := 1
+global G_AutoLock := 1			; Turns on auto-lock
 
 ;----------- Auto-Execution Zone ---------------------------------
 
@@ -134,7 +135,14 @@ ButtonClose:
 	cGui = ""
 	gosub S_TOGGLEKEYS
 return
+S_AutoLock:
+V_LOCKON:
+	SendInput {%V_LOCKON% down}  
+	sleep 60
 
+	SendInput {%V_LOCKON% up}  
+	sleep 20
+return
 S_TOGGLEKEYS:
 	C_HotKey._toggle()
 return

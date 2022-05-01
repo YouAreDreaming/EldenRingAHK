@@ -119,6 +119,7 @@ class cHotKey
 	{	
 		global G_HotKeys
 		global gDebugMessage
+		global G_AutoLock
 		
 		G_HotKeys[hKey] 				:= {}
 		G_HotKeys[hKey].function 		:= function
@@ -129,7 +130,8 @@ class cHotKey
 		G_HotKeys[hKey].up 				:= 0					; IsUp
 		G_HotKeys[hKey].down 			:= 0					; IsDown
 		G_HotKeys[hKey].lastpressed		:= 0					; The last time it was pressed				
-		G_HotKeys[hKey].animationtime 	:= arg.animationtime 	; 	 
+		G_HotKeys[hKey].animationtime 	:= arg.animationtime 	; 
+		G_HotKeys[hKey].autolock 		:= arg.autolock 		; 		
 			
 		type := % arg.type
 		
@@ -179,6 +181,9 @@ class cHotKey
 				}
 			}
 			
+			IF G_AutoLock && G_HotKeys[A_ThisHotkey].autolock
+				gosub S_AutoLock
+				
 			IF IsObject( G_HotKeys[A_ThisHotkey].obj )
 			{
 				;MsgBox Handling Object HotKey
@@ -195,7 +200,14 @@ class cHotKey
 			} ELSE IF IsLabel( G_HotKeys[A_ThisHotkey].function )
 			{
 				Gosub % G_HotKeys[A_ThisHotkey].function 
-			}				
+			}
+
+			IF G_AutoLock && G_HotKeys[A_ThisHotkey].autolock
+			{
+				; need to wait x time for animation to start before unlocking
+				sleep 1500
+				gosub S_AutoLock			
+			}
 		Return
 	}
 }

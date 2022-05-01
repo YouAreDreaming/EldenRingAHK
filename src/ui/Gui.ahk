@@ -245,7 +245,7 @@ class C_Gui
 
 	submit()
 	{
-		ToolTip, User Submitted 
+		; ToolTip, User Submitted 
 		
 	}
 	;addGuiControlsFromArray( ar )
@@ -278,7 +278,7 @@ class C_Gui
 	
     __Delete()
     {
-		ToolTip "Gui deleted"		
+		; ToolTip "Gui deleted"		
 		Gui, Destroy		
     }
 }
