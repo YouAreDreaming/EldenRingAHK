@@ -6,7 +6,10 @@ getGuiActive()
 	global V_AutoLock
 	global gAutoLock
 	
-	if( V_Gui_Active = 0)
+	IF( gAutoLock.active && V_Gui_Active > 0 )
+		return 0
+		
+	if( V_Gui_Active == 0)
 	{
 		V_Gui_Active := A_Tickcount		
 		return 1

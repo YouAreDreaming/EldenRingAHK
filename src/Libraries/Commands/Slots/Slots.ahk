@@ -6,7 +6,7 @@ findIteration( target, position, slots )
 {
 	global gAutoLock
 	global G_HotKeys
-   if (target = position){
+   if (target == position){
 		gAutoLock._keySpam( A_ThisHotkey, G_HotKeys[A_ThisHotkey] )
       return 0
    }

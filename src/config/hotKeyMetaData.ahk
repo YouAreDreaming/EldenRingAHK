@@ -91,6 +91,8 @@ G_HotKeyMeta["SPELL"]["V_USES_SpellSlot7"]		:= { "type": "func","label": "S_Spel
 G_HotKeyMeta["SPELL"]["V_USES_SpellSlot8"]		:= { "type": "func","label": "S_Spell8", "animationtime": "500",  "autolock":"1", "enabled":"1"}
 G_HotKeyMeta["SPELL"]["V_USES_SpellSlot9"]		:= { "type": "func","label": "S_Spell9", "animationtime": "500",  "autolock":"1","enabled":"1"}
 G_HotKeyMeta["SPELL"]["V_USES_SpellSlot10"]		:= { "type": "func","label": "S_Spell10", "animationtime": "500", "enabled":"1"}
+
+
 G_HotKeyMeta["SPELL"]["V_SWITCHSPELLSLOT1"]		:= { "type": "func","label": "S_SpellReset", "animationtime": "500", "enabled":"1"}
 G_HotKeyMeta["SPELL"]["V_SWITCHS_SpellSlot2"]	:= { "type": "func","label": "S_SpellSlot2", "animationtime": "200", "enabled":"1"}
 G_HotKeyMeta["SPELL"]["V_SWITCHS_SpellSlot3"]	:= { "type": "func","label": "S_SpellSlot3", "animationtime": "200", "enabled":"1"}

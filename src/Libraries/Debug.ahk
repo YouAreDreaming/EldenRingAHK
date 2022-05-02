@@ -1,9 +1,17 @@
-﻿S_ToggleDebug:
-	V_DEBUG := !V_DEBUG
-	IF V_DEBUG
-		gosub S_debugGui
+﻿S_ToggleDebug:	
+	IF !V_DEBUG
+		{
+			IF G_GuiActive
+				return
+				
+			gosub S_debugGui
+			V_DEBUG := 1
+		}
 	ELSE
+	{
 		GuiClose( "DebugGui" )
+		V_DEBUG := 0
+	}
 	
 return
 

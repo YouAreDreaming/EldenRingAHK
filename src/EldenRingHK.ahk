@@ -93,15 +93,25 @@ initSettings:
 return		
 
 LaunchGui:	
-	G_GuiActive := ( G_GuiActive ) ? 0 : 1
-	IF G_GuiActive 
+	 
+	IF G_DebugGuiActive
+	{
+		GuiClose("")
+		G_DebugGuiActive := 0
+		sleep 25
+	}
+	IF !G_GuiActive 
 	{
 		gosub S_TOGGLEKEYS	
 		cGui := new C_GUI()	
-		cGui.addMenu()	
+		cGui.addMenu()
+		G_GuiActive := 1		
 		
-	} Else
+	} Else 
+	{
+		gosub S_TOGGLEKEYS
 		cGui := ""
+	}
 return
 
 ButtonGAME:
@@ -150,6 +160,7 @@ return
 ButtonClose:
 	cGui = ""
 	gosub S_TOGGLEKEYS
+	G_GuiActive := 0
 return
 	
 S_TOGGLEKEYS:

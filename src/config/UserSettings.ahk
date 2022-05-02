@@ -72,8 +72,8 @@ class C_UserSettings
 			G_settings["POUCH"]["V_LPOUCH"] := "x"
 			G_settings["POUCH"]["V_RPOUCH"] := "+v"
 			G_settings["POUCH"]["V_DPOUCH"] := "+c"
-			G_settings["POUCH"]["V_5POUCH"] := "^!+p"
-			G_settings["POUCH"]["V_6POUCH"] := "^!^l"
+			G_settings["POUCH"]["V_5POUCH"] := "^!+p"		; Left these as junk keys as not using currently still locked.
+			G_settings["POUCH"]["V_6POUCH"] := "^!+l"		; yet junk keys.. 
 		
 		G_settings["BELT"] := []
 			G_settings["BELT"]["V_USEBELTSLOT1"] := "F1"

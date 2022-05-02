@@ -15,15 +15,15 @@
    
 doSpellItr( itr, slot, bUse )
 {
-   if( itr = 0 ) {
-      if( bUse = 1){
+   if( itr == 0 ) {
+      if( bUse == 1){
 			startAutoLock()
 	        gosub P_K
 			endAutoLock()
          return
       }
      
-   }else  if ( itr = 1 )  {
+   }else  if ( itr == 1 )  {
 		active := getGuiActive()
       if( doUp() )
       {  
@@ -31,7 +31,7 @@ doSpellItr( itr, slot, bUse )
 		 {
 			doUp()
 		 }
-         if( bUse = 1){
+         if( bUse == 1){
 		 
             startAutoLock()
             gosub P_K
@@ -72,7 +72,7 @@ doSpellSlot( slot, activate )
 
 S_SpellReset:
    
-   gosub P_UP   
+   ;gosub P_UP   
    gosub S_UP
   
    V_SPELLSLOT := 1
