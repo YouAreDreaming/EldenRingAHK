@@ -6,7 +6,10 @@ findIteration( target, position, slots )
 {
 	global gAutoLock
 	global G_HotKeys
+	global gDebugMessage
+	
    if (target == position){
+		gDebugMessage := "Same key doing auto-lock check"
 		gAutoLock._keySpam( A_ThisHotkey, G_HotKeys[A_ThisHotkey] )
       return 0
    }

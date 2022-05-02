@@ -132,8 +132,9 @@ class cHotKey
 		G_HotKeys[hKey].up 				:= 0					; IsUp
 		G_HotKeys[hKey].down 			:= 0					; IsDown
 		G_HotKeys[hKey].lastpressed		:= 0					; The last time it was pressed				
-		G_HotKeys[hKey].animationtime 	:= arg.animationtime 	; 
-		G_HotKeys[hKey].autolock 		:= arg.autolock 		; 		
+		G_HotKeys[hKey].animationtime 	:= arg.animationtime 	; has an animation time
+		G_HotKeys[hKey].autolock 		:= arg.autolock 		; enabled for auto-lock
+		G_HotKeys[hKey].cycle 			:= 0					; Part of a key-cycle only  		
 			
 		type := % arg.type
 		

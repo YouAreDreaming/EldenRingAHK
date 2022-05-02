@@ -21,13 +21,7 @@ All notable changes to this project will be documented in this file.
  - Can toggle AutoLock on/off CTRL-ALT-SHIFT-S
  - Auto Lock can be locked pressing the same key twice before it times out.
  - Auto lock will release after one press to throw/cast after 2000 ms 
- - Can define which key will auto-lock in the defaultHotKeys.ahk files (not in game yet)
- 
- 
- 
- 
- 
- 
+ - Can define which key will auto-lock in the defaultHotKeys.ahk files (not in game yet) 
 
 ## [0.4] - 2022-04-26 - Overhaul of coding structure to files and bug fixes
 - Updated Nomaclature for easier to recognize variables, subroutines etc.
