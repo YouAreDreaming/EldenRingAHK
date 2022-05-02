@@ -41,7 +41,7 @@ class C_UserSettings
 			G_settings["GAME"]["V_CAMDOWN"] := "s"
 			G_settings["GAME"]["V_CAMLEFT"] := "+z"
 			G_settings["GAME"]["V_CAMRIGHT"] := "+x"
-			G_settings["GAME"]["V_LOCKON"] := "tab"
+			G_settings["GAME"]["V_LOCKON"] := "Tab"
 			G_settings["GAME"]["V_DUP"] := "Up"
 			G_settings["GAME"]["V_DDOWN"] := "Down"
 			G_settings["GAME"]["V_DRIGHT"] := "Right"
@@ -136,7 +136,9 @@ class C_UserSettings
 		; This class is more specific to User HotKey G_settings, not application G_settings.
 		G_settings["CONFIG"] := []
 			G_settings["CONFIG"]["V_SPELL_SLOTS"] 		:= "8"  ; not a hot key...
-			G_settings["CONFIG"]["V_BELT_SLOTS"] 		:= "10"  ; not a hot key...						
+			G_settings["CONFIG"]["V_BELT_SLOTS"] 		:= "10" ; not a hot key...	
+			G_settings["CONFIG"]["V_AutoRun"] 			:= 1	; Toggle AutoRun on off V_TOGGLEAUTORUN
+			G_settings["CONFIG"]["V_AutoLock"] 			:= 1	; V_TOGGLEAUTOLOCK			
 		
 		;C_UserSettings.aSettings := settings
 		; viewArray( G_Settings )

@@ -19,6 +19,10 @@ All notable changes to this project will be documented in this file.
  - Can toggle HotKey on and off when accessing menus CTRL-ALT-SHIFT-q
  - Can open config menu CTRL-ALT-SHIFT-A
  - Can toggle AutoLock on/off CTRL-ALT-SHIFT-S
+ - Auto Lock can be locked pressing the same key twice before it times out.
+ - Auto lock will release after one press to throw/cast after 2000 ms 
+ - Can define which key will auto-lock in the defaultHotKeys.ahk files (not in game yet)
+ 
  
  
  

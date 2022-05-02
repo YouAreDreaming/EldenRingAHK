@@ -31,7 +31,7 @@ V_CAMUP = ""				; Move Camera / Change Target (Up)
 V_CAMDOWN = ""			; Move Camera / Change Target (Down)
 V_CAMLEFT = +z 		; Move Camera / Change Target (Left)
 V_CAMRIGHT = +x 		; Move Camera / Change Target (Right)
-V_LOCKON = tab 		; Reset Camera, Lock-On/Remove Target
+V_LOCKON = Tab 		; Reset Camera, Lock-On/Remove Target
  
 V_DUP = Up 				; !!Switch Sorcery/Incantation D-Pad
 V_DDOWN = Down 			; !!Switch Item  D-Pad
@@ -151,7 +151,7 @@ V_GUIFade = 2000			; The gui fades under certain states so we need to change thi
 V_LastKey = 0				; Track the last key pressed
 V_LastKeyTime = 0 			; The time it was pressed
 V_AutoRun = 1				; Toggle AutoRun on off V_TOGGLEAUTORUN
-V_AutoLock := 1				; V_TOGGLEAUTOLOCK
+global V_AutoLock := 1				; V_TOGGLEAUTOLOCK
 
 V_Categories := { "GAME": 12, "COMBOS": 14, "POUCH": 10, "BELT": 10,  "SPELL": 10, "GESTURES": 10, "TOGGLE":10, "CONFIG": 10 }
 ; These keys should not be mapped as static keys ie:  q::SomeAction or they will not work in the Menus of ER.

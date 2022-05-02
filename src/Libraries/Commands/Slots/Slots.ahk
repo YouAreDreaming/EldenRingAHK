@@ -4,7 +4,10 @@
 ; Calculates the iterations beteen slots
 findIteration( target, position, slots )
 {
+	global gAutoLock
+	global G_HotKeys
    if (target = position){
+		gAutoLock._keySpam( A_ThisHotkey, G_HotKeys[A_ThisHotkey] )
       return 0
    }
    inc := getGuiActive() ;  for both spell and belt the first down activates gui causing click glitches.

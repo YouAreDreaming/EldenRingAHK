@@ -8,14 +8,18 @@
         ; sleep 25
       }}   
    if( bUse = 1 ){
-      ;sleep 150
+      startAutoLock()
       gosub P_K ; activate use
+	  endAutoLock()
    }}
+   
 doSpellItr( itr, slot, bUse )
 {
    if( itr = 0 ) {
       if( bUse = 1){
-         gosub P_K
+			startAutoLock()
+	        gosub P_K
+			endAutoLock()
          return
       }
      
@@ -28,8 +32,10 @@ doSpellItr( itr, slot, bUse )
 			doUp()
 		 }
          if( bUse = 1){
-            ;sleep 25
+		 
+            startAutoLock()
             gosub P_K
+			endAutoLock()
          }}
       
    }else  {
@@ -45,7 +51,7 @@ doSpellSlot( slot, activate )
 	global V_SPELL_SLOTS
 	global V_BSReset
 	global V_GUIFade
-	
+	global G_HotKeys
 	
 	if( V_SPELL_SLOTS < slot ){
       return

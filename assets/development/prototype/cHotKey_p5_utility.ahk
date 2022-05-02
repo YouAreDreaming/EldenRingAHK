@@ -15,7 +15,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 ; Time to see how to work in meta-data for key states.
  
-global gHotKeys := {}  ; unless anything outside of the HotKey class needs access this likely can move to that class.
+global G_HotKeys := {}  ; unless anything outside of the HotKey class needs access this likely can move to that class.
 global cHK
 
 ; Settings current associative array structure.
@@ -77,11 +77,11 @@ class cHotKey
     }
 	_toggle()
 	{
-		global gHotKeys
+		global G_HotKeys
 		
 		this.toggle := !this.toggle		
 		
-		FOR k, v IN gHotKeys			
+		FOR k, v IN G_HotKeys			
 			IF( !this.toggle &&  k != "F2" )			
 				HotKey, %k%, HandleHotkey, off
 			ELSE 
@@ -116,18 +116,18 @@ class cHotKey
 	; For example, if x.y refers to this function object, x.y() → this[x]() → this.__Call(x) → this.Call(x).
 	_addHotkey( hKey, ByRef obj, ByRef function, arg  ) 
 	{	
-		global gHotKeys
+		global G_HotKeys
 		
-		gHotKeys[hKey] 					:= {}
-		gHotKeys[hKey].function 		:= function
-		gHotKeys[hKey].arg 				:= arg
-		gHotKeys[hKey].obj 				:= obj
-		gHotKeys[hKey].enabled 			:= 1					; KeyState: Suspended/On
-		gHotKeys[hKey].active 			:= 0					; IsActive: (meaning it's now firing  routine/function
-		gHotKeys[hKey].up 				:= 0					; IsUp
-		gHotKeys[hKey].down 			:= 0					; IsDown
-		gHotKeys[hKey].lastpressed		:= 0					; The last time it was pressed				
-		gHotKeys[hKey].animationtime 	:= arg.animationtime 	; 	 
+		G_HotKeys[hKey] 					:= {}
+		G_HotKeys[hKey].function 		:= function
+		G_HotKeys[hKey].arg 				:= arg
+		G_HotKeys[hKey].obj 				:= obj
+		G_HotKeys[hKey].enabled 			:= 1					; KeyState: Suspended/On
+		G_HotKeys[hKey].active 			:= 0					; IsActive: (meaning it's now firing  routine/function
+		G_HotKeys[hKey].up 				:= 0					; IsUp
+		G_HotKeys[hKey].down 			:= 0					; IsDown
+		G_HotKeys[hKey].lastpressed		:= 0					; The last time it was pressed				
+		G_HotKeys[hKey].animationtime 	:= arg.animationtime 	; 	 
 			
 		type := % arg.type
 			
@@ -147,36 +147,36 @@ class cHotKey
 		HandleHotkey:
 			; This was a process but finally got it working so many idioms and neuances in AHK I have to over-come.
 			
-			IF !gHotKeys[A_ThisHotkey].enabled
+			IF !G_HotKeys[A_ThisHotkey].enabled
 				Return
 	
-			IF gHotKeys[A_ThisHotkey].active			; to prevent key spam
+			IF G_HotKeys[A_ThisHotkey].active			; to prevent key spam
 				return
 				
-			IF gHotKeys[A_ThisHotkey].lastpressed > 0
+			IF G_HotKeys[A_ThisHotkey].lastpressed > 0
 			{
-				time := A_Tickcount - gHotKeys[A_ThisHotkey].lastpressed 
+				time := A_Tickcount - G_HotKeys[A_ThisHotkey].lastpressed 
 				
-				IF time < gHotKeys[A_ThisHotkey].animationtime
+				IF time < G_HotKeys[A_ThisHotkey].animationtime
 					return
 			}
 			
-			IF IsObject( gHotKeys[A_ThisHotkey].obj )
+			IF IsObject( G_HotKeys[A_ThisHotkey].obj )
 			{
 				;MsgBox Handling Object HotKey
-				o := gHotKeys[A_ThisHotkey].obj
-				f := gHotKeys[A_ThisHotkey].function				
-				a := gHotKeys[A_ThisHotkey].arg
+				o := G_HotKeys[A_ThisHotkey].obj
+				f := G_HotKeys[A_ThisHotkey].function				
+				a := G_HotKeys[A_ThisHotkey].arg
 				
 				o[f]( a )										
-			}ELSE IF IsFunc( gHotKeys[A_ThisHotkey].function )				
+			}ELSE IF IsFunc( G_HotKeys[A_ThisHotkey].function )				
 			{
 				;MsgBox Attempting to fire function hotkey %A_ThisHotkey% 
-				gHotKeys[A_ThisHotkey].function(gHotKeys[A_ThisHotkey].arg)
+				G_HotKeys[A_ThisHotkey].function(G_HotKeys[A_ThisHotkey].arg)
 				
-			} ELSE IF IsLabel( gHotKeys[A_ThisHotkey].function )
+			} ELSE IF IsLabel( G_HotKeys[A_ThisHotkey].function )
 			{
-				Gosub % gHotKeys[A_ThisHotkey].function 
+				Gosub % G_HotKeys[A_ThisHotkey].function 
 			}				
 		Return
 	}
@@ -184,37 +184,37 @@ class cHotKey
 
 ; Jump+Dual-Wield Combo Attack
 S_JumpDualWeild(){
-	global gHotKeys
+	global G_HotKeys
 	
 	
-   gHotKeys[A_ThisHotkey].active 		:= 1	
-   gHotKeys[A_ThisHotkey].lastpressed 	:= A_Tickcount		
+   G_HotKeys[A_ThisHotkey].active 		:= 1	
+   G_HotKeys[A_ThisHotkey].lastpressed 	:= A_Tickcount		
    
    SendInput {%V_JUMP% down}
-   gHotKeys[A_ThisHotkey].down 			:= 1
-   gHotKeys[A_ThisHotkey].up 			:= 0
+   G_HotKeys[A_ThisHotkey].down 			:= 1
+   G_HotKeys[A_ThisHotkey].up 			:= 0
    sleep 300
    
    SendInput {%V_JUMP% up}
-   gHotKeys[A_ThisHotkey].down 			:= 0
-   gHotKeys[A_ThisHotkey].up 			:= 1
+   G_HotKeys[A_ThisHotkey].down 			:= 0
+   G_HotKeys[A_ThisHotkey].up 			:= 1
    
    sleep 25
    SendInput {%V_GUARD% down}  
-   gHotKeys[A_ThisHotkey].down 			:= 1 
+   G_HotKeys[A_ThisHotkey].down 			:= 1 
    
    sleep 25
    SendInput {%V_GUARD% up}
-   gHotKeys[A_ThisHotkey].up 			:= 0
-   gHotKeys[A_ThisHotkey].down 			:= 0   
-   gHotKeys[A_ThisHotkey].active 		:= 0
+   G_HotKeys[A_ThisHotkey].up 			:= 0
+   G_HotKeys[A_ThisHotkey].down 			:= 0   
+   G_HotKeys[A_ThisHotkey].active 		:= 0
    MsgBox JumpDualWeild Success!
 return
 }
 
 ; Jump+Strong+Attack
 S_JumpStrong(){
-	global gHotKeys
+	global G_HotKeys
 	MsgBox S_JumpStrong Success!
    SendInput {%V_JUMP% down}
    sleep 300

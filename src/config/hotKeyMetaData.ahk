@@ -43,7 +43,7 @@ G_HotKeyMeta["POUCH"]["V_DPOUCH"]				:= { "type": "func","label": "S_Pouch_Down"
 G_HotKeyMeta["POUCH"]["V_5POUCH"]				:= { "type": "func","label": "S_Pouch_5", "animationtime": "0", "enabled":"1"}
 G_HotKeyMeta["POUCH"]["V_6POUCH"]				:= { "type": "func","label": "S_Pouch_6", "animationtime": "0", "enabled":"1"}
 
-G_HotKeyMeta["COMBOS"]["V_PARRY"]				:= { "type": "func","label": "S_Parry", "animationtime": "350", "enabled":"1"}
+G_HotKeyMeta["COMBOS"]["V_PARRY"]				:= { "type": "func","label": "S_Parry", "animationtime": "1600", "enabled":"1"}
 G_HotKeyMeta["COMBOS"]["V_2H_LEFT"]				:= { "type": "func","label": "S_2H_Left", "animationtime": "500", "enabled":"1"}
 G_HotKeyMeta["COMBOS"]["V_2H_RIGHT"]			:= { "type": "func","label": "S_2H_Right", "animationtime": "500", "enabled":"1"}
 G_HotKeyMeta["COMBOS"]["V_LEFTARMEMENT"]		:= { "type": "func","label": "S_LeftArmement", "animationtime": "500", "enabled":"1"}
@@ -53,7 +53,7 @@ G_HotKeyMeta["COMBOS"]["V_CROUCH"]				:= { "type": "func","label": "S_Crouch", "
 G_HotKeyMeta["COMBOS"]["V_JUMPATTACK"]			:= { "type": "func","label": "S_Jump", "animationtime": "1200", "enabled":"1"}
 G_HotKeyMeta["COMBOS"]["V_JUMPSTRONG"]			:= { "type": "func","label": "S_JumpStrong", "animationtime": "2200", "enabled":"1"}
 
-G_HotKeyMeta["BELT"]["V_USEBELTSLOT1"]			:= { "type": "func","label": "S_UseBelt1", "animationtime": "500", "autolock":"1", "enabled":"1"}
+G_HotKeyMeta["BELT"]["V_USEBELTSLOT1"]			:= { "type": "func","label": "S_UseBelt1", "animationtime": "500", "autolock":"0", "enabled":"1"}
 G_HotKeyMeta["BELT"]["V_USEBELTSLOT2"]			:= { "type": "func","label": "S_UseBelt2", "animationtime": "500", "autolock":"1", "enabled":"1"}
 G_HotKeyMeta["BELT"]["V_USEBELTSLOT3"]			:= { "type": "func","label": "S_UseBelt3", "animationtime": "500", "autolock":"1", "enabled":"1"}
 G_HotKeyMeta["BELT"]["V_USEBELTSLOT4"]			:= { "type": "func","label": "S_UseBelt4", "animationtime": "500", "autolock":"1", "enabled":"1"}

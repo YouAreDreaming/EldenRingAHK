@@ -10,6 +10,11 @@ S_Parry:
    G_HotKeys[paKey].up 			:= 0
    sleep 100
    
+   SendInput {%V_SKILL% up}
+   G_HotKeys[paKey].down 		:= 0
+   G_HotKeys[paKey].up 			:= 1
+   sleep 600
+   
 	   SendInput {%V_ATTACK% down}  
 	   G_HotKeys[paKey].down 		:= 1 
 	   sleep 60
@@ -20,9 +25,7 @@ S_Parry:
 	   G_HotKeys[paKey].down 		:= 0   
 	   G_HotKeys[paKey].active 		:= 0
    
-   SendInput {%V_SKILL% up}
-   G_HotKeys[paKey].down 		:= 0
-   G_HotKeys[paKey].up 			:= 1
+  
 return
  
 ; Crouch+Attack
@@ -80,7 +83,7 @@ return
  
 ; Jump+Dual-Wield Combo Attack
 S_JumpDualWeild(){
-	global gHotKeys	
+	global G_HotKeys	
 	global V_JUMP
 	global V_GUARD
 	global gDebugMessage

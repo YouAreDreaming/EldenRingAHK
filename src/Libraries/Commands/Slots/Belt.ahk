@@ -9,14 +9,18 @@
       }}
    if( bUse = 1 ){
       ;sleep 25
+	  startAutoLock()
       gosub P_B ; activate use
+	  endAutoLock()
    }}
 doBeltItr( itr, slot, bUse )
 {
 	
    if( itr = 0 ) {
       if( bUse = 1){
+		 startAutoLock()
          gosub P_B
+		 endAutoLock()
 		 return
       }     
    }else  if ( itr = 1 )  {
@@ -27,12 +31,15 @@ doBeltItr( itr, slot, bUse )
 			
 		 if( active == 1 ) 	
 		 {
+			
 			gosub P_Down
 		 }
          if( bUse = 1){
 		    ; just a litte sleep padding for the rapid clicks in a loop
-            ; sleep 
+            ; sleep
+			startAutoLock()			
             gosub P_B
+			endAutoLock()
 			;logNp( "Slot " slot " is activating only once." )
          }
 		 }      
@@ -48,10 +55,13 @@ doBeltSlot( slot, activate )
 	global V_BELT_SLOTS
 	global V_BBReset
 	global V_GUIFade
+	global G_HotKeys
 	
 	if( V_BELT_SLOTS < slot ){
       return
-	}else  {
+	}else{
+	
+			
 		     
 			if( V_BBReset = 1 )
 			{

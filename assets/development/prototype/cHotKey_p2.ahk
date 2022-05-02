@@ -8,7 +8,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 ; This moves the dynamic HotKey into a class prototype and lets the entire class contain all 
 ; subroutine and functions
 
-global gHotKeys := {}
+global G_HotKeys := {}
 global cHK
 
 cHK := new cHotKey()
@@ -48,22 +48,22 @@ class cHotKey
 	; For example, if x.y refers to this function object, x.y() → this[x]() → this.__Call(x) → this.Call(x).
 	fHotkey(hKey, ByRef obj, ByRef function, arg*) {
 	
-		global gHotKeys
+		global G_HotKeys
 		
-		gHotKeys[hKey] := {}
-		gHotKeys[hKey].function := function
-		gHotKeys[hKey].arg := arg
-		gHotKeys[hKey].obj := obj
+		G_HotKeys[hKey] := {}
+		G_HotKeys[hKey].function := function
+		G_HotKeys[hKey].arg := arg
+		G_HotKeys[hKey].obj := obj
 		
 		Hotkey, %hKey%, HandleHotkey
 		
 		HandleHotkey:			; label is now inside function
 		
-			IF IsObject( gHotKeys[A_ThisHotkey].obj )
+			IF IsObject( G_HotKeys[A_ThisHotkey].obj )
 			{
-				o := gHotKeys[A_ThisHotkey].obj
-				f := gHotKeys[A_ThisHotkey].function				
-				a := gHotKeys[A_ThisHotkey].arg
+				o := G_HotKeys[A_ThisHotkey].obj
+				f := G_HotKeys[A_ThisHotkey].function				
+				a := G_HotKeys[A_ThisHotkey].arg
 				
 				o[f]( a )			; this shorthand version worked... joy.
 				
@@ -74,8 +74,8 @@ class cHotKey
 				;	MsgBox %f% Is not a function
 				; tried all the variants of x.y() → this[x]() → this.__Call(x) → this.Call(x) here
 				; nothing worked so used variable expressions above and that worked.  
-				;gHotKeys[A_ThisHotkey].ref[gHotKeys[A_ThisHotkey].function]( "Hello" )
-				;gHotKeys[A_ThisHotkey].ref.gHotKeys[A_ThisHotkey].function( gHotKeys[A_ThisHotkey].arg )				
+				;G_HotKeys[A_ThisHotkey].ref[G_HotKeys[A_ThisHotkey].function]( "Hello" )
+				;G_HotKeys[A_ThisHotkey].ref.G_HotKeys[A_ThisHotkey].function( G_HotKeys[A_ThisHotkey].arg )				
 			}			
 			ELSE 
 				MsgBox %ref% is not an object reference

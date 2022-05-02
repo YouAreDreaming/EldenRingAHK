@@ -53,23 +53,25 @@ global G_defaultSettings			; default settings
 global G_menuState					; to track if player is in a menu.
 global G_UserSettings				;
 global G_GuiActive	:= 0			;
+global G_DebugGuiActive	:= 0		;
 global G_HotKeys := {}				; See if one of these are redundant.
-global gHotKeys := {}				;
 global gDebugMessage := "Enabled"	; Holds the messages displayed at the bottom of the Debug GUI.
 global hotKeytoggle := 1			; in defaultHotKeys.ahk 
+global gAutoLock					; The AutoLock Class
 
 			
 ;----------- Auto-Execution Zone ---------------------------------
 
 gosub initSettings
 gosub LaunchGui
+SetTimer, S_GLOBALTIMER, 10
 ;MsgBox, 4, ,  Eldenring Script started. press Ctrl+Alt+X to stop.
 
 	
 ;----------- End Auto-Execution Zone
 ; Include any hotkeys, subroutines files here
 #include %A_ScriptDir%\Libraries\Inputs\cHotKey.ahk
-
+#include %A_ScriptDir%\Libraries\Inputs\cAutoLock.ahk
 #include %A_ScriptDir%\Libraries\Commands\CommandRegistry.ahk
 #include %A_ScriptDir%\Libraries\GameStates\DpadUI.ahk
 #include %A_ScriptDir%\Libraries\Inputs\Keys.ahk
@@ -86,6 +88,7 @@ initSettings:
 	G_UserSettings := new C_UserSettings("settings.ini", G_settings)
 	initHotKeyMeta(G_HotKeyMeta)
 	C_HotKey 		:= new cHotKey( G_settings, G_HotKeyMeta, G_HotKeys ) 
+	gAutoLock		:= new cAutoLock()
 	;G_settings := C_UserSettings.aSettings
 return		
 
@@ -131,29 +134,24 @@ ButtonGESTURES:
 	V_GUI := "GESTURES"	
 	cGui.addGui(G_settings[V_GUI], G_GuiActive, V_GUI)
 return
+
 ButtonTOGGLE:
 	cGui := new C_GUI()
 	V_GUI := "TOGGLE"	
 	cGui.addGui(G_settings[V_GUI], G_GuiActive, V_GUI)
 return
+
 ButtonCONFIG:
 	cGui := new C_GUI()
 	V_GUI := "CONFIG"	
 	cGui.addGui(G_settings[V_GUI], G_GuiActive, V_GUI)
 return
+
 ButtonClose:
 	cGui = ""
 	gosub S_TOGGLEKEYS
 return
-S_AutoLock:
-	gDebugMessage := % "AutoLock targetting something"
-	SendInput {%V_LOCKON% down}  
-	sleep 60
-
-	SendInput {%V_LOCKON% up}  
-	sleep 20
 	
-return
 S_TOGGLEKEYS:
 	C_HotKey._toggle()
 return
@@ -164,6 +162,18 @@ S_TOGGLEAUTOLOCK:
 	alState := (V_AutoLock) ? "ON" : "OFF"
 return
 
+S_GLOBALTIMER:
+	IF G_DebugGuiActive
+	{
+		Gosub, UpdateOSD
+	}
+	IF V_AutoLock	
+	{
+			tick := A_Tickcount
+			vaKey := AnyKeyIsDown( 1, 0 )
+			gAutoLock._timer(tick, vaKey)	
+	}
+return
 getVal( k, ar )
 {
 	return ar[k]
@@ -219,4 +229,23 @@ viewArray( dArray )
 		; Tooltip, % "Key: " dK "Value: " Dv
 			sleep 500
 	}
+}
+
+AnyKeyIsDown(detectKeyboard:=1,detectMouse:=1) { ; return whatever key is down that has the largest scan code
+	if (detectKeyboard) {
+		loop % 86 { ; detect all common physical keys: https://www.win.tue.nl/~aeb/linux/kbd/scancodes-1.html
+			if (GetKeyState(keyname:=GetKeyName("sc" Format("{1:x}",A_Index)))) {
+				return keyname
+			}
+		}
+	}
+	if (detectMouse) {
+		mouseArr := ["LButton","RButton","MButton","XButton1","XButton2"]
+		loop % mouseArr.Count() {
+			if (GetKeyState(mouseArr[A_Index])) {
+				return mouseArr[A_Index]
+			}
+		}
+	}
+	return ""
 }

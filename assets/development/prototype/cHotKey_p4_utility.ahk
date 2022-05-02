@@ -15,7 +15,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 ; This now toggles on/off the dynamic hotkeys using it's own hotkey F2
  
-global gHotKeys := {}  ; unless anything outside of the HotKey class needs access this likely can move to that class.
+global G_HotKeys := {}  ; unless anything outside of the HotKey class needs access this likely can move to that class.
 global cHK
 
 ; Settings current associative array structure.
@@ -77,11 +77,11 @@ class cHotKey
     }
 	_toggle()
 	{
-		global gHotKeys
+		global G_HotKeys
 		
 		this.toggle := !this.toggle		
 		
-		FOR k, v IN gHotKeys			
+		FOR k, v IN G_HotKeys			
 			IF( !this.toggle &&  k != "F2" )			
 				HotKey, %k%, HandleHotkey, off
 			ELSE 
@@ -117,19 +117,19 @@ class cHotKey
 	_addHotkey( hKey, ByRef obj, ByRef function, arg  ) 
 	{
 	
-		global gHotKeys
+		global G_HotKeys
 		
-		gHotKeys[hKey] 					:= {}
-		gHotKeys[hKey].function 		:= function
-		gHotKeys[hKey].arg 				:= arg
-		gHotKeys[hKey].obj 				:= obj
-		gHotKeys[hKey].enabled 			:= 1					; KeyState: Suspended/On
-		gHotKeys[hKey].active 			:= 0					; IsActive: (meaning it's now firing  routine/function
-		gHotKeys[hKey].up 				:= 0					; IsUp
-		gHotKeys[hKey].down 			:= 0					; IsDown
-		gHotKeys[hKey].sleeptime 		:= arg.sleeptime		; the time in MS that the action completes if sleep is being used.
-		gHotKeys[hKey].animated 		:= arg.animated			; IsAnimated
-		gHotKeys[hKey].animationtime 	:= arg.animationtime 	;	 
+		G_HotKeys[hKey] 					:= {}
+		G_HotKeys[hKey].function 		:= function
+		G_HotKeys[hKey].arg 				:= arg
+		G_HotKeys[hKey].obj 				:= obj
+		G_HotKeys[hKey].enabled 			:= 1					; KeyState: Suspended/On
+		G_HotKeys[hKey].active 			:= 0					; IsActive: (meaning it's now firing  routine/function
+		G_HotKeys[hKey].up 				:= 0					; IsUp
+		G_HotKeys[hKey].down 			:= 0					; IsDown
+		G_HotKeys[hKey].sleeptime 		:= arg.sleeptime		; the time in MS that the action completes if sleep is being used.
+		G_HotKeys[hKey].animated 		:= arg.animated			; IsAnimated
+		G_HotKeys[hKey].animationtime 	:= arg.animationtime 	;	 
 			
 			type := % arg.type
 			
@@ -149,22 +149,22 @@ class cHotKey
 		HandleHotkey:
 			; This was a process but finally got it working so many idioms and neuances in AHK I have to over-come.
 			
-			IF IsObject( gHotKeys[A_ThisHotkey].obj )
+			IF IsObject( G_HotKeys[A_ThisHotkey].obj )
 			{
 				MsgBox Handling Object HotKey
-				o := gHotKeys[A_ThisHotkey].obj
-				f := gHotKeys[A_ThisHotkey].function				
-				a := gHotKeys[A_ThisHotkey].arg
+				o := G_HotKeys[A_ThisHotkey].obj
+				f := G_HotKeys[A_ThisHotkey].function				
+				a := G_HotKeys[A_ThisHotkey].arg
 				
 				o[f]( a )										
-			}ELSE IF IsFunc( gHotKeys[A_ThisHotkey].function )				
+			}ELSE IF IsFunc( G_HotKeys[A_ThisHotkey].function )				
 			{
 				MsgBox Attempting to fire function hotkey %A_ThisHotkey% 
-				gHotKeys[A_ThisHotkey].function(gHotKeys[A_ThisHotkey].arg)
+				G_HotKeys[A_ThisHotkey].function(G_HotKeys[A_ThisHotkey].arg)
 				
-			} ELSE IF IsLabel( gHotKeys[A_ThisHotkey].function )
+			} ELSE IF IsLabel( G_HotKeys[A_ThisHotkey].function )
 			{
-				Gosub % gHotKeys[A_ThisHotkey].function 
+				Gosub % G_HotKeys[A_ThisHotkey].function 
 			}				
 		Return
 	}

@@ -20,7 +20,7 @@ logNp(msg)
 S_debugGui:
 
 	CustomColor := "EEAA99"  ; Can be any RGB color (it will be made transparent below).
-	
+	G_DebugGuiActive := 1
 	Gui +LastFound -AlwaysOnTop -Caption +ToolWindow +ToolWindow +HwndDebugGui	; avoids a taskbar button and an alt-tab menu item.	
 	Gui, Color, %CustomColor%
 	Gui, Font, s16  ; Set a large font size (32-point).
@@ -56,8 +56,8 @@ S_debugGui:
 	 := 0	
 	; Make all pixels of this color transparent and make the text itself translucent (150):
 	WinSet, TransColor, %CustomColor% 150
-	SetTimer, UpdateOSD, 10
-	Gosub, UpdateOSD  ; Make the first update immediate rather than waiting for the timer.
+	;SetTimer, UpdateOSD, 10
+	;Gosub, UpdateOSD  ; Make the first update immediate rather than waiting for the timer.
 	Gui, %DebugGui%: Show, x0 y400 NoActivate, "DebugGui"	; NoActivate avoids deactivating the currently active window.
 	return
 

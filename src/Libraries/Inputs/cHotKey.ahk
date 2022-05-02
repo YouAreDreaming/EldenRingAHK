@@ -33,6 +33,7 @@ class cHotKey
         G_HotKeys[aKey] := aValue
         ; NOTE: Using 'return' here would break this.stored_RGB and this.RGB.
     }
+	
 	__Call( method, args* )
 	{
 		 if (method = "")
@@ -120,6 +121,7 @@ class cHotKey
 		global G_HotKeys
 		global gDebugMessage
 		global V_AutoLock
+		global gAutoLock
 		
 		G_HotKeys[hKey] 				:= {}
 		G_HotKeys[hKey].function 		:= function
@@ -160,9 +162,11 @@ class cHotKey
 			{
 				gDebugMessage := % "Hot key not enabled: " A_ThisHotkey
 				Return
-			}
+			}			
+				
 			IF G_HotKeys[A_ThisHotkey].active			; to prevent key spam
 			{
+				gAutoLock._keySpam(A_ThisHotkey, G_HotKeys[A_ThisHotkey] )
 				gDebugMessage := % "Hotkey paused for in game animation cycle: " A_ThisHotkey
 				return
 			}
@@ -180,9 +184,6 @@ class cHotKey
 					G_HotKeys[A_ThisHotkey].lastpressed = 0
 				}
 			}
-			
-			IF (V_AutoLock==1) && (G_HotKeys[A_ThisHotkey].autolock==1)
-				gosub S_AutoLock
 				
 			IF IsObject( G_HotKeys[A_ThisHotkey].obj )
 			{
@@ -200,14 +201,7 @@ class cHotKey
 			} ELSE IF IsLabel( G_HotKeys[A_ThisHotkey].function )
 			{
 				Gosub % G_HotKeys[A_ThisHotkey].function 
-			}
-
-			IF (V_AutoLock==1) && (G_HotKeys[A_ThisHotkey].autolock==1)
-			{
-				; need to wait x time for animation to start before unlocking
-				sleep 1500
-				gosub S_AutoLock			
-			}
+			}			
 		Return
 	}
 }
