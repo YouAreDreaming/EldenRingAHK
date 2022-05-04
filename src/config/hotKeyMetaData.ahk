@@ -81,16 +81,16 @@ G_HotKeyMeta["GESTURES"]["V_GESTURE4"]			:= { "type": "func","label": "S_gesture
 G_HotKeyMeta["GESTURES"]["V_GESTURE5"]			:= { "type": "func","label": "S_gesture_5", "animationtime": "1000", "enabled":"1"}
 G_HotKeyMeta["GESTURES"]["V_GESTURE6"]			:= { "type": "func","label": "S_gesture_6", "animationtime": "1000", "enabled":"1"}
 
-G_HotKeyMeta["SPELL"]["V_USESPELLSLOT1"]		:= { "type": "func","label": "S_Spell1", "animationtime": "500", "enabled":"1"}
-G_HotKeyMeta["SPELL"]["V_USES_SpellSlot2"]		:= { "type": "func","label": "S_Spell2", "animationtime": "500",  "autolock":"1","enabled":"1"}
-G_HotKeyMeta["SPELL"]["V_USES_SpellSlot3"]		:= { "type": "func","label": "S_Spell3", "animationtime": "500",  "autolock":"1","enabled":"1"}
-G_HotKeyMeta["SPELL"]["V_USES_SpellSlot4"]		:= { "type": "func","label": "S_Spell4", "animationtime": "500",  "autolock":"1", "enabled":"1"}
-G_HotKeyMeta["SPELL"]["V_USES_SpellSlot5"]		:= { "type": "func","label": "S_Spell5", "animationtime": "500",  "autolock":"1","enabled":"1"}
-G_HotKeyMeta["SPELL"]["V_USES_SpellSlot6"]		:= { "type": "func","label": "S_Spell6", "animationtime": "500",  "autolock":"1","enabled":"1"}
-G_HotKeyMeta["SPELL"]["V_USES_SpellSlot7"]		:= { "type": "func","label": "S_Spell7", "animationtime": "500",  "autolock":"1","enabled":"1"}
-G_HotKeyMeta["SPELL"]["V_USES_SpellSlot8"]		:= { "type": "func","label": "S_Spell8", "animationtime": "500",  "autolock":"1", "enabled":"1"}
-G_HotKeyMeta["SPELL"]["V_USES_SpellSlot9"]		:= { "type": "func","label": "S_Spell9", "animationtime": "500",  "autolock":"1","enabled":"1"}
-G_HotKeyMeta["SPELL"]["V_USES_SpellSlot10"]		:= { "type": "func","label": "S_Spell10", "animationtime": "500", "enabled":"1"}
+G_HotKeyMeta["SPELL"]["V_USESPELLSLOT1"]		:= { "type": "func","label": "S_Spell1", "animationtime": "500",  "autolock":"1", "hand":"V_SPELL_HAND1", "enabled":"1"}
+G_HotKeyMeta["SPELL"]["V_USES_SpellSlot2"]		:= { "type": "func","label": "S_Spell2", "animationtime": "500",  "autolock":"1", "hand":"V_SPELL_HAND2", "enabled":"1"}
+G_HotKeyMeta["SPELL"]["V_USES_SpellSlot3"]		:= { "type": "func","label": "S_Spell3", "animationtime": "500",  "autolock":"1", "hand":"V_SPELL_HAND3", "enabled":"1"}
+G_HotKeyMeta["SPELL"]["V_USES_SpellSlot4"]		:= { "type": "func","label": "S_Spell4", "animationtime": "500",  "autolock":"1", "hand":"V_SPELL_HAND4", "enabled":"1"}
+G_HotKeyMeta["SPELL"]["V_USES_SpellSlot5"]		:= { "type": "func","label": "S_Spell5", "animationtime": "500",  "autolock":"1", "hand":"V_SPELL_HAND5", "enabled":"1"}
+G_HotKeyMeta["SPELL"]["V_USES_SpellSlot6"]		:= { "type": "func","label": "S_Spell6", "animationtime": "500",  "autolock":"1", "hand":"V_SPELL_HAND6", "enabled":"1"}
+G_HotKeyMeta["SPELL"]["V_USES_SpellSlot7"]		:= { "type": "func","label": "S_Spell7", "animationtime": "500",  "autolock":"1", "hand":"V_SPELL_HAND7", "enabled":"1"}
+G_HotKeyMeta["SPELL"]["V_USES_SpellSlot8"]		:= { "type": "func","label": "S_Spell8", "animationtime": "500",  "autolock":"1", "hand":"V_SPELL_HAND8", "enabled":"1"}
+G_HotKeyMeta["SPELL"]["V_USES_SpellSlot9"]		:= { "type": "func","label": "S_Spell9", "animationtime": "500",  "autolock":"1", "hand":"V_SPELL_HAND9", "enabled":"1"}
+G_HotKeyMeta["SPELL"]["V_USES_SpellSlot10"]		:= { "type": "func","label": "S_Spell10", "animationtime": "500", "autolock":"1", "hand":"V_SPELL_HAND10", "enabled":"1"}
 
 
 G_HotKeyMeta["SPELL"]["V_SWITCHSPELLSLOT1"]		:= { "type": "func","label": "S_SpellReset", "animationtime": "500", "enabled":"1"}

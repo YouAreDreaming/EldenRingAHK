@@ -122,6 +122,20 @@ V_SWITCHS_SpellSlot7 = +7
 V_SWITCHS_SpellSlot8 = +8
 V_SWITCHS_SpellSlot9 = +9
 V_SWITCHS_SpellSlot10 = +0
+
+; To auto-toggle to correct hand for spell use.
+
+V_SPELLHAND1 := V_GUARD
+V_SPELLHAND2 := V_GUARD
+V_SPELLHAND3 := V_GUARD
+V_SPELLHAND4 := V_GUARD
+V_SPELLHAND5 := V_GUARD
+V_SPELLHAND6 := V_GUARD
+V_SPELLHAND7 := V_GUARD
+V_SPELLHAND8 := V_GUARD
+V_SPELLHAND9 := V_GUARD
+V_SPELLHAND10 := V_GUARD
+
 ;-----[ Gestures ]
 
 ;----- ^ is for CTRL
@@ -153,7 +167,7 @@ V_LastKeyTime = 0 			; The time it was pressed
 global V_AutoLock := 1				; V_TOGGLEAUTOLOCK
 V_AutoRun = 1				; Toggle AutoRun on off V_TOGGLEAUTORUN
 
-V_Categories := { "GAME": 12, "COMBOS": 14, "POUCH": 10, "BELT": 10,  "SPELL": 10, "GESTURES": 10, "TOGGLE":10, "CONFIG": 10 }
+V_Categories := { "GAME": 12, "COMBOS": 14, "POUCH": 10, "BELT": 10,  "SPELL": 10, "SPELLHAND": 10, "GESTURES": 10, "TOGGLE":10, "CONFIG": 10 }
 ; These keys should not be mapped as static keys ie:  q::SomeAction or they will not work in the Menus of ER.
 ; They can be a dynamic HotKey that can be activate/deactived  HotKey, q, SomeAction on
 V_ERMenuKeys:={ "q":0, "f":0 "g":0 "r":0 "y":0 "e":0 "z":0 "c":0 }

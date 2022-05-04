@@ -24,6 +24,8 @@ class C_UserSettings
 	initSettings(settingsFile)
 	{
 		global G_settings
+		global V_GUARD
+		
 		FileInstall, settings.ini, settings.ini, 0
 		
 		;settings := {}		
@@ -109,6 +111,7 @@ class C_UserSettings
 			G_settings["SPELL"]["V_USES_SpellSlot9"] := "9"
 			G_settings["SPELL"]["V_USES_SpellSlot10"] := "0"
 			G_settings["SPELL"]["V_SWITCHSPELLSLOT1"] := "+1"
+			
 			G_settings["SPELL"]["V_SWITCHS_SpellSlot2"] := "+2"
 			G_settings["SPELL"]["V_SWITCHS_SpellSlot3"] := "+3"
 			G_settings["SPELL"]["V_SWITCHS_SpellSlot4"] := "+4"
@@ -118,6 +121,18 @@ class C_UserSettings
 			G_settings["SPELL"]["V_SWITCHS_SpellSlot8"] := "+8"
 			G_settings["SPELL"]["V_SWITCHS_SpellSlot9"] := "+9"
 			G_settings["SPELL"]["V_SWITCHS_SpellSlot10"] := "+0"
+			 
+		G_settings["SPELLHAND"] := []
+			G_settings["SPELLHAND"]["V_SPELLHAND1"] := V_GUARD
+			G_settings["SPELLHAND"]["V_SPELLHAND2"] := V_GUARD
+			G_settings["SPELLHAND"]["V_SPELLHAND3"] := V_GUARD
+			G_settings["SPELLHAND"]["V_SPELLHAND4"] := V_GUARD
+			G_settings["SPELLHAND"]["V_SPELLHAND5"] := V_GUARD
+			G_settings["SPELLHAND"]["V_SPELLHAND6"] := V_GUARD
+			G_settings["SPELLHAND"]["V_SPELLHAND7"] := V_GUARD
+			G_settings["SPELLHAND"]["V_SPELLHAND8"] := V_GUARD
+			G_settings["SPELLHAND"]["V_SPELLHAND9"] := V_GUARD
+			G_settings["SPELLHAND"]["V_SPELLHAND10"] := V_GUARD
 		
 		G_settings["GESTURES"] := []
 			G_settings["GESTURES"]["V_GESTURE1"] := "Numpad7"

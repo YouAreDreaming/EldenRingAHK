@@ -37,19 +37,26 @@ class C_Gui
 		
 		Gui, Add, Picture, x0 y0 w600 h-1 +BackgroundTrans, %A_ScriptDir%\assets\images\ui\config\menu\menuBackground.png
 		;Gui, Add, Pic, w600 h-1 C_Gui.vPic +Border, % "HBITMAP:*" menuBackground.png
-		Gui, Add, Button, x105 y130 w150 h40 default, GAME
-		Gui, Add, Button, x355 y130 w150 h40 default, COMBOS
+		Gui, Add, Button, x105 y100 w150 h40 default, GAME
+		Gui, Add, Button, x355 y100 w150 h40 default, COMBOS
 		
-		Gui, Add, Button, x105 y200 w150 h40 default, POUCH
-		Gui, Add, Button, x355 y200 w150 h40 default, BELT
+		Gui, Add, Button, x105 y170 w150 h40 default, POUCH
+		Gui, Add, Button, x355 y170 w150 h40 default, BELT
 		
-		Gui, Add, Button, x105 y270 w150 h40 default, SPELL
-		Gui, Add, Button, x355 y270 w150 h40 default, GESTURES
+		Gui, Add, Button, x105 y240 w150 h40 default, SPELL		
+		Gui, Add, Button, x355 y240 w150 h40 default, SPELLHAND
 		
-		Gui, Add, Button, x105 y340 w150 h40 default, TOGGLE
-		Gui, Add, Button, x355 y340 w150 h40 default, CONFIG
+		Gui, Add, Button, x105 y310 w150 h40 default, GESTURES
+		Gui, Add, Button, x355 y310 w150 h40 default, TOGGLE
+		
+		Gui, Add, Button, x225 y380 w150 h40 default, CONFIG
+		
+		
+		
+		
+		
 		Gui, Add, Button, x180 y450 w245 h50 default, Close
-		
+		 
 		this.show("Config Menu")
 		
 		WinSet, TransColor, 000222 ;, ahk_id %GuiClassMenu%
@@ -211,8 +218,10 @@ class C_Gui
 			dx := % "x"x
 			dy := % "y"y
 			
-			options := % vLabel " " dx " " dy " W"cw " H"gh			 
+			options := % vLabel " " dx " " dy " W"cw " H"gh	
+				
 			this.guiElement( "Add", "Edit", options, aValue )
+			
 			
 			;this.logNp( "Edit: i: " i " dx: " dx "dy: " dy " dw:" dw " j: " j )
 			

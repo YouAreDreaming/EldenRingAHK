@@ -116,6 +116,10 @@ LaunchGui:
 return
 
 S_GLOBALTIMER:
+
+	; handles key presses
+	OnMessage(WM_KEYDOWN, "ON_KEYDOWN")
+	
 	IF G_DebugGuiActive
 	{
 		Gosub, UpdateOSD
@@ -172,6 +176,11 @@ return
 ButtonSPELL:
 	cGui := new C_GUI()
 	V_GUI := "SPELL"	
+	cGui.addGui(G_settings[V_GUI], G_GuiActive, V_GUI)
+return
+ButtonSPELLHAND:
+	cGui := new C_GUI()
+	V_GUI := "SPELLHAND"	
 	cGui.addGui(G_settings[V_GUI], G_GuiActive, V_GUI)
 return
 ButtonGESTURES:
