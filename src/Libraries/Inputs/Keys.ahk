@@ -16,7 +16,8 @@ P_B:
    SendInput {%V_USEITEM% down}
    sleep 25
    SendInput {%V_USEITEM% up}
-   sleep 25  
+   sleep 25 
+	cAutoLock.timer := A_Tickcount   
    ; the gui always appears when a skill is used.
    V_Gui_TimeActive := A_Tickcount
 return

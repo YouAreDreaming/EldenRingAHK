@@ -55,7 +55,9 @@ class cAutoLock
 				IF (aKey == V_LOCKON)
 					this._end("Tab key pressed ending AutoLock")
 				else {
-					gDebugMessage := % "AutoLock Locked:" aKey " vs " cAutoLock.key
+					t := tick - cAutoLock.timer
+					IF t < 15000
+						gDebugMessage := % "AutoLock Locked:" aKey " vs " cAutoLock.key " : " t
 				}
 				
 			}

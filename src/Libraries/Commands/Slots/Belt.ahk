@@ -9,8 +9,9 @@
          ;sleep 25
       }}
    if( bUse = 1 ){
-      ;sleep 25
+      
 	  startAutoLock()
+	  sleep 90
       gosub P_B ; activate use
 	  endAutoLock()
 	  gDebugMessage := % "Looped: " iteration " sending use"
@@ -36,10 +37,10 @@ doBeltItr( itr, slot, bUse )
 			sleep 100  ; give time for gui to load
 		 if( active == 1 ) 	
 		 {
-			
+			sleep 90
 			gosub P_Down
 		 }
-         if( bUse = 1){
+         if( bUse == 1){
 		    ; just a litte sleep padding for the rapid clicks in a loop
             ; sleep
 			startAutoLock()			

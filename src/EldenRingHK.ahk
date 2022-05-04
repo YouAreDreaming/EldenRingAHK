@@ -59,6 +59,7 @@ global gDebugMessage := "Enabled"	; Holds the messages displayed at the bottom o
 global hotKeytoggle := 1			; in defaultHotKeys.ahk 
 global gAutoLock					; The AutoLock Class
 global isCycling := 0
+global isUsingSkill := 0
 			
 ;----------- Auto-Execution Zone ---------------------------------
 
@@ -111,6 +112,40 @@ LaunchGui:
 	{
 		gosub S_TOGGLEKEYS
 		cGui := ""
+	}
+return
+
+S_GLOBALTIMER:
+	IF G_DebugGuiActive
+	{
+		Gosub, UpdateOSD
+	}
+	
+	IF V_AutoLock	
+	{
+			tick := A_Tickcount
+			vaKey := AnyKeyIsDown( 1, 0 )			
+			
+			lkuTime := A_Tickcount - cAutoLock.timer
+			
+			if( lkuTime > 15000 && lkuTime < 6000000)
+			{
+				 gDebugMessage := % "AutoLock still active after 15 seconds: " lkuTime			
+			}
+			
+			gAutoLock._timer(tick, vaKey)	
+	}
+	
+	IF V_Gui_TimeActive > 0
+	{
+		vgaTime := A_Tickcount - V_Gui_TimeActive
+		
+		IF (vgaTime > V_GUIFade)
+		{
+		  V_Gui_TimeActive := 0
+		  isCycling := 0
+		  gDebugMessage := % "Resetting Gui Active time and cycling to 0"
+		}
 	}
 return
 
@@ -173,29 +208,7 @@ S_TOGGLEAUTOLOCK:
 	alState := (V_AutoLock) ? "ON" : "OFF"
 return
 
-S_GLOBALTIMER:
-	IF G_DebugGuiActive
-	{
-		Gosub, UpdateOSD
-	}
-	IF V_AutoLock	
-	{
-			tick := A_Tickcount
-			vaKey := AnyKeyIsDown( 1, 0 )
-			gAutoLock._timer(tick, vaKey)	
-	}
-	IF V_Gui_TimeActive > 0
-	{
-		vgaTime := A_Tickcount - V_Gui_TimeActive
-		
-		IF (vgaTime > V_GUIFade)
-		{
-		  V_Gui_TimeActive := 0
-		  isCycling := 0
-		  gDebugMessage := % "Resetting Gui Active time and cycling to 0"
-		}
-	}
-return
+
 getVal( k, ar )
 {
 	return ar[k]
