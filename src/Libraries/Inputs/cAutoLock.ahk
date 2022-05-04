@@ -91,8 +91,7 @@ class cAutoLock
 		IF cAutoLock.locked
 			return 0
 			
-		gDebugMessage := % "AutoLock Sending: " V_LOCKON 
-		sleep 5000
+		gDebugMessage := % "AutoLock Sending: " V_LOCKON 		
 		this._sendTab()
 		
 		cAutoLock.timer 	:= tick ; How Long it's active for a quick AL
