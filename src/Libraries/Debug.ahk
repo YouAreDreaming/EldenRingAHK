@@ -32,8 +32,7 @@ S_debugGui:
 	Gui +LastFound -AlwaysOnTop -Caption +ToolWindow +ToolWindow +HwndDebugGui	; avoids a taskbar button and an alt-tab menu item.	
 	Gui, Color, %CustomColor%
 	Gui, Font, s16  ; Set a large font size (32-point).
-	Gui, Add, Text, vGuiActiveText cLime, Game D-Pad GUI State: XXXXXXXX
-	Gui, Add, Text, vGUIFadeText cLime, GUI Fades in: XXXXXXXX
+	
 	Gui, Add, Text, vLastKeyTimeText cLime, Time New Key Pressed: XXXXXXXX
 	Gui, Add, Text, vSpellSlotText cLime, Current Spell Slot: xx
 	Gui, Add, Text, vBeltSlotText cLime, Current Belt Slot: xx
@@ -46,6 +45,8 @@ S_debugGui:
 	Gui, Add, Text, vdownText cLime, down: xxxxx
 	Gui, Add, Text, vlastpressedText cLime, lastpressed: xxxxxx
 	Gui, Add, Text, vanimationtimeText cLime, animationtime: xxxxxx
+	Gui, Add, Text, vGuiActiveText cLime, Game D-Pad GUI State: XXXXXXXX
+	Gui, Add, Text, vGUIFadeText cLime, GUI Fades in: XXXXXXXX
 	
 	Gui, Add, Text, vmessageText cLime, This area will display messages for debugging xxxxxxxxxx
 	
@@ -71,7 +72,7 @@ S_debugGui:
 
 UpdateOSD:
 
-	mtime:=A_Tickcount - V_Gui_Active
+	mtime:=A_Tickcount - V_Gui_TimeActive
 	bNewKey := ( V_LastKey != A_ThisHotkey ) ? 1 : 0
 	
 	if( bNewKey )

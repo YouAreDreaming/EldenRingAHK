@@ -58,7 +58,7 @@ global G_HotKeys := {}				; See if one of these are redundant.
 global gDebugMessage := "Enabled"	; Holds the messages displayed at the bottom of the Debug GUI.
 global hotKeytoggle := 1			; in defaultHotKeys.ahk 
 global gAutoLock					; The AutoLock Class
-
+global isCycling := 0
 			
 ;----------- Auto-Execution Zone ---------------------------------
 
@@ -183,6 +183,17 @@ S_GLOBALTIMER:
 			tick := A_Tickcount
 			vaKey := AnyKeyIsDown( 1, 0 )
 			gAutoLock._timer(tick, vaKey)	
+	}
+	IF V_Gui_TimeActive > 0
+	{
+		vgaTime := A_Tickcount - V_Gui_TimeActive
+		
+		IF (vgaTime > V_GUIFade)
+		{
+		  V_Gui_TimeActive := 0
+		  isCycling := 0
+		  gDebugMessage := % "Resetting Gui Active time and cycling to 0"
+		}
 	}
 return
 getVal( k, ar )

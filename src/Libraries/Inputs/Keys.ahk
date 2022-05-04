@@ -16,8 +16,9 @@ P_B:
    SendInput {%V_USEITEM% down}
    sleep 25
    SendInput {%V_USEITEM% up}
-   sleep 25
-   V_Gui_Active := A_Tickcount
+   sleep 25  
+   ; the gui always appears when a skill is used.
+   V_Gui_TimeActive := A_Tickcount
 return
  
 P_K:
@@ -30,15 +31,14 @@ P_K:
   SendInput {%V_ToggleSpell% down}
   sleep 25
   SendInput {%V_ToggleSpell% up}
-  sleep 25
-  V_Gui_Active := A_Tickcount
+  sleep 25  
 return
 P_Down:
    SendInput {%V_DDOWN% down}
    sleep 60
    SendInput {%V_DDOWN% up}
    sleep 40
-   V_Gui_Active := A_Tickcount
+   V_Gui_TimeActive := A_Tickcount
 return
 
 P_Up:
@@ -46,7 +46,7 @@ P_Up:
    sleep 60						; if you are having lost input tweak here and compile.
    SendInput {%V_DUP% up}   
    sleep 40
-   V_Gui_Active := A_Tickcount
+   V_Gui_TimeActive := A_Tickcount
 return
  
 H_Down:
@@ -54,7 +54,7 @@ H_Down:
    sleep 650
    SendInput {%V_DDOWN% up}
    sleep 25
-   V_Gui_Active := A_Tickcount
+   V_Gui_TimeActive := A_Tickcount
 return
  
 ; Noting inconsistencies here, it sometimes successfully resets and other times it doesn't.
@@ -66,7 +66,7 @@ S_UP:
    sleep 650
    SendInput {%V_DUP% up}
    sleep 25
-   V_Gui_Active := A_Tickcount
+   V_Gui_TimeActive := A_Tickcount
 return
 P_Esc:
    SendInput {Esc down}

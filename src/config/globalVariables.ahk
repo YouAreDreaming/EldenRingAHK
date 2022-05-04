@@ -146,12 +146,12 @@ V_BBReset = 0 				; A boolean to track belt slot reset if it goes out of sync on
 V_SpellSlot = 0 			; To track what the current slot is for better cycling. Reset position if alignment is off.
 V_BeltSlot = 0 				; To track what the current belt slot is for better cycling.  Reset position if alingment is off
 V_ToggleSpell := V_GUARD 	; To track what hand is using the wand/incantation item for spell casting.
-V_Gui_Active := 0			; to track the 3 second interval when the D-PAD GUI in the game is open
+V_Gui_TimeActive := 0			; to track the 3 second interval when the D-PAD GUI in the game is open
 V_GUIFade = 2000			; The gui fades under certain states so we need to change this value to match those timing states
 V_LastKey = 0				; Track the last key pressed
 V_LastKeyTime = 0 			; The time it was pressed
-V_AutoRun = 1				; Toggle AutoRun on off V_TOGGLEAUTORUN
 global V_AutoLock := 1				; V_TOGGLEAUTOLOCK
+V_AutoRun = 1				; Toggle AutoRun on off V_TOGGLEAUTORUN
 
 V_Categories := { "GAME": 12, "COMBOS": 14, "POUCH": 10, "BELT": 10,  "SPELL": 10, "GESTURES": 10, "TOGGLE":10, "CONFIG": 10 }
 ; These keys should not be mapped as static keys ie:  q::SomeAction or they will not work in the Menus of ER.

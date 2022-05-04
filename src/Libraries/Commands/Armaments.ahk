@@ -3,7 +3,7 @@
 	sleep 50
 	send {%V_DLEFT% Up}
 	sleep 50
-	V_Gui_Active := A_Tickcount
+	V_Gui_TimeActive := A_Tickcount
 return
 
 S_RightArmement:
@@ -11,7 +11,7 @@ S_RightArmement:
 	sleep 50
 	send {%V_DRIGHT% Up}
 	sleep 50
-	V_Gui_Active := A_Tickcount
+	V_Gui_TimeActive := A_Tickcount
 return
 
 ;--------------scripts-2H------------

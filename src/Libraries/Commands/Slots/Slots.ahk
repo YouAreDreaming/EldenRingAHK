@@ -1,6 +1,6 @@
 ﻿#include %A_ScriptDir%\Libraries\Commands\Slots\Spell.ahk
 #include %A_ScriptDir%\Libraries\Commands\Slots\Belt.ahk
-
+	
 ; Calculates the iterations beteen slots
 findIteration( target, position, slots )
 {
@@ -9,8 +9,14 @@ findIteration( target, position, slots )
 	global gDebugMessage
 	
    if (target == position){
-		gDebugMessage := "Same key doing auto-lock check"
-		gAutoLock._keySpam( A_ThisHotkey, G_HotKeys[A_ThisHotkey] )
+		IF V_AutoLock
+		{
+			gDebugMessage := "Same key doing auto-lock check"
+			gAutoLock._keySpam( A_ThisHotkey, G_HotKeys[A_ThisHotkey] )
+		} Else
+		{
+			gDebugMessage := "Same slot as key pressed"
+		}
       return 0
    }
    inc := getGuiActive() ;  for both spell and belt the first down activates gui causing click glitches.

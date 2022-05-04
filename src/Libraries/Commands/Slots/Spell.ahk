@@ -7,41 +7,51 @@
       {
         ; sleep 25
       }}   
-   if( bUse = 1 ){
+   if( bUse == 1 ){
       startAutoLock()
       gosub P_K ; activate use
 	  endAutoLock()
+	  gDebugMessage := % "Looped: " iteration " sending use"
    }}
    
 doSpellItr( itr, slot, bUse )
 {
+	global gDebugMessage
+	
    if( itr == 0 ) {
       if( bUse == 1){
 			startAutoLock()
 	        gosub P_K
 			endAutoLock()
-         return
+			gDebugMessage  := % "On current slot: " slot " just sending use"
+         return 0
       }
      
    }else  if ( itr == 1 )  {
 		active := getGuiActive()
       if( doUp() )
       {  
+		sleep 100
+		
 		if( active == 1 ) 	
 		 {
 			doUp()
+			gDebugMessage  := % "Doing Two steps: Activate GUI then Move up 1 slot"
 		 }
          if( bUse == 1){
 		 
             startAutoLock()
             gosub P_K
 			endAutoLock()
-         }}
+         }
+		 return 1
+		 }
       
    }else  {
-      doSpellUseLoop(itr, bUse)      
+		doSpellUseLoop(itr, bUse)
+		return 1      
    }
-   return
+   return 0
 }
  
 ; pipes all the slot actions to a unified function for easier debugging / tracking and cleaner code.
@@ -52,21 +62,36 @@ doSpellSlot( slot, activate )
 	global V_BSReset
 	global V_GUIFade
 	global G_HotKeys
+	global gDebugMessage
+	global isCycling
 	
+	; If they have less active spell slots than the target slot, just do nothing
 	if( V_SPELL_SLOTS < slot ){
-      return
+		gDebugMessage := % "Assigned Spell Slots " V_SPELL_SLOTS " is less than target: " slot
+      return 0
 	}else  {
 		     
-			if( V_BSReset = 1 )
+			if( V_BSReset == 1 )
 			{
+				isCycling := 1
 				gosub S_SpellReset
+				gDebugMessage := % "doSpellSlot Resetting to slot 1"
 				return
 			}
 		  iteration := findIteration( slot, V_SPELLSLOT, V_SPELL_SLOTS)		  
 		  V_GUIFade := 2000			; GUI fades after 2000 on both use/unuse or with count
-		  V_SPELLSLOT := slot 
+		  IF isCycling
+		  {
+			gDebugMessage := % "Currently Cycling to another slot"
+			return 0
+		  }
+		  isCycling := 1
 		  success := doSpellItr( iteration, V_SPELLSLOT, activate )
+		  isCycling := 0
+		  IF success  
+			gDebugMessage := % "GUI FADE: " V_GUIFade " Target Slot: " slot " Current Slot: " V_SPELLSLOT
 		  
+		  V_SPELLSLOT := slot 
 	}
 }
 
@@ -81,7 +106,7 @@ return
 S_Spell1:	
 	gosub S_SpellReset
 	gosub P_K
-	V_GUIFade := 1460			; the GUI fades after 1450 if all is pressed is this	
+	V_GUIFade := 1550			; the GUI fades after 1450 if all is pressed is this	
 	;doSpellSlot( 1, 1 )	
 return
 S_Spell2: ; Player always has 2 slots...		

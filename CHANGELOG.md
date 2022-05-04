@@ -1,8 +1,8 @@
 # CHANGELOG
 
 All notable changes to this project will be documented in this file.
-## [0.5] - 2022-04-30 - Created a GUI class for dynamic in-game settings UI
- - This is the start of the in-game GUI to modify keybindings 
+## [0.6] - 2022-05-03 - 
+## [0.5] - 2022-04-30 - Created a GUI class for dynamic in-game settings UI 
  - A GUI displays global variables and changes are stores into an ini array for saving/loading
  - App can now write to settings.ini when settings change in gui.
  - App can now read from ini and set user-configuraton to in-app settings.

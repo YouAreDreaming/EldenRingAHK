@@ -4,27 +4,27 @@
 ; x,y values are for HD 1920x1080
 S_gesture_1:
    activateGesture( 3470, 1225 )
-   V_Gui_Active := A_Tickcount
+   V_Gui_TimeActive := A_Tickcount
 return
 S_gesture_2:
 	activateGesture( 3660, 1225 )  
-   V_Gui_Active := A_Tickcount
+   V_Gui_TimeActive := A_Tickcount
 return
 S_gesture_3:   
    activateGesture( 3470, 1410 )   
-   V_Gui_Active := A_Tickcount
+   V_Gui_TimeActive := A_Tickcount
 return
 S_gesture_4:  
    activateGesture( 3660, 1410 )   
-   V_Gui_Active := A_Tickcount
+   V_Gui_TimeActive := A_Tickcount
 return
 S_gesture_5:   
    activateGesture( 3470, 1600 )     
-   V_Gui_Active := A_Tickcount
+   V_Gui_TimeActive := A_Tickcount
 return
 S_gesture_6:
 	activateGesture( 3660, 1600 )        
-   V_Gui_Active := A_Tickcount
+   V_Gui_TimeActive := A_Tickcount
 return
 
 activateGesture( x, y ){

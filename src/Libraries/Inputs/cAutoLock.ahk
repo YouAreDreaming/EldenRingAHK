@@ -81,11 +81,18 @@ class cAutoLock
 	_enableLock(tick)
 	{
 		global V_LOCKON	
-
+		global V_AutoLock 
+		global gDebugMessage 
+		
+		; Don't send a lock if AL is turned off.
+		IF !V_AutoLock
+			return 0
+		
 		IF cAutoLock.locked
-			return
+			return 0
 			
 		gDebugMessage := % "AutoLock Sending: " V_LOCKON 
+		sleep 5000
 		this._sendTab()
 		
 		cAutoLock.timer 	:= tick ; How Long it's active for a quick AL
@@ -104,7 +111,12 @@ class cAutoLock
 	_start(hKey, oKey, tick)
 	{
 		global gDebugMessage
+		global V_AutoLock 
 		
+		; Don't send a lock if AL is turned off.
+		IF !V_AutoLock
+			return 0
+			
 		gDebugMessage := % "AutoLock Started"
 		
 		IF !oKey.autolock 
