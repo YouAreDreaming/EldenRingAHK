@@ -117,18 +117,13 @@ return
 
 S_GLOBALTIMER:
 
-	; handles key presses
-	OnMessage(WM_KEYDOWN, "ON_KEYDOWN")
-	
 	IF G_DebugGuiActive
 	{
 		Gosub, UpdateOSD
 	}
-	
 	IF V_AutoLock	
 	{
 			tick := A_Tickcount
-			vaKey := AnyKeyIsDown( 1, 0 )			
 			
 			lkuTime := A_Tickcount - cAutoLock.timer
 			
@@ -136,7 +131,7 @@ S_GLOBALTIMER:
 			{
 				 gDebugMessage := % "AutoLock still active after 15 seconds: " lkuTime			
 			}
-			
+			vaKey := AnyKeyIsDown( 1, 0 )
 			gAutoLock._timer(tick, vaKey)	
 	}
 	

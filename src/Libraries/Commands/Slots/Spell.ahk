@@ -20,9 +20,7 @@ doSpellItr( itr, slot, bUse )
 	
    if( itr == 0 ) {
       if( bUse == 1){
-			startAutoLock()
-	        gosub P_K
-			endAutoLock()
+			doSpellUse()
 			gDebugMessage  := % "On current slot: " slot " just sending use"
          return 0
       }
@@ -40,9 +38,7 @@ doSpellItr( itr, slot, bUse )
 		 }
          if( bUse == 1){
 		 
-            startAutoLock()
-            gosub P_K
-			endAutoLock()
+           doSpellUse()
          }
 		 return 1
 		 }
@@ -53,7 +49,13 @@ doSpellItr( itr, slot, bUse )
    }
    return 0
 }
- 
+doSpellUse()
+{
+	
+	  startAutoLock()
+      gosub P_K
+	  endAutoLock()
+} 
 ; pipes all the slot actions to a unified function for easier debugging / tracking and cleaner code.
 doSpellSlot( slot, activate )
 {
@@ -63,14 +65,26 @@ doSpellSlot( slot, activate )
 	global V_GUIFade
 	global G_HotKeys
 	global gDebugMessage
-	global isCycling
+	global isCycling	
+	global V_ToggleSpell
+	global V_GUARD  
+	global V_ATTACK
 	
 	; If they have less active spell slots than the target slot, just do nothing
 	if( V_SPELL_SLOTS < slot ){
 		gDebugMessage := % "Assigned Spell Slots " V_SPELL_SLOTS " is less than target: " slot
       return 0
 	}else  {
-		     
+		    
+			
+			IF G_HotKeys[A_ThisHotKey].hand
+			{
+				k := % G_HotKeys[A_ThisHotKey].hand
+				V_ToggleSpell := (%k% == V_GUARD ) ? V_GUARD : V_ATTACK
+				gDebugMessage := % "Spell Hand detected: " A_ThisHotKey " value: " V_ToggleSpell
+				; MsgBox % "Spell Key" A_ThisHotKey " Toggle: " V_ToggleSpell " Key: " k
+			}
+				
 			if( V_BSReset == 1 )
 			{
 				isCycling := 1
@@ -78,6 +92,7 @@ doSpellSlot( slot, activate )
 				gDebugMessage := % "doSpellSlot Resetting to slot 1"
 				return
 			}
+			
 		  iteration := findIteration( slot, V_SPELLSLOT, V_SPELL_SLOTS)		  
 		  V_GUIFade := 2000			; GUI fades after 2000 on both use/unuse or with count
 		  IF isCycling
@@ -105,7 +120,7 @@ S_SpellReset:
 return
 S_Spell1:	
 	gosub S_SpellReset
-	gosub P_K
+	doSpellSlot( 1, 1 )	
 	V_GUIFade := 1550			; the GUI fades after 1450 if all is pressed is this	
 	;doSpellSlot( 1, 1 )	
 return

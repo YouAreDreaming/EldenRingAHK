@@ -46,11 +46,11 @@ class cHotKey
 		; MsgBox, cHotKeys has been baleted			
     }
 	
-	getHotkey()
+	getHotKey(aKey)
 	{
 		global G_HotKeys
 		
-		return G_HotKeys[A_ThisHotkey]
+		return G_HotKeys.akey
 		;
 		;IF A_ThisHotkey IN cHotKey.aHotKeys
 		;{
@@ -135,7 +135,7 @@ class cHotKey
 		G_HotKeys[hKey].animationtime 	:= arg.animationtime 	; has an animation time
 		G_HotKeys[hKey].autolock 		:= arg.autolock 		; enabled for auto-lock
 		G_HotKeys[hKey].cycle 			:= 0					; Part of a key-cycle only  
-		G_HotKeys[hKey].hand 			:= 0					; Part of a key-cycle only  
+		G_HotKeys[hKey].hand 			:= arg.hand					; Part of a key-cycle only  
 		
 			
 		type := % arg.type
