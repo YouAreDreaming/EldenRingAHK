@@ -16,12 +16,12 @@
 ; it will stop the above meantioned in-game menu keys from working.
 
 ; These are my in-game settings. I like to use c for crouch, m for map (old habits). 
-c::t 							; C for Crouch.
-m::g 							; m for Map
-~v::Enter						; Use Action 
-q::gosub S_Parry				; Skill+Attatk parry
-a::j							; Skill
-s::l   							; strong attack
+;c::t 							; C for Crouch.
+;m::g 							; m for Map
+;~v::Enter						; Use Action 
+;q::gosub S_Parry				; Skill+Attatk parry
+;a::j							; Skill
+;s::l   							; strong attack
 ; --- The app dynamically manages these so your should be able to configure them
 ; --- in-game using CTRL-SHIFT-ALT-A
 ; --- More for reference from v0.1 days.
