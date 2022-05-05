@@ -118,9 +118,10 @@ class cAutoLock
 		IF !V_AutoLock
 			return 0
 			
-		gDebugMessage := % "AutoLock Started"
 		
-		IF !oKey.autolock 
+		al := oKey.autolock
+		gDebugMessage := % "AutoLock Started " oKey.autolock
+		IF !%al%
 			Return
 			
 		IF !oKey.enabled
@@ -128,7 +129,7 @@ class cAutoLock
 		
 		IF cAutoLock.locked
 			return
-			
+		
 		cAutoLock.active 	:= 1				
 		cAutoLock.count 	:= cAutoLock.count + 1
 		cAutoLock.timer 	:= tick

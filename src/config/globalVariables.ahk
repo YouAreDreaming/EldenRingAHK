@@ -96,7 +96,17 @@ V_SWITCHBELTSLOT7 = +F7 ; Change +F7 to the key you want to switch to the item i
 V_SWITCHBELTSLOT8 = +F8 ; Change +F8 to the key you want to switch to the item in belt slot 8
 V_SWITCHBELTSLOT9 = +F9 ; Change +F9 to the key you want to switch to the item in belt slot 9
 V_SWITCHBELTSLOT10= +F10 ; Change +F10 to the key you want to switch to the item in belt slot 10
- 
+
+V_BELTAUTOLOCK1 := 1
+V_BELTAUTOLOCK2 := 1
+V_BELTAUTOLOCK3 := 1
+V_BELTAUTOLOCK4 := 1
+V_BELTAUTOLOCK5 := 1
+V_BELTAUTOLOCK6 := 1
+V_BELTAUTOLOCK7 := 1
+V_BELTAUTOLOCK8 := 1
+V_BELTAUTOLOCK9 := 1
+V_BELTAUTOLOCK10 := 1 
 ;-----[ SPELL SLOTS ]
 ;----- Your character must have an item to use spells equipt in the left hand.
 ;----- I will see if I can get the script to toggle between left/right action
@@ -136,6 +146,17 @@ V_SPELLHAND8 := V_GUARD
 V_SPELLHAND9 := V_GUARD
 V_SPELLHAND10 := V_GUARD
 
+V_SPELLAUTOLOCK1 := 1
+V_SPELLAUTOLOCK2 := 1
+V_SPELLAUTOLOCK3 := 1
+V_SPELLAUTOLOCK4 := 1
+V_SPELLAUTOLOCK5 := 1
+V_SPELLAUTOLOCK6 := 1
+V_SPELLAUTOLOCK7 := 1
+V_SPELLAUTOLOCK8 := 1
+V_SPELLAUTOLOCK9 := 1
+V_SPELLAUTOLOCK10 := 1
+
 ;-----[ Gestures ]
 
 ;----- ^ is for CTRL
@@ -167,7 +188,7 @@ V_LastKeyTime = 0 			; The time it was pressed
 global V_AutoLock := 1				; V_TOGGLEAUTOLOCK
 V_AutoRun = 1				; Toggle AutoRun on off V_TOGGLEAUTORUN
 
-V_Categories := { "GAME": 12, "COMBOS": 14, "POUCH": 10, "BELT": 10,  "SPELL": 10, "SPELLHAND": 10, "GESTURES": 10, "TOGGLE":10, "CONFIG": 10 }
+V_Categories := { "GAME": 12, "COMBOS": 14, "POUCH": 10, "BELT": 10,  "SPELL": 10, "AUTOLOCK": 10, "SPELLHAND": 10, "GESTURES": 10, "TOGGLE":10, "CONFIG": 10 }
 ; These keys should not be mapped as static keys ie:  q::SomeAction or they will not work in the Menus of ER.
 ; They can be a dynamic HotKey that can be activate/deactived  HotKey, q, SomeAction on
 V_ERMenuKeys:={ "q":0, "f":0 "g":0 "r":0 "y":0 "e":0 "z":0 "c":0 }

@@ -189,7 +189,11 @@ ButtonTOGGLE:
 	V_GUI := "TOGGLE"	
 	cGui.addGui(G_settings[V_GUI], G_GuiActive, V_GUI)
 return
-
+ButtonAUTOLOCK:
+	cGui := new C_GUI()
+	V_GUI := "AUTOLOCK"	
+	cGui.addGui(G_settings[V_GUI], G_GuiActive, V_GUI)
+return
 ButtonCONFIG:
 	cGui := new C_GUI()
 	V_GUI := "CONFIG"	

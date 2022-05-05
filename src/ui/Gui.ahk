@@ -49,7 +49,8 @@ class C_Gui
 		Gui, Add, Button, x105 y310 w150 h40 default, GESTURES
 		Gui, Add, Button, x355 y310 w150 h40 default, TOGGLE
 		
-		Gui, Add, Button, x225 y380 w150 h40 default, CONFIG
+		Gui, Add, Button, x105 y380 w150 h40 default, AUTOLOCK
+		Gui, Add, Button, x355 y380 w150 h40 default, CONFIG
 		
 		
 		
