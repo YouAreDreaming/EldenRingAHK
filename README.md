@@ -32,10 +32,16 @@ autohotkey executable, you can modify admin level privilages and priority on the
 to help preformance.  Preformance will be less optimal as a script which is noted by 
 input-latency between the app and the Elden Ring game client.  
 
-## Features v0.3
+## Features v0.5.2b
 
 Movement
 - Auto-Run
+  Now supports foward and backward movements.
+
+Auto-Lock
+- Can assign spell slots / belt slots to automatically lock-on then use slot action.
+- Pressing the slot-key once will timeout the lock-on great for a pull or single throw.
+- Pressing more than once before the timeout will lock-on permamently until the assigned lock-on key is pressed to release.
 
 Attack Combos (1 action key press)
 - Parry+Light Attack
@@ -46,7 +52,7 @@ Attack Combos (1 action key press)
 
 Spells
 - One key spell navigation and activation
-- Toggle between left and right armement for spell casting.
+- Auto-Toggle between left and right armement for spell casting.
 - Match current available spell slots.
 - Limit spell slots to priority group.
 
@@ -56,6 +62,12 @@ Belt
 
 Gestures
 - One key gestures
+
+Configuration GUI
+- Can assign keybindings and config settings using CTRL-ALT-SHIFT-A
+
+Debug GUI
+- Can have a text overlay for debug messages using CTRL-ALT-SHIFT-D
 
 The goal is not to provide a cheat interface rather functions that can reduce the number
 of keys and repeat keys for actions to reduce hand fatigue for the player making the 
