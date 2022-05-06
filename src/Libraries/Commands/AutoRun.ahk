@@ -53,11 +53,31 @@ S_Dodge:
       SendInput {%V_DODGE% up}
       sleep 200
 	  
-	  SendInput { %V_MOVE_FORWARD% up }
-	  sleep 50
-	  SendInput { %V_MOVE_FORWARD% down }
-	  sleep 100
+	  ;  this is causing move backwards to fuck-up after a dodge.  need to test the prior key to see
+	  ; if it as a move forward or move backwards before we resume autorun.  Needs the Tild
+	  ; turns out to compare varialbe to variable the IF must be enscapsulated in () or it's var to string.
 	  
+	    mfKey := % "~" V_MOVE_FORWARD
+		mbKey := % "~" V_MOVE_BACKWARDS 
+		
+			
+	  if (A_PriorHotkey = mfKey)
+	  {
+		  SendInput { %V_MOVE_FORWARD% up }
+		  sleep 50
+		  SendInput { %V_MOVE_FORWARD% down }
+		  sleep 100
+		
+		  
+	  } else if (A_PriorHotkey = mbKey)
+	  {
+		  SendInput { %V_MOVE_BACKWARDS% up }
+		  sleep 50
+		  SendInput { %V_MOVE_BACKWARDS% down }
+		  sleep 100
+		
+	  } 
+
       ;SendInput {%V_DODGE% down}
       ;sleep 100
 	  gDebugMessage := "AutoRun Dodge complete"
